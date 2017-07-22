@@ -1,0 +1,191 @@
+@charset "UTF-8";
+@import "reset";
+// CORES _ GLOBAL
+// Rosa -> design e destaque
+$mainRosa: #DC367F;
+$mainDark: #A50249;
+$mainLighter: #EE84B3;
+// Roxo - botões e bordas
+$mainRoxo: #683AB7;
+$purpleDark: #3A0E85;
+$purpleLighter: #A484DD;
+// Azul - links;
+$mainAzul: #327DAD;
+$blueDark: #094F7D;
+$blueLighter: #7EB5D8;
+// WRAPPER 
+$wrapper: 1150px;
+// Mixins (para usar, include)
+// LAYOUT
+// - ACESSIBILIDADE
+#acessibility {
+    display: flex;
+    width: 100%;
+    padding: 5px 0;
+    background-color: $blueLighter;
+    ul {
+        margin: auto;
+    }
+    li {
+        cursor: pointer;
+        color: #fff;
+        display: inline-block;
+        padding: 0 20px;
+        border-right: 1px solid rgba(0, 0, 100, .2);
+        font-size: 1.2rem;
+        transition: .2s;
+        &:hover {
+            text-decoration: underline;
+        }
+        &:last-child {
+            border: 0;
+        }
+    }
+}
+// - WRAPPER {
+.wrapper {
+    width: $wrapper;
+    margin: auto;
+}
+// - MENU
+nav {
+    width: 100%;
+    padding: 5px 0;
+    background: $mainRosa;
+    display: flex;
+}
+// CARROSSEL
+#carousel {
+    width: 100%;
+    height: 65vh;
+    margin-bottom: 30px;
+    position: relative;
+    background-color: $mainRoxo;
+    #carouselWrapper {
+        width: 100%;
+        height: 99%;
+        position: relative;
+        background-color: purple;
+    }
+    .eachCarousel {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        float: left;
+        display: flex;
+        .wrapper {
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            height: 90%;
+            display: flex;
+            width: 85%;
+            padding: 1%;
+            > div {
+                height: 96%;
+                margin: 0 2%;
+            }
+            .carouselLeft {
+                width: 21%;
+                .headerProjectCover {
+                    width: 100%;
+                    height: 90%;
+                    background-position: center center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-image: url(../deku.jpg);
+                }
+                a {
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    height: 6%;
+                    padding: 2.5% 0;
+                    background-color: $mainRosa;
+                    vertical-align: middle;
+                    font-size: 1.5rem;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    color: #fff;
+                    i {
+                        display: inline-block;
+                        margin: 3px 5px 0 5px;
+                        font-size: 12px
+                    }
+                }
+            }
+            .carouselRight {
+                width: 69%;
+                height: 88%;
+                border:1px solid #fff;
+                padding:1%;
+                color:#fff;
+                h1 {
+                    font-size: 4rem;
+                    font-weight: 600;
+                }
+                ul{
+                display: flex;
+                }
+                li{
+                    width:35px;
+                    height:35px;
+                    border-radius: 50%;
+                    border: 2px solid #fff;
+                    cursor: pointer;
+                    transition: .3s;
+                    flex-direction: row;
+                    margin:10px 10px 10px 0px; 
+                    background-position: center center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-image: url(../deku.jpg);
+                    position: relative;
+                    &:hover{
+                        border:2px solid $blueLighter;
+                    }
+                    i {
+                        position: absolute;
+                        right: -2px;
+                        bottom: -2px;
+                        font-size: 1.4rem;
+                        color:$blueDark;
+                    }
+                }
+            }
+        }
+    }
+    .eachCarouselCover {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: rgba(104, 58, 183, .8);
+        filter: blur(5px) brightness(60%);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-image: url(../deku.jpg);
+    }
+    #carouselTimer {
+        width: 100%;
+        height: 1%;
+        position: relative;
+        bottom: 0;
+        #progress {
+            position: relative;
+            width: 10%;
+            height: 100%;
+            background-color: $blueLighter;
+            animation: progress infinite 10s;
+        }
+    }
+}
+@keyframes progress {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
