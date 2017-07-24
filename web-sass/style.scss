@@ -15,7 +15,74 @@ $blueDark: #094F7D;
 $blueLighter: #7EB5D8;
 // WRAPPER 
 $wrapper: 1150px;
-// Mixins (para usar, include)
+// Mixins e Keyframes(para usar, include)
+@mixin bp-large {
+    @media only screen and (max-width: 60em) {
+        @content;
+    }
+}
+@mixin bp-medium {
+    @media only screen and (max-width: 40em) {
+        @content;
+    }
+}
+@mixin bp-small {
+    @media only screen and (max-width: 30em) {
+        @content;
+    }
+}
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+@mixin animation($str) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
+@mixin background($arg) {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url($arg);
+}
+@include keyframes(progress) {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+@mixin filter($args...) {
+    -webkit-filter: $args;
+    -moz-filter: $args;
+    -ms-filter: $args;
+    -o-filter: $args;
+    filter: $args;
+}
 // LAYOUT
 // - ACESSIBILIDADE
 #acessibility {
@@ -23,6 +90,10 @@ $wrapper: 1150px;
     width: 100%;
     padding: 5px 0;
     background-color: $blueLighter;
+    i {
+        display: inline-block;
+        margin: 0 10px
+    }
     ul {
         margin: auto;
     }
@@ -32,8 +103,8 @@ $wrapper: 1150px;
         display: inline-block;
         padding: 0 20px;
         border-right: 1px solid rgba(0, 0, 100, .2);
-        font-size: 1.2rem;
-        transition: .2s;
+        font-size: 1rem;
+        @include transition(.2s);
         &:hover {
             text-decoration: underline;
         }
@@ -47,6 +118,11 @@ $wrapper: 1150px;
     width: $wrapper;
     margin: auto;
 }
+// MAIN
+main {
+    width: 100%;
+    display: table;
+}
 // - MENU
 nav {
     width: 100%;
@@ -58,17 +134,17 @@ nav {
 #carousel {
     width: 100%;
     height: 65vh;
-    margin-bottom: 30px;
     position: relative;
-    background-color: $mainRoxo;
+    overflow: hidden;
     #carouselWrapper {
-        width: 100%;
-        height: 99%;
+        width: 500%;
+        height: 97%;
         position: relative;
-        background-color: purple;
+        overflow: hidden;
+        //margin-left: -100%;
     }
     .eachCarousel {
-        width: 100%;
+        width: 20%;
         height: 100%;
         position: relative;
         float: left;
@@ -90,10 +166,7 @@ nav {
                 .headerProjectCover {
                     width: 100%;
                     height: 90%;
-                    background-position: center center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-image: url(../deku.jpg);
+                    @include background('../deku.jpg');
                 }
                 a {
                     display: flex;
@@ -118,54 +191,87 @@ nav {
             .carouselRight {
                 width: 69%;
                 height: 88%;
-                border:1px solid #fff;
-                padding:1%;
-                color:#fff;
+                padding: 1%;
+                color: #fff;
+                position: relative;
                 h1 {
                     font-size: 4rem;
                     font-weight: 600;
                 }
-                ul{
-                display: flex;
+                .authors {
+                    position: absolute;
+                    bottom: 0;
                 }
-                li{
-                    width:35px;
-                    height:35px;
+                h2 {
+                    font-size: 2rem;
+                    margin: 10px 0 0 5px;
+                    font-weight: 100;
+                    display: block;
+                }
+                ul {
+                    display: flex;
+                }
+                li {
+                    width: 35px;
+                    height: 35px;
                     border-radius: 50%;
                     border: 2px solid #fff;
                     cursor: pointer;
-                    transition: .3s;
+                    @include transition(.3s);
                     flex-direction: row;
-                    margin:10px 10px 10px 0px; 
-                    background-position: center center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-image: url(../deku.jpg);
+                    margin: 10px 10px 10px 0px;
+                    @include background('../deku.jpg');
                     position: relative;
-                    &:hover{
-                        border:2px solid $blueLighter;
+                    &:hover {
+                        border: 2px solid $blueLighter;
                     }
                     i {
                         position: absolute;
                         right: -2px;
                         bottom: -2px;
                         font-size: 1.4rem;
-                        color:$blueDark;
+                        color: yellow;
                     }
+                }
+                .projectInfos {
+                    width: 100%;
+                    height: 50%;
+                    background-color: rgba(255, 255, 255, .3);
+                    @include filter(blur(5px))
                 }
             }
         }
     }
     .eachCarouselCover {
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
         background-color: rgba(104, 58, 183, .8);
-        filter: blur(5px) brightness(60%);
+        filter: blur(3px) brightness(40%);
         width: 100%;
         height: 100%;
         position: absolute;
-        background-image: url(../deku.jpg);
+        @include background('../deku.jpg');
+    }
+    #carouselPosition {
+        width: 100%;
+        height: 2%;
+        position: relative;
+        bottom: 0;
+        display: flex;
+        ul {
+            display: block;
+            width: 100%;
+            background-color: $mainLighter;
+            display: flex
+        }
+        li {
+            height: 85%;
+            width: 20%;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid #fff;
+            &:nth-child(3) {
+                background-color: $mainRoxo;
+            }
+        }
     }
     #carouselTimer {
         width: 100%;
@@ -177,15 +283,189 @@ nav {
             width: 10%;
             height: 100%;
             background-color: $blueLighter;
-            animation: progress infinite 10s;
+            @include animation('progress 5s infinite');
+        }
+    }
+    #helloWrapper {
+        background-image: url(../resources/img/memphis-colorful.png);
+        filter: brightness(105%);
+        #logo {
+            width: 100px;
+            height: 100px;
+            @include background('../resources/img/talaka_logo.png');
+            background-size: 100px;
+            margin: auto;
+        }
+        .wrapper {
+            height: 220px;
+        }
+        *:not(ul) {
+            display: block;
+            text-align: center;
+            font-size: 1.5em;
+            color: $mainDark;
+        }
+        p {
+            font-size: 2em;
+            font-weight: 100;
+            margin: 20px 0
+        }
+        ul {
+            margin: 20px auto;
+            display: table;
+        }
+        li {
+            float: left;
+            padding: 10px 15px;
+            border: 2px solid $mainDark;
+            margin: 0 30px;
+            cursor: pointer;
+            @include transition(.2s);
+            &:hover {
+                border-color: $mainRosa;
+            }
+            &:first-child {
+                margin-left: 0;
+                background-color: $mainDark;
+                color: #fff;
+            }
+            &:last-child {
+                margin-right: 0;
+                background-color: #fff;
+            }
         }
     }
 }
-@keyframes progress {
-    0% {
-        width: 0
+section {
+    width: 100%;
+    padding: 1% 0;
+    .wrapper {
+        margin: 0 auto;
     }
-    100% {
-        width: 100%
+}
+#indexProjects {
+    ul {
+        display: flex;
+        padding: 20px 0;
+        position: relative;
     }
+    li {
+        padding: 10px;
+        font-size: 1.6rem;
+        color: $blueDark;
+        cursor: pointer;
+        border-bottom: 2px solid #fff;
+        @include transition(.3s);
+        flex-wrap: nowrap;
+        &:hover:not(:last-child) {
+            border-bottom: 2px solid $blueLighter;
+        }
+        &:last-child {
+            right: 0;
+            position: absolute;
+            border: 2px solid $mainDark;
+            padding: 0 10px 5px 10px;
+            color: $mainDark;
+            @include transition(.2s);
+            &:hover {
+                background-color: $mainDark;
+                color: #fff;
+            }
+            a {
+                text-decoration: none;
+                margin: 0;
+                font-size: 1.2rem;
+                color: inherit;
+            }
+        }
+    }
+    i {
+        display: inline-block;
+        margin: 0 5px 0 0;
+    }
+    #listProjects {
+        display: flex;
+        padding: 0 1%;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        .eachProject {
+            height: 450px;
+            width: 31%;
+            margin: 0 0 3% 0%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            &:first-child {
+                margin-left: 0;
+            }
+            &:last-child {
+                margin-right: 0
+            }
+        }
+        .eachProjectCover {
+            border-radius: 5px 5px 0 0;
+            border-bottom: 1px solid #eee;
+            width: 100%;
+            height: 50%;
+            @include background('../deku.jpg');
+            position: relative;
+            display: flex;
+            margin-bottom: 25px;
+            .eachProjectOwner {
+                position: absolute;
+                bottom: -25px;
+                left: 50%;
+                width: 60px;
+                margin-left: -35px;
+                height: 60px;
+                border: 5px solid #fff;
+                border-radius: 50%;
+                @include background('../deku.jpg');
+                @include transition(.3s);
+                cursor: pointer;
+                &:hover{
+                    border-color: $blueLighter;
+                }
+            }
+        }
+        .eachProjectInfo{
+            height: calc(48% - 25px);
+            padding:1% 2%;
+            a {
+                text-decoration: none;
+                color:$blueDark;
+                font-size: 1.2rem;
+                display: block;
+                i{
+                    font-size: 1.1em;
+                }
+            }
+            h2 {
+                font-size: 1.6rem;
+                color:#333;
+                margin:5px 0;
+            }
+            p{
+                font-size: 1.3rem;
+            }
+        }
+    }
+}
+#howItWorks{
+    background-image: url("../resources/img/memphis-colorful.png");
+    position: relative;
+    #howItCover{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        background-color:rgba(50, 125, 173,.7);
+    }
+    .wrapper{
+        background-color:red;
+        z-index: 10
+    }
+}
+footer{
+    width: 100%;
+    padding:20px 0;
 }

@@ -6,11 +6,39 @@
   font-family: 'Dosis', sans-serif;
   font-size: 10px; }
 
+@-webkit-keyframes progress {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
+@-moz-keyframes progress {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
+@-ms-keyframes progress {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
+@-o-keyframes progress {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
+@keyframes progress {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
 #acessibility {
   display: flex;
   width: 100%;
   padding: 5px 0;
   background-color: #7EB5D8; }
+  #acessibility i {
+    display: inline-block;
+    margin: 0 10px; }
   #acessibility ul {
     margin: auto; }
   #acessibility li {
@@ -19,8 +47,12 @@
     display: inline-block;
     padding: 0 20px;
     border-right: 1px solid rgba(0, 0, 100, 0.2);
-    font-size: 1.2rem;
-    transition: .2s; }
+    font-size: 1rem;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s; }
     #acessibility li:hover {
       text-decoration: underline; }
     #acessibility li:last-child {
@@ -29,6 +61,10 @@
 .wrapper {
   width: 1150px;
   margin: auto; }
+
+main {
+  width: 100%;
+  display: table; }
 
 nav {
   width: 100%;
@@ -39,16 +75,15 @@ nav {
 #carousel {
   width: 100%;
   height: 65vh;
-  margin-bottom: 30px;
   position: relative;
-  background-color: #683AB7; }
+  overflow: hidden; }
   #carousel #carouselWrapper {
-    width: 100%;
-    height: 99%;
+    width: 500%;
+    height: 97%;
     position: relative;
-    background-color: purple; }
+    overflow: hidden; }
   #carousel .eachCarousel {
-    width: 100%;
+    width: 20%;
     height: 100%;
     position: relative;
     float: left;
@@ -69,10 +104,10 @@ nav {
         #carousel .eachCarousel .wrapper .carouselLeft .headerProjectCover {
           width: 100%;
           height: 90%;
-          background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url(../deku.jpg); }
+          background-position: center center;
+          background-image: url("../deku.jpg"); }
         #carousel .eachCarousel .wrapper .carouselLeft a {
           display: flex;
           width: 100%;
@@ -93,12 +128,20 @@ nav {
       #carousel .eachCarousel .wrapper .carouselRight {
         width: 69%;
         height: 88%;
-        border: 1px solid #fff;
         padding: 1%;
-        color: #fff; }
+        color: #fff;
+        position: relative; }
         #carousel .eachCarousel .wrapper .carouselRight h1 {
           font-size: 4rem;
           font-weight: 600; }
+        #carousel .eachCarousel .wrapper .carouselRight .authors {
+          position: absolute;
+          bottom: 0; }
+        #carousel .eachCarousel .wrapper .carouselRight h2 {
+          font-size: 2rem;
+          margin: 10px 0 0 5px;
+          font-weight: 100;
+          display: block; }
         #carousel .eachCarousel .wrapper .carouselRight ul {
           display: flex; }
         #carousel .eachCarousel .wrapper .carouselRight li {
@@ -107,13 +150,17 @@ nav {
           border-radius: 50%;
           border: 2px solid #fff;
           cursor: pointer;
-          transition: .3s;
+          -webkit-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -ms-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
           flex-direction: row;
           margin: 10px 10px 10px 0px;
-          background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url(../deku.jpg);
+          background-position: center center;
+          background-image: url("../deku.jpg");
           position: relative; }
           #carousel .eachCarousel .wrapper .carouselRight li:hover {
             border: 2px solid #7EB5D8; }
@@ -122,17 +169,45 @@ nav {
             right: -2px;
             bottom: -2px;
             font-size: 1.4rem;
-            color: #094F7D; }
+            color: yellow; }
+        #carousel .eachCarousel .wrapper .carouselRight .projectInfos {
+          width: 100%;
+          height: 50%;
+          background-color: rgba(255, 255, 255, 0.3);
+          -webkit-filter: blur(5px);
+          -moz-filter: blur(5px);
+          -ms-filter: blur(5px);
+          -o-filter: blur(5px);
+          filter: blur(5px); }
   #carousel .eachCarouselCover {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
     background-color: rgba(104, 58, 183, 0.8);
-    filter: blur(5px) brightness(60%);
+    filter: blur(3px) brightness(40%);
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url(../deku.jpg); }
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("../deku.jpg"); }
+  #carousel #carouselPosition {
+    width: 100%;
+    height: 2%;
+    position: relative;
+    bottom: 0;
+    display: flex; }
+    #carousel #carouselPosition ul {
+      display: block;
+      width: 100%;
+      background-color: #EE84B3;
+      display: flex; }
+    #carousel #carouselPosition li {
+      height: 85%;
+      width: 20%;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #fff; }
+      #carousel #carouselPosition li:nth-child(3) {
+        background-color: #683AB7; }
   #carousel #carouselTimer {
     width: 100%;
     height: 1%;
@@ -143,12 +218,184 @@ nav {
       width: 10%;
       height: 100%;
       background-color: #7EB5D8;
-      animation: progress infinite 10s; }
+      -webkit-animation: progress 5s infinite;
+      -moz-animation: progress 5s infinite;
+      -ms-animation: progress 5s infinite;
+      -o-animation: progress 5s infinite;
+      animation: progress 5s infinite; }
+  #carousel #helloWrapper {
+    background-image: url(../resources/img/memphis-colorful.png);
+    filter: brightness(105%); }
+    #carousel #helloWrapper #logo {
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-image: url("../resources/img/talaka_logo.png");
+      background-size: 100px;
+      margin: auto; }
+    #carousel #helloWrapper .wrapper {
+      height: 220px; }
+    #carousel #helloWrapper *:not(ul) {
+      display: block;
+      text-align: center;
+      font-size: 1.5em;
+      color: #A50249; }
+    #carousel #helloWrapper p {
+      font-size: 2em;
+      font-weight: 100;
+      margin: 20px 0; }
+    #carousel #helloWrapper ul {
+      margin: 20px auto;
+      display: table; }
+    #carousel #helloWrapper li {
+      float: left;
+      padding: 10px 15px;
+      border: 2px solid #A50249;
+      margin: 0 30px;
+      cursor: pointer;
+      -webkit-transition: 0.2s;
+      -moz-transition: 0.2s;
+      -ms-transition: 0.2s;
+      -o-transition: 0.2s;
+      transition: 0.2s; }
+      #carousel #helloWrapper li:hover {
+        border-color: #DC367F; }
+      #carousel #helloWrapper li:first-child {
+        margin-left: 0;
+        background-color: #A50249;
+        color: #fff; }
+      #carousel #helloWrapper li:last-child {
+        margin-right: 0;
+        background-color: #fff; }
 
-@keyframes progress {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
+section {
+  width: 100%;
+  padding: 1% 0; }
+  section .wrapper {
+    margin: 0 auto; }
+
+#indexProjects ul {
+  display: flex;
+  padding: 20px 0;
+  position: relative; }
+#indexProjects li {
+  padding: 10px;
+  font-size: 1.6rem;
+  color: #094F7D;
+  cursor: pointer;
+  border-bottom: 2px solid #fff;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  flex-wrap: nowrap; }
+  #indexProjects li:hover:not(:last-child) {
+    border-bottom: 2px solid #7EB5D8; }
+  #indexProjects li:last-child {
+    right: 0;
+    position: absolute;
+    border: 2px solid #A50249;
+    padding: 0 10px 5px 10px;
+    color: #A50249;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s; }
+    #indexProjects li:last-child:hover {
+      background-color: #A50249;
+      color: #fff; }
+    #indexProjects li:last-child a {
+      text-decoration: none;
+      margin: 0;
+      font-size: 1.2rem;
+      color: inherit; }
+#indexProjects i {
+  display: inline-block;
+  margin: 0 5px 0 0; }
+#indexProjects #listProjects {
+  display: flex;
+  padding: 0 1%;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+  #indexProjects #listProjects .eachProject {
+    height: 450px;
+    width: 31%;
+    margin: 0 0 3% 0%;
+    border: 1px solid #ddd;
+    border-radius: 5px; }
+    #indexProjects #listProjects .eachProject:first-child {
+      margin-left: 0; }
+    #indexProjects #listProjects .eachProject:last-child {
+      margin-right: 0; }
+  #indexProjects #listProjects .eachProjectCover {
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    height: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("../deku.jpg");
+    position: relative;
+    display: flex;
+    margin-bottom: 25px; }
+    #indexProjects #listProjects .eachProjectCover .eachProjectOwner {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      width: 60px;
+      margin-left: -35px;
+      height: 60px;
+      border: 5px solid #fff;
+      border-radius: 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-image: url("../deku.jpg");
+      -webkit-transition: 0.3s;
+      -moz-transition: 0.3s;
+      -ms-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+      cursor: pointer; }
+      #indexProjects #listProjects .eachProjectCover .eachProjectOwner:hover {
+        border-color: #7EB5D8; }
+  #indexProjects #listProjects .eachProjectInfo {
+    height: calc(48% - 25px);
+    padding: 1% 2%; }
+    #indexProjects #listProjects .eachProjectInfo a {
+      text-decoration: none;
+      color: #094F7D;
+      font-size: 1.2rem;
+      display: block; }
+      #indexProjects #listProjects .eachProjectInfo a i {
+        font-size: 1.1em; }
+    #indexProjects #listProjects .eachProjectInfo h2 {
+      font-size: 1.6rem;
+      color: #333;
+      margin: 5px 0; }
+    #indexProjects #listProjects .eachProjectInfo p {
+      font-size: 1.3rem; }
+
+#howItWorks {
+  background-image: url("../resources/img/memphis-colorful.png");
+  position: relative; }
+  #howItWorks #howItCover {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: rgba(50, 125, 173, 0.7); }
+  #howItWorks .wrapper {
+    background-color: red;
+    z-index: 10; }
+
+footer {
+  width: 100%;
+  padding: 20px 0; }
 
 /*# sourceMappingURL=style.css.map */
