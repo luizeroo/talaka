@@ -6,3 +6,7 @@
     font-family: 'Dosis', sans-serif;
     font-size: 10px;
 }
+::selection{
+    background-color:$mainDark;
+    color:#fff;
+}

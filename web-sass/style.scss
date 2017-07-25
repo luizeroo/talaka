@@ -1,88 +1,6 @@
 @charset "UTF-8";
+@import "mixins";
 @import "reset";
-// CORES _ GLOBAL
-// Rosa -> design e destaque
-$mainRosa: #DC367F;
-$mainDark: #A50249;
-$mainLighter: #EE84B3;
-// Roxo - botões e bordas
-$mainRoxo: #683AB7;
-$purpleDark: #3A0E85;
-$purpleLighter: #A484DD;
-// Azul - links;
-$mainAzul: #327DAD;
-$blueDark: #094F7D;
-$blueLighter: #7EB5D8;
-// WRAPPER 
-$wrapper: 1150px;
-// Mixins e Keyframes(para usar, include)
-@mixin bp-large {
-    @media only screen and (max-width: 60em) {
-        @content;
-    }
-}
-@mixin bp-medium {
-    @media only screen and (max-width: 40em) {
-        @content;
-    }
-}
-@mixin bp-small {
-    @media only screen and (max-width: 30em) {
-        @content;
-    }
-}
-@mixin keyframes($animation-name) {
-    @-webkit-keyframes #{$animation-name} {
-        @content;
-    }
-    @-moz-keyframes #{$animation-name} {
-        @content;
-    }
-    @-ms-keyframes #{$animation-name} {
-        @content;
-    }
-    @-o-keyframes #{$animation-name} {
-        @content;
-    }
-    @keyframes #{$animation-name} {
-        @content;
-    }
-}
-@mixin animation($str) {
-    -webkit-animation: #{$str};
-    -moz-animation: #{$str};
-    -ms-animation: #{$str};
-    -o-animation: #{$str};
-    animation: #{$str};
-}
-@mixin background($arg) {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url($arg);
-}
-@include keyframes(progress) {
-    0% {
-        width: 0
-    }
-    100% {
-        width: 100%
-    }
-}
-@mixin transition($args...) {
-    -webkit-transition: $args;
-    -moz-transition: $args;
-    -ms-transition: $args;
-    -o-transition: $args;
-    transition: $args;
-}
-@mixin filter($args...) {
-    -webkit-filter: $args;
-    -moz-filter: $args;
-    -ms-filter: $args;
-    -o-filter: $args;
-    filter: $args;
-}
 // LAYOUT
 // - ACESSIBILIDADE
 #acessibility {
@@ -115,8 +33,9 @@ $wrapper: 1150px;
 }
 // - WRAPPER {
 .wrapper {
-    width: $wrapper;
+    width: 86%;
     margin: auto;
+    padding: 0 2%;
 }
 // MAIN
 main {
@@ -156,7 +75,6 @@ nav {
             height: 90%;
             display: flex;
             width: 85%;
-            padding: 1%;
             > div {
                 height: 96%;
                 margin: 0 2%;
@@ -299,7 +217,7 @@ nav {
         .wrapper {
             height: 220px;
         }
-        *:not(ul) {
+        *:not(ul):not(a) {
             display: block;
             text-align: center;
             font-size: 1.5em;
@@ -332,6 +250,7 @@ nav {
             &:last-child {
                 margin-right: 0;
                 background-color: #fff;
+                color:$mainDark;
             }
         }
     }
@@ -344,38 +263,41 @@ section {
     }
 }
 #indexProjects {
-    ul {
+    ul:first-child {
         display: flex;
         padding: 20px 0;
         position: relative;
-    }
-    li {
-        padding: 10px;
-        font-size: 1.6rem;
-        color: $blueDark;
-        cursor: pointer;
-        border-bottom: 2px solid #fff;
-        @include transition(.3s);
-        flex-wrap: nowrap;
-        &:hover:not(:last-child) {
-            border-bottom: 2px solid $blueLighter;
-        }
-        &:last-child {
-            right: 0;
-            position: absolute;
-            border: 2px solid $mainDark;
-            padding: 0 10px 5px 10px;
-            color: $mainDark;
-            @include transition(.2s);
-            &:hover {
-                background-color: $mainDark;
-                color: #fff;
+        width: 98%;
+        > li {
+            padding: 10px;
+            font-size: 1.6rem;
+            color: $blueDark;
+            cursor: pointer;
+            border-bottom: 2px solid #fff;
+            @include transition(.3s);
+            flex-wrap: nowrap;
+            &:hover:not(:last-child) {
+                border-bottom: 2px solid $blueLighter;
             }
-            a {
-                text-decoration: none;
-                margin: 0;
-                font-size: 1.2rem;
-                color: inherit;
+            &:last-child {
+                right: 0%;
+                top: 50%;
+                margin-top: -12.5px;
+                position: absolute;
+                border: 2px solid $mainDark;
+                padding: 0 10px 5px 10px;
+                color: $mainDark;
+                @include transition(.2s);
+                &:hover {
+                    background-color: $mainDark;
+                    color: #fff;
+                }
+                a {
+                    text-decoration: none;
+                    margin: 0;
+                    font-size: 1.2rem;
+                    color: inherit;
+                }
             }
         }
     }
@@ -385,87 +307,146 @@ section {
     }
     #listProjects {
         display: flex;
-        padding: 0 1%;
+        padding: 0px;
         flex-flow: row wrap;
         justify-content: space-between;
         .eachProject {
-            height: 450px;
+            height: 475px;
+            @include transition(.2s);
             width: 31%;
-            margin: 0 0 3% 0%;
+            margin: 0 2% 2% 0;
             border: 1px solid #ddd;
             border-radius: 5px;
-            &:first-child {
-                margin-left: 0;
-            }
-            &:last-child {
-                margin-right: 0
-            }
-        }
-        .eachProjectCover {
-            border-radius: 5px 5px 0 0;
-            border-bottom: 1px solid #eee;
-            width: 100%;
-            height: 50%;
-            @include background('../deku.jpg');
-            position: relative;
-            display: flex;
-            margin-bottom: 25px;
-            .eachProjectOwner {
-                position: absolute;
-                bottom: -25px;
-                left: 50%;
-                width: 60px;
-                margin-left: -35px;
-                height: 60px;
-                border: 5px solid #fff;
-                border-radius: 50%;
-                @include background('../deku.jpg');
-                @include transition(.3s);
-                cursor: pointer;
-                &:hover{
-                    border-color: $blueLighter;
-                }
-            }
-        }
-        .eachProjectInfo{
-            height: calc(48% - 25px);
-            padding:1% 2%;
-            a {
-                text-decoration: none;
-                color:$blueDark;
-                font-size: 1.2rem;
-                display: block;
-                i{
-                    font-size: 1.1em;
-                }
-            }
-            h2 {
-                font-size: 1.6rem;
-                color:#333;
-                margin:5px 0;
-            }
-            p{
-                font-size: 1.3rem;
+            &:hover {
+                border-color: $mainAzul;
+                box-shadow: 0 0 3px $mainAzul;
             }
         }
     }
-}
-#howItWorks{
-    background-image: url("../resources/img/memphis-colorful.png");
-    position: relative;
-    #howItCover{
+    .eachProjectCover {
+        border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid #eee;
         width: 100%;
-        position: absolute;
-        top: 0;
-        height: 100%;
-        background-color:rgba(50, 125, 173,.7);
+        height: 50%;
+        @include background('../deku.jpg');
+        position: relative;
+        display: flex;
+        margin-bottom: 25px;
+        .eachProjectOwner {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            width: 60px;
+            margin-left: -35px;
+            height: 60px;
+            border: 5px solid #fff;
+            border-radius: 50%;
+            @include background('../deku.jpg');
+            @include transition(.3s);
+            cursor: pointer;
+            &:hover {
+                border-color: $blueLighter;
+            }
+        }
     }
-    .wrapper{
-        background-color:red;
-        z-index: 10
+    .eachProjectInfo {
+        height: calc(48% - 25px);
+        padding: 1% 3%;
+        position: relative;
+        a {
+            text-decoration: none;
+            color: $blueDark;
+            font-size: 1.2rem;
+            display: block;
+            i {
+                font-size: 1.1em;
+            }
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: #333;
+            margin: 5px 0;
+        }
+        p {
+            font-size: 1.3rem;
+        }
+        .goal {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 96%;
+            padding: 2%;
+            color: $blueDark;
+            span {
+                font-weight: 600;
+                font-size: inherit;
+            }
+            p:first-child,
+            {
+                font-size: 1.4rem;
+            }
+            li {
+                float: left;
+                &:last-child {
+                    float: right;
+                }
+            }
+        }
+        .progressbar {
+            position: relative;
+            width: calc(100% - 2px);
+            height: 10px;
+            margin: 1.5% 0;
+            border: 1px solid $mainRosa;
+            .value {
+                @include value(40%);
+                position: absolute;
+                height: 10px;
+                background-color: $mainRosa;
+            }
+        }
     }
 }
-footer{
+#howItWorks {
+    border-top: 3px solid $purpleDark;
+    position: relative;
+    background-color: $mainRoxo;
+    padding: 70px 0 100px;
+    h1, i {
+        color: #fff;
+        font-size: 5em;
+        font-weight: lighter;
+        text-align: center;
+        display: block;
+        margin:10px auto
+    }
+    h1 *{
+        font-size: inherit;
+        font-weight: 600
+    }
+    .worksArea{
+        width: 96%;
+        padding:50px 2%;
+        margin:50px 0;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        .lozenge{
+            position: relative;
+            width: 250px;
+            height: 250px;
+            background-color:#fff;
+            @include transform(rotate(45deg));
+            margin-left: 40px;
+        }
+        .worksInfo{
+            width: calc(100% - 350px);
+            background-color:orange;
+            height: 250px;
+        }
+    }
+}
+footer {
     width: 100%;
-    padding:20px 0;
+    padding: 20px 0;
 }

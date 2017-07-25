@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
-    <link href="../www/web-sass/style.css" rel="stylesheet" type="text/css">
+    <link href="web-sass/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/script.js" type="text/javascript"></script>
     <title>TALAKA - Plataforma de Financiamento Coletivo</title>
 </head>
 
@@ -32,7 +34,7 @@
                         <P>Conheça a plataforma de financiamento coletivo de quadrinhos nacionais</P>
                         <ul>
                             <li>Criar campanha</li>
-                            <li>O que é financiamento coletivo?</li>
+                            <a href="#howItWorks"><li>O que é financiamento coletivo?</li></a>
                         </ul>
                     </div>
                 </div>
@@ -102,115 +104,200 @@
                 </ul>
 
                 <div id="listProjects">
-                    <div class="eachProject">
-                        <div class="eachProjectCover">
-                            <div class="eachProjectOwner" title="Nome do Usuário"></div>
-                        </div>
-                        <div class="eachProjectInfo">
-                            <div class="eachProjectTag">
-                                <a href="#">
-                                    <i class="fa fa-tag" aria-hidden="true"></i> Categoria
-                                </a>
-                                <h2>Boku no Hero Academia</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus. 
-                                </p>
+                    <a href="#">
+                        <div class="eachProject">
+                            <div class="eachProjectCover">
+                                <div class="eachProjectOwner" title="Nome do Usuário"></div>
+                            </div>
+                            <div class="eachProjectInfo">
+                                <div class="eachProjectTag">
+                                    <a href="#">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> Categoria
+                                    </a>
+                                    <h2>Boku no Hero Academia</h2>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus.
+                                    </p>
+
+                                    <div class="goal">
+                                        <p><span>R$ 2.000,00</span> acumulados</p>
+                                        <div class="progressbar">
+                                            <div class="value"></div>
+                                        </div>
+                                        <ul>
+                                            <li>40%</li>
+                                            <li>Aberto até 25/11/2017</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+
+                    <a href="#">
+                        <div class="eachProject">
+                            <div class="eachProjectCover">
+                                <div class="eachProjectOwner" title="Nome do Usuário"></div>
+                            </div>
+                            <div class="eachProjectInfo">
+                                <div class="eachProjectTag">
+                                    <a href="#">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> Categoria
+                                    </a>
+                                    <h2>Boku no Hero Academia</h2>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus.
+                                    </p>
+
+                                    <div class="goal">
+                                        <p><span>R$ 2.000,00</span> acumulados</p>
+                                        <div class="progressbar">
+                                            <div class="value"></div>
+                                        </div>
+                                        <ul>
+                                            <li>40%</li>
+                                            <li>Aberto até 25/11/2017</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     
-                    <div class="eachProject">
-                        <div class="eachProjectCover">
-                            <div class="eachProjectOwner" title="Nome do Usuário"></div>
-                        </div>
-                        <div class="eachProjectInfo">
-                            <div class="eachProjectTag">
-                                <a href="#">
-                                    <i class="fa fa-tag" aria-hidden="true"></i> Categoria
-                                </a>
-                                <h2>Boku no Hero Academia</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus. 
-                                </p>
+                    <a href="#">
+                        <div class="eachProject">
+                            <div class="eachProjectCover">
+                                <div class="eachProjectOwner" title="Nome do Usuário"></div>
+                            </div>
+                            <div class="eachProjectInfo">
+                                <div class="eachProjectTag">
+                                    <a href="#">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> Categoria
+                                    </a>
+                                    <h2>Boku no Hero Academia</h2>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus.
+                                    </p>
+
+                                    <div class="goal">
+                                        <p><span>R$ 2.000,00</span> acumulados</p>
+                                        <div class="progressbar">
+                                            <div class="value"></div>
+                                        </div>
+                                        <ul>
+                                            <li>40%</li>
+                                            <li>Aberto até 25/11/2017</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     
-                    <div class="eachProject">
-                        <div class="eachProjectCover">
-                            <div class="eachProjectOwner" title="Nome do Usuário"></div>
-                        </div>
-                        <div class="eachProjectInfo">
-                            <div class="eachProjectTag">
-                                <a href="#">
-                                    <i class="fa fa-tag" aria-hidden="true"></i> Categoria
-                                </a>
-                                <h2>Boku no Hero Academia</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus. 
-                                </p>
+                    <a href="#">
+                        <div class="eachProject">
+                            <div class="eachProjectCover">
+                                <div class="eachProjectOwner" title="Nome do Usuário"></div>
+                            </div>
+                            <div class="eachProjectInfo">
+                                <div class="eachProjectTag">
+                                    <a href="#">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> Categoria
+                                    </a>
+                                    <h2>Boku no Hero Academia</h2>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus.
+                                    </p>
+
+                                    <div class="goal">
+                                        <p><span>R$ 2.000,00</span> acumulados</p>
+                                        <div class="progressbar">
+                                            <div class="value"></div>
+                                        </div>
+                                        <ul>
+                                            <li>40%</li>
+                                            <li>Aberto até 25/11/2017</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     
-                    <div class="eachProject">
-                        <div class="eachProjectCover">
-                            <div class="eachProjectOwner" title="Nome do Usuário"></div>
-                        </div>
-                        <div class="eachProjectInfo">
-                            <div class="eachProjectTag">
-                                <a href="#">
-                                    <i class="fa fa-tag" aria-hidden="true"></i> Categoria
-                                </a>
-                                <h2>Boku no Hero Academia</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus. 
-                                </p>
+                    <a href="#">
+                        <div class="eachProject">
+                            <div class="eachProjectCover">
+                                <div class="eachProjectOwner" title="Nome do Usuário"></div>
+                            </div>
+                            <div class="eachProjectInfo">
+                                <div class="eachProjectTag">
+                                    <a href="#">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> Categoria
+                                    </a>
+                                    <h2>Boku no Hero Academia</h2>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus.
+                                    </p>
+
+                                    <div class="goal">
+                                        <p><span>R$ 2.000,00</span> acumulados</p>
+                                        <div class="progressbar">
+                                            <div class="value"></div>
+                                        </div>
+                                        <ul>
+                                            <li>40%</li>
+                                            <li>Aberto até 25/11/2017</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     
-                    <div class="eachProject">
-                        <div class="eachProjectCover">
-                            <div class="eachProjectOwner" title="Nome do Usuário"></div>
-                        </div>
-                        <div class="eachProjectInfo">
-                            <div class="eachProjectTag">
-                                <a href="#">
-                                    <i class="fa fa-tag" aria-hidden="true"></i> Categoria
-                                </a>
-                                <h2>Boku no Hero Academia</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus. 
-                                </p>
+                    <a href="#">
+                        <div class="eachProject">
+                            <div class="eachProjectCover">
+                                <div class="eachProjectOwner" title="Nome do Usuário"></div>
+                            </div>
+                            <div class="eachProjectInfo">
+                                <div class="eachProjectTag">
+                                    <a href="#">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> Categoria
+                                    </a>
+                                    <h2>Boku no Hero Academia</h2>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus.
+                                    </p>
+
+                                    <div class="goal">
+                                        <p><span>R$ 2.000,00</span> acumulados</p>
+                                        <div class="progressbar">
+                                            <div class="value"></div>
+                                        </div>
+                                        <ul>
+                                            <li>40%</li>
+                                            <li>Aberto até 25/11/2017</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="eachProject">
-                        <div class="eachProjectCover">
-                            <div class="eachProjectOwner" title="Nome do Usuário"></div>
-                        </div>
-                        <div class="eachProjectInfo">
-                            <div class="eachProjectTag">
-                                <a href="#">
-                                    <i class="fa fa-tag" aria-hidden="true"></i> Categoria
-                                </a>
-                                <h2>Boku no Hero Academia</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis augue ligula, interdum sit amet orci non, suscipit sodales orci. Nam at ligula id enim bibendum faucibus ut ac lacus. In hac habitasse platea dictumst. Suspendisse id erat luctus, rutrum arcu nec, luctus purus. 
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
+                   
+
                 </div>
             </div>
         </section>
 
         <section id="howItWorks">
-            <div id="howItCover"></div>
             <div class="wrapper">
-                <h1>aslkdj</h1>
+                <i class="fa fa-commenting" aria-hidden="true"></i>
+                <h1>O que é <b>financiamento coletivo?</b> </h1>
+                
+                <div class="worksArea">
+                    <div class="lozenge"></div>
+                    <div class="worksInfo"></div>
+                </div>
             </div>
         </section>
         <footer></footer>
