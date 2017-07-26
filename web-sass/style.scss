@@ -213,6 +213,7 @@ nav {
             @include background('../resources/img/talaka_logo.png');
             background-size: 100px;
             margin: auto;
+            @include animation('appears 2s');
         }
         .wrapper {
             height: 220px;
@@ -226,11 +227,14 @@ nav {
         p {
             font-size: 2em;
             font-weight: 100;
-            margin: 20px 0
+            margin: 20px 0;
+            @include animation('appears 2s');
         }
         ul {
             margin: 20px auto;
             display: table;
+            animation-delay: 1s;
+            @include animation('appears 2s');
         }
         li {
             float: left;
@@ -250,7 +254,7 @@ nav {
             &:last-child {
                 margin-right: 0;
                 background-color: #fff;
-                color:$mainDark;
+                color: $mainDark;
             }
         }
     }
@@ -269,6 +273,7 @@ section {
         position: relative;
         width: 98%;
         > li {
+            @include animation('appears 2s');
             padding: 10px;
             font-size: 1.6rem;
             color: $blueDark;
@@ -306,6 +311,7 @@ section {
         margin: 0 5px 0 0;
     }
     #listProjects {
+        @include animation('appears 2s');
         display: flex;
         padding: 0px;
         flex-flow: row wrap;
@@ -411,40 +417,140 @@ section {
     border-top: 3px solid $purpleDark;
     position: relative;
     background-color: $mainRoxo;
-    padding: 70px 0 100px;
-    h1, i {
+    padding: 70px 0;
+    h1,
+    i {
         color: #fff;
         font-size: 5em;
         font-weight: lighter;
         text-align: center;
         display: block;
-        margin:10px auto
+        margin: 10px auto
     }
-    h1 *{
+    h1 * {
         font-size: inherit;
         font-weight: 600
     }
-    .worksArea{
+    .worksArea {
         width: 96%;
-        padding:50px 2%;
-        margin:50px 0;
+        padding: 50px 2%;
+        margin: 50px 0;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
-        .lozenge{
+        .lozenge {
             position: relative;
-            width: 250px;
-            height: 250px;
-            background-color:#fff;
-            @include transform(rotate(45deg));
-            margin-left: 40px;
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            @include animation('lozenge 3s infinite alternate');
+            margin-left: 60px;
+            margin-top: 25px;
         }
-        .worksInfo{
-            width: calc(100% - 350px);
-            background-color:orange;
-            height: 250px;
+        .worksInfo {
+            width: calc(90% - 350px);
+            padding: 5% 5%;
+            color: #fff;
+        }
+        .lozenge + div p {
+            font-size: 2em;
+            text-indent: 30px;
         }
     }
+}
+#categories {
+    border-top: 3px solid $blueDark;
+    padding: 50px 0;
+    background-color: $blueLighter;
+    #catInfo{
+        width: 80%;
+        height:auto;
+        display: table;
+        margin:50px auto;
+    }
+    .catCover{
+        width: 220px;
+        height:220px;
+        float: left;
+        border-bottom: 3px solid $mainRoxo;
+        border-radius: 50%;
+        box-shadow: 0 0 10px black;
+        @include background('../deku.jpg');
+    }
+    p {
+        display: block;
+        width: calc(92% - 220px);
+        text-align: center;
+        font-size: 1.6em;
+        float: left;
+        padding:  1% 4%;
+        margin: 10px auto;
+        color:#333
+    }
+    a {
+        padding:10px 20px;
+        border:3px solid $blueDark;
+        transition: .3s;
+        text-decoration: none;
+        font-size: 1.6em;
+        display: inline-block;
+        clear: both;
+        &:hover{
+            color:#fff;
+            background-color:$blueDark;
+        }
+    }
+    i {
+        font-size: 5em;
+        margin: 15px;
+        color: $blueLighter
+    }
+    
+    .wrapper {
+        padding: 4% 2%;
+        text-align: center;
+        background-color:#fff
+    }
+    #catIcons {
+        display: flex;
+        width: 70%;
+        justify-content: space-between;
+        margin: 20px auto;
+        li {
+            background-color: $blueLighter;
+            border: 3px solid #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 10px;
+            transition: .3s;
+            cursor: pointer;
+            &:hover {
+                border-color: $blueLighter;
+            }
+            &:active {
+                border-color: $blueDark;
+            }
+        }
+    }
+    
+    h1 {
+        font-weight: 500;
+        font-size: 5em;
+        color: $blueDark
+    }
+    h2 {
+        font-weight: 400;
+        font-size: 3em;
+        color: #666
+    }
+    h3{
+        font-weight: 400;
+        font-size: 3em;
+    }
+    
+    
+   
 }
 footer {
     width: 100%;

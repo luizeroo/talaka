@@ -10,3 +10,12 @@
     background-color:$mainDark;
     color:#fff;
 }
+span, b, i {
+    font-size: inherit;
+    font-weight: 600
+}
+body{
+    transition:.3s
+}
+
+

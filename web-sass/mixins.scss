@@ -64,14 +64,6 @@ $wrapper: 1150px;
     max-width: 100%;
     min-width: 0%;
 }
-@include keyframes(progress) {
-    0% {
-        width: 0
-    }
-    100% {
-        width: 100%
-    }
-}
 @mixin transition($args...) {
     -webkit-transition: $args;
     -moz-transition: $args;
@@ -92,4 +84,28 @@ $wrapper: 1150px;
     -ms-transform: $args;
     -o-transform: $args;
     transform: $args;
+}
+@include keyframes(progress) {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
+@include keyframes(lozenge){
+    0%{
+        @include transform(rotate(45deg));
+    }    
+    100% {
+        @include transform(rotate(230deg));
+    }
+}
+@include keyframes(appears){
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity: 1;
+    }
 }

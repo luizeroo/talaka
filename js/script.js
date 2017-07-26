@@ -8,4 +8,12 @@ function main() {
             scrollTop: $($.attr(this, 'href')).offset().top
         }, 1000);
     });
+    
+    $("#contrast").click(function(){
+        $("body").css({"background-color":"#000", "color":"#fff"});
+    });
+    
+    
 }
+
+

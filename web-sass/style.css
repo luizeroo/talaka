@@ -23,6 +23,96 @@
     width: 0; }
   100% {
     width: 100%; } }
+@-webkit-keyframes lozenge {
+  0% {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  100% {
+    -webkit-transform: rotate(230deg);
+    -moz-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    -o-transform: rotate(230deg);
+    transform: rotate(230deg); } }
+@-moz-keyframes lozenge {
+  0% {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  100% {
+    -webkit-transform: rotate(230deg);
+    -moz-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    -o-transform: rotate(230deg);
+    transform: rotate(230deg); } }
+@-ms-keyframes lozenge {
+  0% {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  100% {
+    -webkit-transform: rotate(230deg);
+    -moz-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    -o-transform: rotate(230deg);
+    transform: rotate(230deg); } }
+@-o-keyframes lozenge {
+  0% {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  100% {
+    -webkit-transform: rotate(230deg);
+    -moz-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    -o-transform: rotate(230deg);
+    transform: rotate(230deg); } }
+@keyframes lozenge {
+  0% {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  100% {
+    -webkit-transform: rotate(230deg);
+    -moz-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    -o-transform: rotate(230deg);
+    transform: rotate(230deg); } }
+@-webkit-keyframes appears {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-moz-keyframes appears {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-ms-keyframes appears {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-o-keyframes appears {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes appears {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 * {
   margin: 0;
   padding: 0;
@@ -34,6 +124,13 @@
 ::selection {
   background-color: #A50249;
   color: #fff; }
+
+span, b, i {
+  font-size: inherit;
+  font-weight: 600; }
+
+body {
+  transition: 0.3s; }
 
 #acessibility {
   display: flex;
@@ -238,7 +335,12 @@ nav {
       background-position: center center;
       background-image: url("../resources/img/talaka_logo.png");
       background-size: 100px;
-      margin: auto; }
+      margin: auto;
+      -webkit-animation: appears 2s;
+      -moz-animation: appears 2s;
+      -ms-animation: appears 2s;
+      -o-animation: appears 2s;
+      animation: appears 2s; }
     #carousel #helloWrapper .wrapper {
       height: 220px; }
     #carousel #helloWrapper *:not(ul):not(a) {
@@ -249,10 +351,21 @@ nav {
     #carousel #helloWrapper p {
       font-size: 2em;
       font-weight: 100;
-      margin: 20px 0; }
+      margin: 20px 0;
+      -webkit-animation: appears 2s;
+      -moz-animation: appears 2s;
+      -ms-animation: appears 2s;
+      -o-animation: appears 2s;
+      animation: appears 2s; }
     #carousel #helloWrapper ul {
       margin: 20px auto;
-      display: table; }
+      display: table;
+      animation-delay: 1s;
+      -webkit-animation: appears 2s;
+      -moz-animation: appears 2s;
+      -ms-animation: appears 2s;
+      -o-animation: appears 2s;
+      animation: appears 2s; }
     #carousel #helloWrapper li {
       float: left;
       padding: 10px 15px;
@@ -287,6 +400,11 @@ section {
   position: relative;
   width: 98%; }
   #indexProjects ul:first-child > li {
+    -webkit-animation: appears 2s;
+    -moz-animation: appears 2s;
+    -ms-animation: appears 2s;
+    -o-animation: appears 2s;
+    animation: appears 2s;
     padding: 10px;
     font-size: 1.6rem;
     color: #094F7D;
@@ -325,6 +443,11 @@ section {
   display: inline-block;
   margin: 0 5px 0 0; }
 #indexProjects #listProjects {
+  -webkit-animation: appears 2s;
+  -moz-animation: appears 2s;
+  -ms-animation: appears 2s;
+  -o-animation: appears 2s;
+  animation: appears 2s;
   display: flex;
   padding: 0px;
   flex-flow: row wrap;
@@ -427,8 +550,9 @@ section {
   border-top: 3px solid #3A0E85;
   position: relative;
   background-color: #683AB7;
-  padding: 70px 0 100px; }
-  #howItWorks h1, #howItWorks i {
+  padding: 70px 0; }
+  #howItWorks h1,
+  #howItWorks i {
     color: #fff;
     font-size: 5em;
     font-weight: lighter;
@@ -447,19 +571,101 @@ section {
     justify-content: space-between; }
     #howItWorks .worksArea .lozenge {
       position: relative;
-      width: 250px;
-      height: 250px;
+      width: 200px;
+      height: 200px;
       background-color: #fff;
-      -webkit-transform: rotate(45deg);
-      -moz-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      -o-transform: rotate(45deg);
-      transform: rotate(45deg);
-      margin-left: 40px; }
+      -webkit-animation: lozenge 3s infinite alternate;
+      -moz-animation: lozenge 3s infinite alternate;
+      -ms-animation: lozenge 3s infinite alternate;
+      -o-animation: lozenge 3s infinite alternate;
+      animation: lozenge 3s infinite alternate;
+      margin-left: 60px;
+      margin-top: 25px; }
     #howItWorks .worksArea .worksInfo {
-      width: calc(100% - 350px);
-      background-color: orange;
-      height: 250px; }
+      width: calc(90% - 350px);
+      padding: 5% 5%;
+      color: #fff; }
+    #howItWorks .worksArea .lozenge + div p {
+      font-size: 2em;
+      text-indent: 30px; }
+
+#categories {
+  border-top: 3px solid #094F7D;
+  padding: 50px 0;
+  background-color: #7EB5D8; }
+  #categories #catInfo {
+    width: 80%;
+    height: auto;
+    display: table;
+    margin: 50px auto; }
+  #categories .catCover {
+    width: 220px;
+    height: 220px;
+    float: left;
+    border-bottom: 3px solid #683AB7;
+    border-radius: 50%;
+    box-shadow: 0 0 10px black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("../deku.jpg"); }
+  #categories p {
+    display: block;
+    width: calc(92% - 220px);
+    text-align: center;
+    font-size: 1.6em;
+    float: left;
+    padding: 1% 4%;
+    margin: 10px auto;
+    color: #333; }
+  #categories a {
+    padding: 10px 20px;
+    border: 3px solid #094F7D;
+    transition: .3s;
+    text-decoration: none;
+    font-size: 1.6em;
+    display: inline-block;
+    clear: both; }
+    #categories a:hover {
+      color: #fff;
+      background-color: #094F7D; }
+  #categories i {
+    font-size: 5em;
+    margin: 15px;
+    color: #7EB5D8; }
+  #categories .wrapper {
+    padding: 4% 2%;
+    text-align: center;
+    background-color: #fff; }
+  #categories #catIcons {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin: 20px auto; }
+    #categories #catIcons li {
+      background-color: #7EB5D8;
+      border: 3px solid #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 0 10px;
+      transition: .3s;
+      cursor: pointer; }
+      #categories #catIcons li:hover {
+        border-color: #7EB5D8; }
+      #categories #catIcons li:active {
+        border-color: #094F7D; }
+  #categories h1 {
+    font-weight: 500;
+    font-size: 5em;
+    color: #094F7D; }
+  #categories h2 {
+    font-weight: 400;
+    font-size: 3em;
+    color: #666; }
+  #categories h3 {
+    font-weight: 400;
+    font-size: 3em; }
 
 footer {
   width: 100%;
