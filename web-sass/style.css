@@ -183,8 +183,7 @@ nav {
     width: 500%;
     height: 97%;
     position: relative;
-    overflow: hidden;
-  }
+    overflow: hidden; }
   #carousel .eachCarousel {
     width: 20%;
     height: 100%;
@@ -670,6 +669,7 @@ section {
 
 footer {
   width: 100%;
-  padding: 20px 0; }
+  padding: 20px 0;
+  background-color: red; }
 
 /*# sourceMappingURL=style.css.map */
