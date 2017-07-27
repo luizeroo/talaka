@@ -1,675 +1,70 @@
-@-webkit-keyframes progress {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
-@-moz-keyframes progress {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
-@-ms-keyframes progress {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
-@-o-keyframes progress {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
-@keyframes progress {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
-@-webkit-keyframes lozenge {
-  0% {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg); }
-  100% {
-    -webkit-transform: rotate(230deg);
-    -moz-transform: rotate(230deg);
-    -ms-transform: rotate(230deg);
-    -o-transform: rotate(230deg);
-    transform: rotate(230deg); } }
-@-moz-keyframes lozenge {
-  0% {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg); }
-  100% {
-    -webkit-transform: rotate(230deg);
-    -moz-transform: rotate(230deg);
-    -ms-transform: rotate(230deg);
-    -o-transform: rotate(230deg);
-    transform: rotate(230deg); } }
-@-ms-keyframes lozenge {
-  0% {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg); }
-  100% {
-    -webkit-transform: rotate(230deg);
-    -moz-transform: rotate(230deg);
-    -ms-transform: rotate(230deg);
-    -o-transform: rotate(230deg);
-    transform: rotate(230deg); } }
-@-o-keyframes lozenge {
-  0% {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg); }
-  100% {
-    -webkit-transform: rotate(230deg);
-    -moz-transform: rotate(230deg);
-    -ms-transform: rotate(230deg);
-    -o-transform: rotate(230deg);
-    transform: rotate(230deg); } }
-@keyframes lozenge {
-  0% {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg); }
-  100% {
-    -webkit-transform: rotate(230deg);
-    -moz-transform: rotate(230deg);
-    -ms-transform: rotate(230deg);
-    -o-transform: rotate(230deg);
-    transform: rotate(230deg); } }
-@-webkit-keyframes appears {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-@-moz-keyframes appears {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-@-ms-keyframes appears {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-@-o-keyframes appears {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-@keyframes appears {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  vertical-align: baseline;
-  font-family: 'Dosis', sans-serif;
-  font-size: 10px; }
+/*
+Error: Invalid US-ASCII character "\xC3"
+        on line 6 of /home/ubuntu/workspace/web-sass/mixins.scss
+        from line 2 of /home/ubuntu/workspace/web-sass/style.scss
 
-::selection {
-  background-color: #A50249;
-  color: #fff; }
+1: // CORES _ GLOBAL
+2: // Rosa -> design e destaque
+3: $mainRosa: #DC367F;
+4: $mainDark: #A50249;
+5: $mainLighter: #EE84B3;
+6: // Roxo - botões e bordas
+7: $mainRoxo: #683AB7;
+8: $purpleDark: #3A0E85;
+9: $purpleLighter: #A484DD;
+10: // Azul - links;
+11: $mainAzul: #327DAD;
 
-span, b, i {
-  font-size: inherit;
-  font-weight: 600; }
-
-body {
-  transition: 0.3s; }
-
-#acessibility {
-  display: flex;
-  width: 100%;
-  padding: 5px 0;
-  background-color: #7EB5D8; }
-  #acessibility i {
-    display: inline-block;
-    margin: 0 10px; }
-  #acessibility ul {
-    margin: auto; }
-  #acessibility li {
-    cursor: pointer;
-    color: #fff;
-    display: inline-block;
-    padding: 0 20px;
-    border-right: 1px solid rgba(0, 0, 100, 0.2);
-    font-size: 1rem;
-    -webkit-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -ms-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s; }
-    #acessibility li:hover {
-      text-decoration: underline; }
-    #acessibility li:last-child {
-      border: 0; }
-
-.wrapper {
-  width: 86%;
-  margin: auto;
-  padding: 0 2%; }
-
-main {
-  width: 100%;
-  display: table; }
-
-nav {
-  width: 100%;
-  padding: 5px 0;
-  background: #DC367F;
-  display: flex; }
-
-#carousel {
-  width: 100%;
-  height: 65vh;
-  position: relative;
-  overflow: hidden; }
-  #carousel #carouselWrapper {
-    width: 500%;
-    height: 97%;
-    position: relative;
-    overflow: hidden;
-  }
-  #carousel .eachCarousel {
-    width: 20%;
-    height: 100%;
-    position: relative;
-    float: left;
-    display: flex; }
-    #carousel .eachCarousel .wrapper {
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-      height: 90%;
-      display: flex;
-      width: 85%; }
-      #carousel .eachCarousel .wrapper > div {
-        height: 96%;
-        margin: 0 2%; }
-      #carousel .eachCarousel .wrapper .carouselLeft {
-        width: 21%; }
-        #carousel .eachCarousel .wrapper .carouselLeft .headerProjectCover {
-          width: 100%;
-          height: 90%;
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-image: url("../deku.jpg"); }
-        #carousel .eachCarousel .wrapper .carouselLeft a {
-          display: flex;
-          width: 100%;
-          justify-content: center;
-          height: 6%;
-          padding: 2.5% 0;
-          background-color: #DC367F;
-          vertical-align: middle;
-          font-size: 1.5rem;
-          text-decoration: none;
-          text-transform: uppercase;
-          font-weight: 500;
-          color: #fff; }
-          #carousel .eachCarousel .wrapper .carouselLeft a i {
-            display: inline-block;
-            margin: 3px 5px 0 5px;
-            font-size: 12px; }
-      #carousel .eachCarousel .wrapper .carouselRight {
-        width: 69%;
-        height: 88%;
-        padding: 1%;
-        color: #fff;
-        position: relative; }
-        #carousel .eachCarousel .wrapper .carouselRight h1 {
-          font-size: 4rem;
-          font-weight: 600; }
-        #carousel .eachCarousel .wrapper .carouselRight .authors {
-          position: absolute;
-          bottom: 0; }
-        #carousel .eachCarousel .wrapper .carouselRight h2 {
-          font-size: 2rem;
-          margin: 10px 0 0 5px;
-          font-weight: 100;
-          display: block; }
-        #carousel .eachCarousel .wrapper .carouselRight ul {
-          display: flex; }
-        #carousel .eachCarousel .wrapper .carouselRight li {
-          width: 35px;
-          height: 35px;
-          border-radius: 50%;
-          border: 2px solid #fff;
-          cursor: pointer;
-          -webkit-transition: 0.3s;
-          -moz-transition: 0.3s;
-          -ms-transition: 0.3s;
-          -o-transition: 0.3s;
-          transition: 0.3s;
-          flex-direction: row;
-          margin: 10px 10px 10px 0px;
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-image: url("../deku.jpg");
-          position: relative; }
-          #carousel .eachCarousel .wrapper .carouselRight li:hover {
-            border: 2px solid #7EB5D8; }
-          #carousel .eachCarousel .wrapper .carouselRight li i {
-            position: absolute;
-            right: -2px;
-            bottom: -2px;
-            font-size: 1.4rem;
-            color: yellow; }
-        #carousel .eachCarousel .wrapper .carouselRight .projectInfos {
-          width: 100%;
-          height: 50%;
-          background-color: rgba(255, 255, 255, 0.3);
-          -webkit-filter: blur(5px);
-          -moz-filter: blur(5px);
-          -ms-filter: blur(5px);
-          -o-filter: blur(5px);
-          filter: blur(5px); }
-  #carousel .eachCarouselCover {
-    background-color: rgba(104, 58, 183, 0.8);
-    filter: blur(3px) brightness(40%);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url("../deku.jpg"); }
-  #carousel #carouselPosition {
-    width: 100%;
-    height: 2%;
-    position: relative;
-    bottom: 0;
-    display: flex; }
-    #carousel #carouselPosition ul {
-      display: block;
-      width: 100%;
-      background-color: #EE84B3;
-      display: flex; }
-    #carousel #carouselPosition li {
-      height: 85%;
-      width: 20%;
-      position: relative;
-      cursor: pointer;
-      border: 1px solid #fff; }
-      #carousel #carouselPosition li:nth-child(3) {
-        background-color: #683AB7; }
-  #carousel #carouselTimer {
-    width: 100%;
-    height: 1%;
-    position: relative;
-    bottom: 0; }
-    #carousel #carouselTimer #progress {
-      position: relative;
-      width: 10%;
-      height: 100%;
-      background-color: #7EB5D8;
-      -webkit-animation: progress 5s infinite;
-      -moz-animation: progress 5s infinite;
-      -ms-animation: progress 5s infinite;
-      -o-animation: progress 5s infinite;
-      animation: progress 5s infinite; }
-  #carousel #helloWrapper {
-    background-image: url(../resources/img/memphis-colorful.png);
-    filter: brightness(105%); }
-    #carousel #helloWrapper #logo {
-      width: 100px;
-      height: 100px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-image: url("../resources/img/talaka_logo.png");
-      background-size: 100px;
-      margin: auto;
-      -webkit-animation: appears 2s;
-      -moz-animation: appears 2s;
-      -ms-animation: appears 2s;
-      -o-animation: appears 2s;
-      animation: appears 2s; }
-    #carousel #helloWrapper .wrapper {
-      height: 220px; }
-    #carousel #helloWrapper *:not(ul):not(a) {
-      display: block;
-      text-align: center;
-      font-size: 1.5em;
-      color: #A50249; }
-    #carousel #helloWrapper p {
-      font-size: 2em;
-      font-weight: 100;
-      margin: 20px 0;
-      -webkit-animation: appears 2s;
-      -moz-animation: appears 2s;
-      -ms-animation: appears 2s;
-      -o-animation: appears 2s;
-      animation: appears 2s; }
-    #carousel #helloWrapper ul {
-      margin: 20px auto;
-      display: table;
-      animation-delay: 1s;
-      -webkit-animation: appears 2s;
-      -moz-animation: appears 2s;
-      -ms-animation: appears 2s;
-      -o-animation: appears 2s;
-      animation: appears 2s; }
-    #carousel #helloWrapper li {
-      float: left;
-      padding: 10px 15px;
-      border: 2px solid #A50249;
-      margin: 0 30px;
-      cursor: pointer;
-      -webkit-transition: 0.2s;
-      -moz-transition: 0.2s;
-      -ms-transition: 0.2s;
-      -o-transition: 0.2s;
-      transition: 0.2s; }
-      #carousel #helloWrapper li:hover {
-        border-color: #DC367F; }
-      #carousel #helloWrapper li:first-child {
-        margin-left: 0;
-        background-color: #A50249;
-        color: #fff; }
-      #carousel #helloWrapper li:last-child {
-        margin-right: 0;
-        background-color: #fff;
-        color: #A50249; }
-
-section {
-  width: 100%;
-  padding: 1% 0; }
-  section .wrapper {
-    margin: 0 auto; }
-
-#indexProjects ul:first-child {
-  display: flex;
-  padding: 20px 0;
-  position: relative;
-  width: 98%; }
-  #indexProjects ul:first-child > li {
-    -webkit-animation: appears 2s;
-    -moz-animation: appears 2s;
-    -ms-animation: appears 2s;
-    -o-animation: appears 2s;
-    animation: appears 2s;
-    padding: 10px;
-    font-size: 1.6rem;
-    color: #094F7D;
-    cursor: pointer;
-    border-bottom: 2px solid #fff;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -ms-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    flex-wrap: nowrap; }
-    #indexProjects ul:first-child > li:hover:not(:last-child) {
-      border-bottom: 2px solid #7EB5D8; }
-    #indexProjects ul:first-child > li:last-child {
-      right: 0%;
-      top: 50%;
-      margin-top: -12.5px;
-      position: absolute;
-      border: 2px solid #A50249;
-      padding: 0 10px 5px 10px;
-      color: #A50249;
-      -webkit-transition: 0.2s;
-      -moz-transition: 0.2s;
-      -ms-transition: 0.2s;
-      -o-transition: 0.2s;
-      transition: 0.2s; }
-      #indexProjects ul:first-child > li:last-child:hover {
-        background-color: #A50249;
-        color: #fff; }
-      #indexProjects ul:first-child > li:last-child a {
-        text-decoration: none;
-        margin: 0;
-        font-size: 1.2rem;
-        color: inherit; }
-#indexProjects i {
-  display: inline-block;
-  margin: 0 5px 0 0; }
-#indexProjects #listProjects {
-  -webkit-animation: appears 2s;
-  -moz-animation: appears 2s;
-  -ms-animation: appears 2s;
-  -o-animation: appears 2s;
-  animation: appears 2s;
-  display: flex;
-  padding: 0px;
-  flex-flow: row wrap;
-  justify-content: space-between; }
-  #indexProjects #listProjects .eachProject {
-    height: 475px;
-    -webkit-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -ms-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s;
-    width: 31%;
-    margin: 0 2% 2% 0;
-    border: 1px solid #ddd;
-    border-radius: 5px; }
-    #indexProjects #listProjects .eachProject:hover {
-      border-color: #327DAD;
-      box-shadow: 0 0 3px #327DAD; }
-#indexProjects .eachProjectCover {
-  border-radius: 5px 5px 0 0;
-  border-bottom: 1px solid #eee;
-  width: 100%;
-  height: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-image: url("../deku.jpg");
-  position: relative;
-  display: flex;
-  margin-bottom: 25px; }
-  #indexProjects .eachProjectCover .eachProjectOwner {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    width: 60px;
-    margin-left: -35px;
-    height: 60px;
-    border: 5px solid #fff;
-    border-radius: 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url("../deku.jpg");
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -ms-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    cursor: pointer; }
-    #indexProjects .eachProjectCover .eachProjectOwner:hover {
-      border-color: #7EB5D8; }
-#indexProjects .eachProjectInfo {
-  height: calc(48% - 25px);
-  padding: 1% 3%;
-  position: relative; }
-  #indexProjects .eachProjectInfo a {
-    text-decoration: none;
-    color: #094F7D;
-    font-size: 1.2rem;
-    display: block; }
-    #indexProjects .eachProjectInfo a i {
-      font-size: 1.1em; }
-  #indexProjects .eachProjectInfo h2 {
-    font-size: 1.6rem;
-    color: #333;
-    margin: 5px 0; }
-  #indexProjects .eachProjectInfo p {
-    font-size: 1.3rem; }
-  #indexProjects .eachProjectInfo .goal {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 96%;
-    padding: 2%;
-    color: #094F7D; }
-    #indexProjects .eachProjectInfo .goal span {
-      font-weight: 600;
-      font-size: inherit; }
-    #indexProjects .eachProjectInfo .goal p:first-child {
-      font-size: 1.4rem; }
-    #indexProjects .eachProjectInfo .goal li {
-      float: left; }
-      #indexProjects .eachProjectInfo .goal li:last-child {
-        float: right; }
-  #indexProjects .eachProjectInfo .progressbar {
-    position: relative;
-    width: calc(100% - 2px);
-    height: 10px;
-    margin: 1.5% 0;
-    border: 1px solid #DC367F; }
-    #indexProjects .eachProjectInfo .progressbar .value {
-      width: 40%;
-      max-width: 100%;
-      min-width: 0%;
-      position: absolute;
-      height: 10px;
-      background-color: #DC367F; }
-
-#howItWorks {
-  border-top: 3px solid #3A0E85;
-  position: relative;
-  background-color: #683AB7;
-  padding: 70px 0; }
-  #howItWorks h1,
-  #howItWorks i {
-    color: #fff;
-    font-size: 5em;
-    font-weight: lighter;
-    text-align: center;
-    display: block;
-    margin: 10px auto; }
-  #howItWorks h1 * {
-    font-size: inherit;
-    font-weight: 600; }
-  #howItWorks .worksArea {
-    width: 96%;
-    padding: 50px 2%;
-    margin: 50px 0;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between; }
-    #howItWorks .worksArea .lozenge {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      background-color: #fff;
-      -webkit-animation: lozenge 3s infinite alternate;
-      -moz-animation: lozenge 3s infinite alternate;
-      -ms-animation: lozenge 3s infinite alternate;
-      -o-animation: lozenge 3s infinite alternate;
-      animation: lozenge 3s infinite alternate;
-      margin-left: 60px;
-      margin-top: 25px; }
-    #howItWorks .worksArea .worksInfo {
-      width: calc(90% - 350px);
-      padding: 5% 5%;
-      color: #fff; }
-    #howItWorks .worksArea .lozenge + div p {
-      font-size: 2em;
-      text-indent: 30px; }
-
-#categories {
-  border-top: 3px solid #094F7D;
-  padding: 50px 0;
-  background-color: #7EB5D8; }
-  #categories #catInfo {
-    width: 80%;
-    height: auto;
-    display: table;
-    margin: 50px auto; }
-  #categories .catCover {
-    width: 220px;
-    height: 220px;
-    float: left;
-    border-bottom: 3px solid #683AB7;
-    border-radius: 50%;
-    box-shadow: 0 0 10px black;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url("../deku.jpg"); }
-  #categories p {
-    display: block;
-    width: calc(92% - 220px);
-    text-align: center;
-    font-size: 1.6em;
-    float: left;
-    padding: 1% 4%;
-    margin: 10px auto;
-    color: #333; }
-  #categories a {
-    padding: 10px 20px;
-    border: 3px solid #094F7D;
-    transition: .3s;
-    text-decoration: none;
-    font-size: 1.6em;
-    display: inline-block;
-    clear: both; }
-    #categories a:hover {
-      color: #fff;
-      background-color: #094F7D; }
-  #categories i {
-    font-size: 5em;
-    margin: 15px;
-    color: #7EB5D8; }
-  #categories .wrapper {
-    padding: 4% 2%;
-    text-align: center;
-    background-color: #fff; }
-  #categories #catIcons {
-    display: flex;
-    width: 70%;
-    justify-content: space-between;
-    margin: 20px auto; }
-    #categories #catIcons li {
-      background-color: #7EB5D8;
-      border: 3px solid #fff;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin: 0 10px;
-      transition: .3s;
-      cursor: pointer; }
-      #categories #catIcons li:hover {
-        border-color: #7EB5D8; }
-      #categories #catIcons li:active {
-        border-color: #094F7D; }
-  #categories h1 {
-    font-weight: 500;
-    font-size: 5em;
-    color: #094F7D; }
-  #categories h2 {
-    font-weight: 400;
-    font-size: 3em;
-    color: #666; }
-  #categories h3 {
-    font-weight: 400;
-    font-size: 3em; }
-
-footer {
-  width: 100%;
-  padding: 20px 0; }
-
-/*# sourceMappingURL=style.css.map */
+Backtrace:
+/home/ubuntu/workspace/web-sass/mixins.scss:6
+/home/ubuntu/workspace/web-sass/style.scss:2
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1300:in `rescue in block in find_encoding_error'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1297:in `block in find_encoding_error'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `each'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `each_with_index'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `find_encoding_error'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:905:in `check_sass_encoding'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:436:in `check_encoding!'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:392:in `_to_tree'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:312:in `to_tree'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:326:in `block in visit_import'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/stack.rb:88:in `block in with_import'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/stack.rb:115:in `with_frame'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/stack.rb:88:in `with_import'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:325:in `visit_import'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/base.rb:36:in `visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/stack.rb:79:in `block in with_base'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/stack.rb:115:in `with_frame'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/stack.rb:79:in `with_base'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:160:in `visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/base.rb:52:in `map'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:169:in `block in visit_children'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:168:in `visit_children'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:188:in `visit_root'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/base.rb:36:in `visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:159:in `visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/root_node.rb:36:in `css_tree'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:381:in `_render_with_sourcemap'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:298:in `render_with_sourcemap'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:209:in `each'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin.rb:82:in `update_stylesheets'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/sass_scss.rb:51:in `process_result'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/base.rb:52:in `parse'
+/nix/store/zmisxnl63ica4zaviifixamr3xg27kzp-ruby-2.3.1-p0/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/base.rb:19:in `parse!'
+/mnt/shared/sbin/scss:13:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid US-ASCII character \"\xC3\"\A         on line 6 of /home/ubuntu/workspace/web-sass/mixins.scss\A         from line 2 of /home/ubuntu/workspace/web-sass/style.scss\A \A 1: // CORES _ GLOBAL\A 2: // Rosa -> design e destaque\A 3: $mainRosa: #DC367F;\A 4: $mainDark: #A50249;\A 5: $mainLighter: #EE84B3;\A 6: // Roxo - botões e bordas\A 7: $mainRoxo: #683AB7;\A 8: $purpleDark: #3A0E85;\A 9: $purpleLighter: #A484DD;\A 10: // Azul - links;\A 11: $mainAzul: #327DAD;"; }
