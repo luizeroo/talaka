@@ -598,7 +598,7 @@ section {
   #howItWorks h1,
   #howItWorks i {
     color: #fff;
-    font-size: 5em;
+    font-size: 4.5em;
     font-weight: lighter;
     text-align: center;
     display: block;
@@ -608,7 +608,7 @@ section {
     font-weight: 600; }
   #howItWorks .worksArea {
     width: 96%;
-    padding: 50px 2%;
+    padding: 20px 2%;
     margin: 50px 0;
     display: flex;
     flex-flow: row wrap;
@@ -701,18 +701,48 @@ section {
         border-color: #094F7D; }
   #categories h1 {
     font-weight: 500;
-    font-size: 5em;
+    font-size: 3.5em;
     color: #094F7D; }
   #categories h2 {
     font-weight: 400;
-    font-size: 3em;
+    font-size: 2.8em;
     color: #666; }
   #categories h3 {
     font-weight: 400;
-    font-size: 3em; }
+    font-size: 2.6em; }
 
 footer {
   width: 100%;
-  padding: 20px 0; }
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: #A50249;
+  color: #fff; }
+  footer .wrapper {
+    padding: 0;
+    width: 90%;
+    padding: 5px 0; }
+    footer .wrapper ul {
+      display: flex;
+      justify-content: space-between; }
+    footer .wrapper li {
+      display: inline-flex;
+      font-size: 1.4em;
+      padding: .5% 5%;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: .3s;
+      text-align: center; }
+      footer .wrapper li:hover {
+        border-bottom-color: #fff; }
+  footer .footer {
+    clear: both;
+    display: block;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 5px 0 0 0;
+    text-align: center; }
+    footer .footer p {
+      font-size: 1.4em;
+      padding: 5px 0; }
 
 /*# sourceMappingURL=style.css.map */
