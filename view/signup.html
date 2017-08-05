@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+    <link href="../web-sass/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../js/script.js" type="text/javascript"></script>
+    <title>Fazer cadastro</title>
+</head>
+
+<body>
+
+    <div id="menuFix">
+        <div id="acessibility">
+            <ul>
+                <li>Teclado Virtual</li>
+                <li id="contrast">Contraste</li>
+                <li>
+                    <i class="fa fa-minus-square" id="minus" aria-hidden="true"></i> Tamanho
+                    <i class="fa fa-plus-square" id="plus" aria-hidden="true"></i>
+                </li>
+                <li>Ir ao conteúdo</li>
+            </ul>
+        </div>
+
+        <nav>
+            <div class="wrapper">
+                <div class="siteNav-left">
+                    <ul>
+                        <li>
+                            <i class="fa fa-book" aria-hidden="true"></i>Explorar
+                        </li>
+                        <li>Começar uma campanha</li>
+                    </ul>
+                </div>
+
+                <div class="siteNav-middle">
+                    <h1>talaka</h1>
+                </div>
+
+                <div class="siteNav-right">
+                    <ul>
+                        <li>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </li>
+                        <li>
+                            Como funciona
+                        </li>
+                        <a href="view/signin.html">
+                            <li>
+                                Acessar
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <main>
+        <div id="signup">
+            <div class="wrapper">
+                <h1><i class="fa fa-user-o" aria-hidden="true"></i> Cadastro de Pessoa física
+                </h1>
+
+
+                <ul>
+                    <li>
+                        <i class="fa fa-user-circle-o dadospessoais" aria-hidden="true"></i> Dados pessoais</li>
+                    <li>
+                        <i class="fa fa-money dadosfinanciamento" aria-hidden="true"></i> Dados sobre financiamento</li>
+                    <li>
+                        <i class="fa fa-pencil dadosartista" aria-hidden="true"></i> Artista / Portfolio</li>
+                </ul>
+
+                <h2>Junte-se ao Talaka</h2>
+                <p>A plataforma de financiamento criada pensando em quadrinistas, ilustradores e amantes de quadrinhos.</p>
+
+                <form>
+                    <label for="name">Nome *</label>
+                    <input type="text" id="name" placeholder="Insira seu nome" required>
+
+                    <label for="namelogin">Nome de Usuário *<i class="fa fa-question-circle faq" aria-hidden="true"></i></label>
+                    <span class="inputQuestion">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum consectetur nulla, sed iaculis ex molestie sed. Fusce mattis nunc nec porttitor varius. Sed tincidunt finibus feugiat. Aenean nibh urna, tempor vel luctus id, dignissim at sem. Pellentesque tincidunt, justo ac pharetra tempor, lacus sapien pretium turpis, ut pellentesque augue felis sed erat. Cras quis tortor id justo dictum suscipit sed eget ante. Nam lacinia sapien id tellus pharetra vestibulum.</span>
+                    <input type="text" id="namelogin" placeholder="Insira seu nome de usuário" required>
+
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" placeholder="Insira seu email" required>
+
+                    <label for="password">Senha *</label>
+                    <input type="passwrod" id="password" placeholder="Insira sua senha" required>
+
+                    <label for="password">Confirme sua senha *</label>
+                    <input type="passwrod" id="password" placeholder="Redigite sua senha" required>
+
+                    <label for="bio">Biografia / Status </label>
+                    <textarea id="bio" placeholder="Escreva um pouco sobre você!" required></textarea>
+
+                    <input type="submit" value="Próximo">
+                    <a href="../index.html">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="wrapper">
+
+            <ul>
+                <li>Sobre</li>
+                <li>Projetos</li>
+                <li>Como funciona</li>
+                <li>FAQ</li>
+                <li>Dicas para campanha</li>
+                <li>Termos de Uso</li>
+            </ul>
+            <div class="footer">
+                <p>
+                    Talaka &copy; 2017
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

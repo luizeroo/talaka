@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @-webkit-keyframes progress {
   0% {
     width: 0; }
@@ -187,7 +188,7 @@ body {
 main {
   width: 100%;
   display: table;
-  margin-top: 75px; }
+  margin-top: 85px; }
 
 #menuFix {
   position: fixed;
@@ -840,5 +841,156 @@ footer {
   #loginInitial .wrapper {
     vertical-align: middle;
     padding: 5%; }
+
+#bgtypeRegister {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: none;
+  align-items: center; }
+  #bgtypeRegister #typeRegister {
+    width: 50%;
+    background-color: #fff;
+    height: 50vh;
+    margin: auto;
+    text-align: center;
+    border: 1px solid #EE84B3;
+    border-radius: .5em; }
+    #bgtypeRegister #typeRegister h2 {
+      font-size: 2em;
+      padding: 20px 0;
+      font-weight: 400; }
+    #bgtypeRegister #typeRegister ul {
+      display: flex;
+      justify-content: center; }
+      #bgtypeRegister #typeRegister ul a {
+        display: inline-block;
+        width: 40%; }
+    #bgtypeRegister #typeRegister li {
+      width: 90%;
+      height: 200px;
+      border: 1px solid #d2d2d2;
+      margin: 2% 5%;
+      transition: .3s;
+      background-size: 120px;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      position: relative; }
+      #bgtypeRegister #typeRegister li:hover {
+        border-color: #7EB5D8; }
+    #bgtypeRegister #typeRegister li:after {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: block;
+      font-size: 1.6em;
+      padding: 5px 0; }
+    #bgtypeRegister #typeRegister #person {
+      background-image: url(../resources/img/person.png); }
+      #bgtypeRegister #typeRegister #person:after {
+        content: "Pessoa Física"; }
+    #bgtypeRegister #typeRegister #team {
+      background-image: url(../resources/img/team.png); }
+      #bgtypeRegister #typeRegister #team:after {
+        content: "Pessoa Jurídica"; }
+
+#signup .wrapper {
+  border: 1px solid pink;
+  width: 70%;
+  border-bottom: 0; }
+  #signup .wrapper ul {
+    display: flex;
+    justify-content: space-between; }
+    #signup .wrapper ul li {
+      padding: 1% 2%;
+      border: 1px solid #ddd;
+      width: 30%;
+      text-align: center;
+      font-size: 1.6em; }
+      #signup .wrapper ul li i {
+        display: block;
+        margin: 5px auto; }
+      #signup .wrapper ul li .dadospessoais {
+        color: #327DAD; }
+      #signup .wrapper ul li .dadosfinanciamento {
+        color: green; }
+      #signup .wrapper ul li .dadosartista {
+        color: #DC367F; }
+#signup h1 {
+  font-size: 2.4em;
+  padding: 20px 20px 10px 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #A50249;
+  border-bottom: 2px solid #EE84B3; }
+  #signup h1 i {
+    display: inline-block;
+    margin: 0 10px 0 0; }
+#signup h2 {
+  font-size: 2.2em;
+  margin-top: 20px;
+  font-weight: 600;
+  text-align: center;
+  color: #A50249; }
+#signup p {
+  font-size: 1.6em;
+  text-align: center; }
+#signup form {
+  width: 70%;
+  margin: auto; }
+#signup label {
+  margin: 0;
+  font-size: 1.6em;
+  display: block;
+  padding: 5px 0;
+  margin: 15px 0 0 0;
+  color: #A50249; }
+  #signup label i {
+    display: inline-block;
+    margin: 0 5px;
+    color: #094F7D; }
+#signup input:not([type='submit']), #signup textarea#bio {
+  width: 98%;
+  padding: 1%;
+  font-size: 1.5em;
+  border: 1px solid #DC367F;
+  color: #A50249; }
+  #signup input:not([type='submit'])::-webkit-input-placeholder, #signup textarea#bio::-webkit-input-placeholder {
+    color: #A50249; }
+  #signup input:not([type='submit']):-moz-placeholder, #signup textarea#bio:-moz-placeholder {
+    /* Firefox 18- */
+    color: #A50249; }
+  #signup input:not([type='submit'])::-moz-placeholder, #signup textarea#bio::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #A50249; }
+  #signup input:not([type='submit']):-ms-input-placeholder, #signup textarea#bio:-ms-input-placeholder {
+    color: #A50249; }
+#signup .inputQuestion {
+  width: 98%;
+  padding: 1%;
+  font-size: 1.3em;
+  color: #777;
+  display: none;
+  border: 1px solid #7EB5D8; }
+#signup textarea#bio {
+  min-height: 100px;
+  resize: vertical; }
+#signup input[type='submit'], #signup a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 1.4em;
+  margin: 10px auto;
+  border: 2px solid #A50249;
+  background-color: #fff;
+  color: #A50249; }
+#signup input[type='submit'] {
+  background-color: #A50249;
+  color: #fff; }
+#signup a {
+  width: 45px; }
 
 /*# sourceMappingURL=style.css.map */

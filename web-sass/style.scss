@@ -63,7 +63,7 @@
 main {
     width: 100%;
     display: table;
-    margin-top: 75px;
+    margin-top: 85px;
 }
 // - MENU
 #menuFix {
@@ -642,7 +642,7 @@ footer {
         li {
             display: inline-flex;
             font-size: 1.4em;
-            padding: .5% 5%;
+            padding:.5% 5%;
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: .3s;
@@ -747,3 +747,180 @@ footer {
         padding: 5%;
     }
 }
+#bgtypeRegister{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    #typeRegister{
+        width: 50%;
+        background-color:#fff;
+        height: 50vh;
+        margin: auto;
+        text-align: center;
+        border:1px solid $mainLighter;
+        border-radius: .5em;
+        h2{
+            font-size: 2em;
+            padding:20px 0;
+            font-weight: 400
+        }
+        ul{
+            display:flex;
+            justify-content: center;
+            a{
+                display:inline-block;
+                width: 40%;
+            }
+        }
+        li{
+            width:90%;
+            height:200px;
+            border:1px solid #d2d2d2;
+            margin:2% 5%;
+            transition: .3s;
+            background-size: 120px;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            position: relative;
+            &:hover{
+                border-color: $blueLighter;
+            }
+        }
+        li:after{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: block;
+            font-size: 1.6em;
+            padding:5px 0
+        }
+        #person{
+            background-image: url(../resources/img/person.png);
+            &:after{
+                content: "Pessoa Física";
+            }
+        }
+        #team{
+            background-image: url(../resources/img/team.png);
+            &:after{
+                content: "Pessoa Jurídica";
+            }
+        }
+    }
+}
+#signup{
+    .wrapper{
+        border:1px solid pink;
+        width: 70%;
+        border-bottom: 0;
+        ul{
+            display:flex;
+            justify-content: space-between;
+            li{
+                padding:1% 2%;
+                border:1px solid #ddd;
+                width: 30%;
+                text-align: center;
+                font-size: 1.6em;
+                i{
+                    display:block;
+                    margin:5px auto;
+                }
+                .dadospessoais{
+                    color:$mainAzul
+                }
+                .dadosfinanciamento{
+                    color:green
+                }
+                .dadosartista{
+                    color:$mainRosa;
+                }
+            }
+        }
+    }
+    h1{
+        font-size: 2.4em;
+        padding:20px 20px 10px 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color:$mainDark;
+        border-bottom: 2px solid $mainLighter;
+        i{
+            display:inline-block;
+            margin:0 10px 0 0;
+        }
+    }
+    h2{
+        font-size: 2.2em;
+        margin-top:20px;
+        font-weight: 600;
+        text-align: center;
+        color:$mainDark
+    }
+    p{
+        font-size: 1.6em;
+        text-align: center
+    }
+    form{
+        width: 70%;
+        margin:auto;
+    }
+    label{
+        margin:0;
+        font-size: 1.6em;
+        display: block;
+        padding:5px 0;
+        margin:15px 0 0 0;
+        color:$mainDark;
+        i{
+            display:inline-block;
+            margin:0 5px;
+            color:$blueDark;
+        }
+    }
+    input:not([type='submit']), textarea#bio{
+        width: 98%;
+        padding:1%;
+        font-size: 1.5em;
+        border:1px solid $mainRosa;
+        color:$mainDark;
+        @include placeholder{
+                color: $mainDark;
+            }
+    }
+    .inputQuestion{
+        width:98%;
+        padding:1%;
+        font-size: 1.3em;
+        color:#777;
+        display: none;
+        border: 1px solid $blueLighter;
+    }
+    textarea#bio{
+        min-height: 100px;
+        resize: vertical;
+    }
+    input[type='submit'], a{
+        display:block;
+        padding:10px 15px;
+        text-decoration: none;
+        font-size: 1.4em;
+        margin:10px auto;
+        border:2px solid $mainDark;
+        background-color:#fff;
+        color: $mainDark;
+    }
+    input[type='submit']{
+        background-color: $mainDark;
+        color:#fff;
+    }
+    a{
+        width:45px;
+    }
+}
+
