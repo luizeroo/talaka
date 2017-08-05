@@ -159,6 +159,26 @@ body {
     #acessibility li:last-child {
       border: 0; }
 
+#toTop {
+  padding: auto;
+  padding: 8px 10px;
+  background-color: #fff;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  color: #7EB5D8;
+  font-size: 2em;
+  text-align: center;
+  border-radius: 50%;
+  transition: .3s;
+  cursor: pointer;
+  border: 2px solid #fff;
+  z-index: 10; }
+  #toTop:hover {
+    border-color: #7EB5D8; }
+  #toTop i {
+    display: block; }
+
 .wrapper {
   width: 86%;
   margin: auto;
@@ -186,6 +206,8 @@ nav {
   padding: 5px 0 0 0;
   flex-wrap: nowrap;
   box-shadow: 0 0 15px #EE84B3; }
+  nav a {
+    text-decoration: none; }
   nav ul {
     display: table; }
     nav ul li {
@@ -744,5 +766,79 @@ footer {
     footer .footer p {
       font-size: 1.4em;
       padding: 5px 0; }
+
+#loginInitial {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  background-image: url(../resources/img/memphis-colorful.png); }
+  #loginInitial a, #loginInitial input[type="submit"] {
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 15px 20px 0 0;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    border: 2px solid #A50249; }
+  #loginInitial h1 {
+    font-size: 3.5em;
+    font-weight: 500;
+    color: #DC367F; }
+  #loginInitial h2 {
+    font-size: 2.4em;
+    margin: 5px 0 10px 0;
+    font-weight: 400;
+    color: #A50249; }
+  #loginInitial p {
+    font-size: 1.4em; }
+  #loginInitial > div {
+    padding: 0 5%;
+    margin: auto;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center; }
+  #loginInitial #register {
+    width: 65%; }
+    #loginInitial #register .wrapper {
+      background-color: rgba(255, 255, 255, 0.6); }
+  #loginInitial #register > div > a:nth-child(4) {
+    background-color: #A50249; }
+  #loginInitial #register > div > a:nth-child(5) {
+    color: #A50249; }
+  #loginInitial #login {
+    width: 35%;
+    background-color: #A50249; }
+    #loginInitial #login input:not([type="submit"]) {
+      width: 92%;
+      padding: 4%;
+      margin: 3% 0;
+      font-size: 1.4em;
+      border: 0;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+      background-color: transparent;
+      color: #fff; }
+      #loginInitial #login input:not([type="submit"])::-webkit-input-placeholder {
+        color: #fff; }
+      #loginInitial #login input:not([type="submit"]):-moz-placeholder {
+        /* Firefox 18- */
+        color: #fff; }
+      #loginInitial #login input:not([type="submit"])::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #fff; }
+      #loginInitial #login input:not([type="submit"]):-ms-input-placeholder {
+        color: #fff; }
+    #loginInitial #login h1 {
+      color: #fff; }
+  #loginInitial #login > div > form > input[type="submit"] {
+    background-color: #fff;
+    color: #A50249; }
+  #loginInitial #login > div > form > a:nth-child(4) {
+    color: #fff; }
+  #loginInitial .wrapper {
+    vertical-align: middle;
+    padding: 5%; }
 
 /*# sourceMappingURL=style.css.map */

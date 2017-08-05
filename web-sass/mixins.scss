@@ -85,6 +85,23 @@ $wrapper: 1150px;
     -o-transform: $args;
     transform: $args;
 }
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        @content;
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
 @include keyframes(progress) {
     0% {
         width: 0
@@ -93,19 +110,19 @@ $wrapper: 1150px;
         width: 100%
     }
 }
-@include keyframes(lozenge){
-    0%{
+@include keyframes(lozenge) {
+    0% {
         @include transform(rotate(45deg));
-    }    
+    }
     100% {
         @include transform(rotate(230deg));
     }
 }
-@include keyframes(appears){
-    0%{
-        opacity:0;
+@include keyframes(appears) {
+    0% {
+        opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }

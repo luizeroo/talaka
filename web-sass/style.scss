@@ -31,21 +31,40 @@
         }
     }
 }
-
+#toTop {
+    padding: auto;
+    padding: 8px 10px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    color: $blueLighter;
+    font-size: 2em;
+    text-align: center;
+    border-radius: 50%;
+    transition: .3s;
+    cursor: pointer;
+    border: 2px solid #fff;
+    z-index: 10;
+    &:hover {
+        border-color: $blueLighter;
+    }
+    i {
+        display: block;
+    }
+}
 // - WRAPPER {
 .wrapper {
     width: 86%;
     margin: auto;
     padding: 0 2%;
 }
-
 // MAIN
 main {
     width: 100%;
     display: table;
     margin-top: 75px;
 }
-
 // - MENU
 #menuFix {
     position: fixed;
@@ -54,11 +73,9 @@ main {
     top: 0;
     z-index: 100
 }
-
 #menuFix>nav>div>div.siteNav-right>ul>li:nth-child(1)>i {
     margin: 0;
 }
-
 nav {
     width: 100%;
     background: #fff;
@@ -66,6 +83,9 @@ nav {
     padding: 5px 0 0 0;
     flex-wrap: nowrap;
     box-shadow: 0 0 15px $mainLighter;
+    a{
+        text-decoration: none;
+    }
     ul {
         display: table;
         li {
@@ -107,7 +127,6 @@ nav {
         }
     }
 }
-
 // CARROSSEL
 #carousel {
     width: 100%;
@@ -318,7 +337,6 @@ nav {
         }
     }
 }
-
 section {
     width: 100%;
     padding: 1% 0;
@@ -326,7 +344,6 @@ section {
         margin: 0 auto;
     }
 }
-
 #indexProjects {
     ul:first-child {
         display: flex;
@@ -474,7 +491,6 @@ section {
         }
     }
 }
-
 #howItWorks {
     border-top: 3px solid $purpleDark;
     position: relative;
@@ -520,7 +536,6 @@ section {
         }
     }
 }
-
 #categories {
     border-top: 3px solid $blueDark;
     padding: 50px 0;
@@ -610,7 +625,6 @@ section {
         font-size: 2.6em;
     }
 }
-
 footer {
     width: 100%;
     display: flex;
@@ -649,5 +663,87 @@ footer {
             font-size: 1.4em;
             padding: 5px 0;
         }
+    }
+}
+#loginInitial {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    background-image: url(../resources/img/memphis-colorful.png);
+    a,input[type="submit"] {
+        display: inline-block;
+        padding: 5px 15px;
+        margin: 15px 20px 0 0;
+        font-size: 1.2em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #fff;
+        border: 2px solid $mainDark;
+    }
+    h1 {
+        font-size: 3.5em;
+        font-weight: 500;
+        color: $mainRosa
+    }
+    h2 {
+        font-size: 2.4em;
+        margin: 5px 0 10px 0;
+        font-weight: 400;
+        color: $mainDark
+    }
+    p {
+        font-size: 1.4em
+    }
+    > div {
+        padding: 0 5%;
+        margin: auto;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    #register {
+        width: 65%;
+        .wrapper {
+            background-color: rgba(255, 255, 255, .6);
+        }
+    }
+    #register > div > a:nth-child(4) {
+        background-color: $mainDark;
+    }
+    #register > div > a:nth-child(5) {
+        color: $mainDark;
+    }
+    #login {
+        width: 35%;
+        background-color: $mainDark;
+        input:not([type="submit"]) {
+            width: 92%;
+            padding: 4%;
+            margin: 3% 0;
+            font-size: 1.4em;
+            border:0;
+            border-bottom: 2px solid rgba(255,255,255,.3);
+            background-color:transparent;
+            color:#fff;
+            @include placeholder{
+                color: #fff;
+            }
+        }
+        h1{
+            color:#fff;
+        }
+    }
+    #login > div > form > input[type="submit"]{
+        background-color: #fff;
+        color:$mainDark;
+    }
+    #login > div > form > a:nth-child(4){
+        color: #fff;
+    }
+    .wrapper {
+        vertical-align: middle;
+        padding: 5%;
     }
 }
