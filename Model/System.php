@@ -141,19 +141,20 @@
                     $order = "u.cd_user";
                 break;
             }
-            $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.ds_path_img, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img, p.cd_category, ((p.vl_collected*100) / p.vl_meta) dif, u.cd_user
-            FROM Project AS p, User AS u
+            $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.ds_path_img, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img, p.cd_category, ((p.vl_collected*100) / p.vl_meta) dif, u.cd_user, c.nm_category
+            FROM Project AS p, User AS u, Category AS c
             WHERE p.cd_user = u.cd_user
+			AND p.cd_category = c.cd_category
             AND p.ic_close IS NULL
             ORDER BY ".$order." DESC 
             LIMIT ?") or die("Erro 1".$this->con->error.http_response_code(405));
             $stm->bind_param("i",intval($num));
             $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
-            $stm->bind_result($id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$idC,$percent,$user);
+            $stm->bind_result($id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$idC,$percent,$user,$cat);
             $r = array();
             $i = 1;
             while($stm->fetch()){
-                $r["d".$i] = array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"creator"=>$creator,"imgB"=>$imgB,"imgU"=>$imgU,"idC"=>$idC,"percent"=>$percent,"user"=>$user) or die("Erro no json");
+                $r["d".$i] = array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"creator"=>$creator,"imgB"=>$imgB,"imgU"=>$imgU,"idC"=>$idC,"percent"=>$percent,"user"=>$user,"category"=>$cat) or die("Erro no json");
                 $i++;
             }
             $stm->close();

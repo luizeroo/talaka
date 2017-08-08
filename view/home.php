@@ -64,15 +64,15 @@
         <section id="indexProjects">
             <div class="wrapper">
                 <ul>
-                    <li>
+                    <li id="pop">
                         <i class="fa fa-star-o" aria-hidden="true"></i> Projetos populares</li>
                     <li>
                         <i class="fa fa-commenting-o" aria-hidden="true"></i> Projetos mais comentados
                     </li>
-                    <li>
+                    <li id="new">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i> Novos projetos
                     </li>
-                    <li>
+                    <li id="aut">
                         <i class="fa fa-user-o" aria-hidden="true"></i> Novos autores
                     </li>
                     <li>
@@ -97,21 +97,21 @@
                             <div class="eachProjectInfo">
                                 <div class="eachProjectTag">
                                     <a href="#">
-                                        <i class="fa fa-tag" aria-hidden="true"></i> <?= System::getCategory($proj->idC);?>
+                                        <i class="fa fa-tag" aria-hidden="true"></i><span> <?= $proj->category ;?> </span>
                                     </a>
                                     <h2><?= $proj->title ;?></h2>
                                     <p>
-                                        <?= (strlen($proj->ds) > 300)? substr($proj->ds,0,300)." (...)" : $proj->ds;?>
+                                        <?= (strlen($proj->ds) > 300)? substr($proj->ds,0,300)." (...)" : $proj->ds ;?>
                                     </p>
 
                                     <div class="goal">
-                                        <p><span>R$ <?= $proj->collected ;?></span> acumulados</p>
+                                        <p><span>R$ <?= $proj->collected ;?>,00</span> acumulados</p>
                                         <div class="progressbar">
                                             <div class="value" style="width: <?= $percent; ?>%" ></div>
                                         </div>
                                         <ul>
                                             <li><?= round($aux); ?>%</li>
-                                            <li>Aberto até <?= implode("/", array_reverse(explode("-",$proj->dtF)) ); ?></li>
+                                            <li>Aberto até <span><?= implode("/", array_reverse(explode("-",$proj->dtF)) ); ?></span></li>
                                         </ul>
                                     </div>
                                 </div>
