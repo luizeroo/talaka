@@ -165,12 +165,8 @@ function front() {
     
     //-------------------HOME-----------------------------------//
     // Area de Exploracao
-    //Novos Projetos
-    $("#new").click(function(){exploreArea("pesqNew")});
-    //Novos Autores
-    $("#aut").click(function(){exploreArea("pesqAut")});
-    //Populare
-    $("#pop").click(function(){exploreArea("pesqOld")});
+    //Selecao do tipo de projeto a ser mostrado
+    $("#pTypes li").click(function(){exploreArea( $(this).data("type") )});
     //FUNCAO PRINCIPAL
     function exploreArea(method){
         $(".explore").html("<div class='cssload-container'>"
@@ -178,14 +174,14 @@ function front() {
                                     +"</div>");
         var server = document.URL;
         $.ajax({
-                url: "https://"+server.split("/")[2]+"/exec/visitor/"+method+"/6",
+                url: "https://"+server.split("/")[2]+"/exec/visitor/pesq/"+method+"/6",
                 method: "GET",
                 async: true,
                 headers:{"content-type":"application/json"},
                 contentType: "application/json",
                 processData: false,
             }).done(function(response){
-                var r = JSON.parse(response);
+                let r = JSON.parse(response);
                 //Caso de sucesso
                 if(r.stats === "success"){
                     //Passa resultado para objeto
@@ -205,7 +201,7 @@ function front() {
                         //Criador
                         $(proj).find(".eachProjectOwner").attr("title",project[index].creator).attr("style","background-image:url(/user-img/"+project[index].imgU+")");
                         //Categoria
-                        $(proj).find(".eachProjectTag a span").html(project[index].category);
+                        $(proj).find(".eachProjectTag a span").html(" "+project[index].category);
                         //Titulo
                         $(proj).find(".eachProjectInfo .eachProjectTag h2").html(project[index].title);
                         //Descricao

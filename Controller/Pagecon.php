@@ -15,8 +15,8 @@ class Pagecon{
     }
     
     public function index(){
-        $carousel = $this->page->curl("visitor","pesqOld","4");
-        $project = $this->page->curl("visitor","pesqOld","6");
+        $carousel = $this->page->curl("visitor","pesq","pop","4");
+        $project = $this->page->curl("visitor","pesq","pop","6");
         //print_r($carousel);
         //print_r($project);
         $this->page->load("../view/parts/header.php",array("pag_title" =>"Home"));

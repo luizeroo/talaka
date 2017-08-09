@@ -33,18 +33,8 @@ abstract class User{
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     //-------------PROJETOS DA PAG INICIAL-------------------//
-    public function pesqOldGET($num){
-        $resp = ($data = $this->db->listProject($num,"old") )? "success" : "fail_select";
-        return json_encode(array("stats" => $resp, "data" => $data));
-    }
-    
-    public function pesqNewGET($num){
-        $resp = ($data = $this->db->listProject($num,"new") )? "success" : "fail_select";
-        return json_encode(array("stats" => $resp, "data" => $data));
-    }
-    
-    public function pesqAutGET($num){
-        $resp = ($data = $this->db->listProject($num,"aut") )? "success" : "fail_select";
+    public function pesqGET($type,$num){
+        $resp = ($data = $this->db->listProject($num,$type) )? "success" : "fail_select";
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     

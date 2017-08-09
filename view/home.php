@@ -63,16 +63,17 @@
 
         <section id="indexProjects">
             <div class="wrapper">
-                <ul>
-                    <li id="pop">
-                        <i class="fa fa-star-o" aria-hidden="true"></i> Projetos populares</li>
-                    <li>
+                <ul id="pTypes">
+                    <li data-type="pop">
+                        <i class="fa fa-star-o" aria-hidden="true"></i> Projetos populares
+                    </li>
+                    <li data-type="cmt">
                         <i class="fa fa-commenting-o" aria-hidden="true"></i> Projetos mais comentados
                     </li>
-                    <li id="new">
+                    <li data-type="new">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i> Novos projetos
                     </li>
-                    <li id="aut">
+                    <li data-type="aut">
                         <i class="fa fa-user-o" aria-hidden="true"></i> Novos autores
                     </li>
                     <li>
