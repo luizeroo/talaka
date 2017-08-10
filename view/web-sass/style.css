@@ -240,6 +240,11 @@ nav {
     nav .wrapper .siteNav-right {
       display: flex;
       justify-content: flex-end; }
+  nav #userloginPhoto {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    background-size: cover; }
 
 #carousel {
   width: 100%;

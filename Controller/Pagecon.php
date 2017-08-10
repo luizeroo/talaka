@@ -19,8 +19,9 @@ class Pagecon{
         $project = $this->page->curl("visitor","pesq","pop","6");
         //print_r($carousel);
         //print_r($project);
-        $this->page->load("../view/parts/header.php",array("pag_title" =>"Home"));
-        $this->page->load("../view/home.php",array("carousel" => $carousel,"project" => $project));
+        $this->page->load("../view/parts/header.php",array("pag_title" =>"Plataforma de Financiamento Coletivo"));
+        $this->page->load("../view/parts/nav.php");
+        $this->page->load("../view/home.php",array("carousel" => $carousel,"project" => $project) );
         $this->page->load("../view/parts/footer.php");
     }
     
@@ -60,6 +61,7 @@ class Pagecon{
     
     public function signin(){
         if(!isset($_SESSION['cdUser'])){
+            $this->page->load("../view/parts/header.php",array("pag_title" =>"Fazer login"));
             $this->page->load("../view/signin.php");
         }else{
             header("location:/");
@@ -133,6 +135,9 @@ class Pagecon{
         return json_encode(array("stats"=>"success","data"=>null));
     }
     
+    public static function is_logged(){
+        return isset($_SESSION['cdUser']);
+    }
     
 }
 

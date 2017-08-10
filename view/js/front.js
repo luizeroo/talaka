@@ -96,16 +96,17 @@ function front() {
        }
     });
     
-    //Login
+    //--------------------- LOGIN ------------------------------------------ //
     $("#login-button").click(function(){
-                var login = $("input[name='email']").val();
-                var senha = $("input[name='password']").val();
+                var login = $("input[name='login']").val();
+                var senha = $("input[name='pwd']").val();
                 var values = { "login": login, "pwd": senha };
                 var json = JSON.stringify(values);
                 var server = document.URL;
                 $.ajax({
                     url: "https://"+server.split("/")[2]+"/exec/client/auth",
                     method: "POST",
+                    type: "POST",
                     async: true,
                     headers:{"content-type":"application/json"},
                     data: json,
@@ -114,10 +115,12 @@ function front() {
                 }).done(function(response){
                     var r = JSON.parse(response);
                     if(r.stats == "success"){
-                        window.self.location = "/";
+                        alert("LOGOOOU");
+                        //window.self.location = "/";
                     }else{
                         alert(r.data);
                     }
+                    console.log(r);
                 }).fail(function(response){
                     alert("Erro ao efetuar login");
                 });
@@ -169,10 +172,9 @@ function front() {
     $("#pTypes li").click(function(){exploreArea( $(this).data("type") )});
     //FUNCAO PRINCIPAL
     function exploreArea(method){
-        $(".explore").html("<div class='cssload-container'>"
-                                    	+"<div class='cssload-whirlpool'></div>"
-                                    +"</div>");
-        var server = document.URL;
+        let projectsArea = [].slice.call(document.querySelectorAll("#listProjects .eachProject"));
+        $("#listProjects").html('<section class="loader"><div class="book"><figure class="page"></figure><figure class="page"></figure><figure class="page"></figure></div></section>');
+        let server = document.URL;
         $.ajax({
                 url: "https://"+server.split("/")[2]+"/exec/visitor/pesq/"+method+"/6",
                 method: "GET",
@@ -185,10 +187,8 @@ function front() {
                 //Caso de sucesso
                 if(r.stats === "success"){
                     //Passa resultado para objeto
-                    var project = $.map(JSON.parse(r.data), function(el) { return el });
-                    $("#listProjects").fadeIn();
+                    let project = $.map(JSON.parse(r.data), function(el) { return el });
                     //Pega lista atual de projetos pra ser alterada
-                    let projectsArea = [].slice.call(document.querySelectorAll("#listProjects .eachProject"));
                     
                     //--------------------------REMONTA PROJETOS ----------------------------------------//
                     projectsArea.forEach(function(proj, index){
@@ -216,7 +216,8 @@ function front() {
                         $(proj).find(".eachProjectTag .goal ul li span").html(implode("/", ( project[index].dtF.split("-") ).reverse() ));
                         
                     });
-                        //$(".cssload-container").remove();
+                    sleep(200);
+                    $("#listProjects").html(projectsArea).fadeIn();
                         
                 }else{
                     alert('Problema');
@@ -298,6 +299,15 @@ function front() {
             });
             */
     });
+    
+    //---------------JQUERY DE TERCEIROS
+    $('.keyboard').keyboard({ layout: 'qwerty' }).addTyping();
+    
+    $('#acessibility ul li').eq(0).click(function () {
+        var kb = $(this).prev().getkeyboard();
+        // typeIn( text, delay, callback );
+        kb.reveal();
+    });
 }
 
 function comentar(proj){
@@ -363,3 +373,14 @@ function previewIMG(img,event){
     });
     reader.readAsDataURL(event.target.files[0]);
 }
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+

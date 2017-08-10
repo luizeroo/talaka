@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
-    <link href="web-sass/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/script.js" type="text/javascript"></script>
-    <title>Fazer login</title>
-</head>
-
 <body>
 
     <div id="bgtypeRegister">
@@ -38,10 +24,10 @@
         <div id="login">
             <div class="wrapper">
                 <h1>Fazer login</h1>
-                <form action="login" method="post">
-                    <input type="email" placeholder="Seu email ou login" required>
-                    <input type="password" placeholder="Sua senha" required>
-                    <input type="submit" value="Login">
+                <form onsubmit="return false">
+                    <input type="text" name="login" placeholder="Seu email ou login" required>
+                    <input type="password" name="pwd" placeholder="Sua senha" required>
+                    <input id="login-button" type="submit" value="Login">
                     <a href="#">Esqueceu a senha?</a>
                 </form>
             </div>

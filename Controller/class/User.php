@@ -101,6 +101,7 @@ abstract class User{
         $nm = ($status == "OK")? $name : null;
         return array("status"=> $status, "name" => $nm);
     }
+    
 }
 
 

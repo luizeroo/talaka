@@ -126,6 +126,13 @@ nav {
             justify-content: flex-end;
         }
     }
+    #userloginPhoto{
+        width: 5vh;
+        height: 5vh;
+        border-radius: 50%;
+        background-size: cover;
+    }
+    
 }
 // CARROSSEL
 #carousel {

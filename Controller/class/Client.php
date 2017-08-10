@@ -13,7 +13,7 @@ class Client extends User{
     }
     
     public function __call($met,$arg){
-        return json_encode(array('stats' => 'fail', 'data' => 'metodo "'.$met .'" nao encontrado na classe Client'));
+        return json_encode(array('stats' => 'fail', 'data' => 'Metodo "'.$met .'" nao encontrado na classe Client'));
         http_response_code(404);
     }
     

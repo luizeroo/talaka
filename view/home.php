@@ -37,8 +37,8 @@
                                     <li title="nome">
                                         <i class="fa fa-star" aria-hidden="true"><?= $crsl->creator; ?></i>
                                     </li>
-                                    <li title="nome"></li></li>
-                                        <li title="nome"></li>
+                                    <li title="nome"></li>
+                                    <li title="nome"></li>
                                 </ul>
                             </div>
                         </div>
@@ -84,8 +84,7 @@
 
                 <div id="listProjects">
                     
-                    <?php
-                        foreach($project as $proj){ 
+                    <?php foreach($project as $proj){ 
                             $aux = (($proj->collected) * 100) / $proj->meta;
                             $percent = ( $aux > 100 )? 100 : $aux ;
                     ?>
@@ -120,6 +119,7 @@
                         </div>
                     </a>
                     <?php } ?>
+                    
                 </div>
             </div>
         </section>
