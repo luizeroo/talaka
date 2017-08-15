@@ -74,15 +74,19 @@
         
         @keyframes flip {
             0% {
+              -moz-transform: perspective(800px) rotateX(5deg) rotateY(0deg);
               transform: perspective(800px) rotateX(5deg) rotateY(0deg);
             }
             50% {
+              -moz-transform: perspective(90px) rotateY(180deg);
               transform: perspective(90px) rotateY(180deg);
             }
             100% {
+              -moz-transform: perspective(90px) rotateY(180deg);
               transform: perspective(90px) rotateY(180deg);
             }
         }
     </style>
     <title>TALAKA - <?= $pag_title; ?></title>
 </head>
+<body>

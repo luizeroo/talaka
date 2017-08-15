@@ -17,10 +17,10 @@
                 <?php foreach($carousel as $crsl){   ?>
 
                 <div class="eachCarousel">
-                    <div class="eachCarouselCover"></div>
+                    <div class="eachCarouselCover" style="background-image:url(proj-img/<?= $crsl->imgB ; ?>)"></div>
                     <div class="wrapper">
                         <div class="carouselLeft">
-                            <div class="headerProjectCover"></div>
+                            <div class="headerProjectCover" style="background-image:url(proj-img/<?= $crsl->img ; ?>)"></div>
                             <a href="#"> <i class="fa fa-heart-o" aria-hidden="true"></i> Conheça o projeto </a>
                         </div>
                         <div class="carouselRight">
@@ -28,17 +28,21 @@
 
                             <div class="projectInfos">
                                 <div class="projectGoal"></div>
-                                <div class="projectDescription"></div>
+                                <div class="projectDescription"><?= $crsl->ds ;  ?></div>
                             </div>
 
                             <div class="authors">
                                 <h2> Autores</h2>
                                 <ul>
-                                    <li title="nome">
-                                        <i class="fa fa-star" aria-hidden="true"><?= $crsl->creator; ?></i>
+                                    <li title="<?= $crsl->creator; ?>" style="background-image:url(user-img/<?= $crsl->imgU ; ?>)">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
                                     </li>
-                                    <li title="nome"></li>
-                                    <li title="nome"></li>
+                                    <?php array_map(function($coauthor){
+                                        $co = explode(":",$coauthor);
+                                    ?>
+                                    <li title="<?= $co[0]; ?>" style="background-image:url(user-img/<?= $co[1] ; ?>)" ></li>
+                                    <?php
+                                    },explode(",",$crsl->coauthor)) ;?>
                                 </ul>
                             </div>
                         </div>

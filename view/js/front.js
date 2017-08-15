@@ -51,6 +51,8 @@ function fin(project){
 
 function front() {
     
+    $("#helloWrapper").css("display", "none");
+    
     $('#sectProjects li').click(function(){
        $('#sectProjects li').css({'border-bottom':'3px solid #fff','color':'#327DAD'});
        $(this).css({'border-bottom':'3px solid #094F7D','color':'#094F7D'});
@@ -115,8 +117,7 @@ function front() {
                 }).done(function(response){
                     var r = JSON.parse(response);
                     if(r.stats == "success"){
-                        alert("LOGOOOU");
-                        //window.self.location = "/";
+                        window.self.location = "/";
                     }else{
                         alert(r.data);
                     }

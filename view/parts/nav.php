@@ -1,5 +1,4 @@
 
-<body>
     <a href="main">
         <div id="toTop"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
     </a>

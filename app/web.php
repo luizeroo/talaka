@@ -28,7 +28,7 @@ $method = ($class === "Pagecon" )? $met : $met.$httpM;
 //curl -v -X GET "http://talaka-beta-gmastersupreme.c9users.io/exec/client/pesqName/o/1"
 
 //Insere Project
-//curl -v -X POST "http://talaka-beta-gmastersupreme.c9users.io/exec/client/project/1" -H "Content-Type: application/json"  -d '{"nm_title":"Akira","cd_category":"6","ds_project":"Uma grande explos&aatilde;o fez com que T&oacute;quio fosse destru&iacute;da em 1988. Em seu lugar foi constru&iacute;da Neo T&oacute;quio, que, em 2019, sofre com atentados terroristas por toda a cidade. Kaneda (Mitsuo Iwata) e Tetsuo (Nozomu Sasaki) s&atilde;o amigos que integram uma gangue de motoqueiros. Eles disputam rachas violentos com uma gangue rival, os Palha&ccedil;os, at&eacute; que um dia Tetsuo encontra Takashi (Tatsuhiko Nakamura), uma estranha crian&ccedil;a com poderes que fugiu do hospital onde era mantido como cobaia.","vl_meta":3780.00,"dt_final":"2017-06-28","ds_path_img":"akira.jpg","ds_img_back":"spiCapa.jpg"}'
+//curl -v -X POST "http://talaka-beta-gmastersupreme.c9users.io/exec/client/project/1" -H "Content-Type: application/json"  -d '{"nm_title":"Bundinha","Eu sou o destruidor de bucetas hahaahah","vl_meta":1000.00,"dt_final":"2017-10-12","ds_path_img":"akira.jpg","ds_img_back":"spiCapa.jpg"}'
 
 //Ver Projeto
 //curl -v -X GET "http://talaka-beta-gmastersupreme.c9users.io/exec/visitor/project/4"
