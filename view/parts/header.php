@@ -34,7 +34,7 @@
           font-family: sans-serif;
           font-weight: bold;
           text-align: center;
-          margin: 15% 45%;
+          margin: 25% 45%;
         }
         .loader *{
           margin: 0px;

@@ -14,7 +14,10 @@
                         </ul>
                     </div>
                 </div>
-                <?php foreach($carousel as $crsl){   ?>
+                <?php foreach($carousel as $crsl){  
+                    $aux = (($crsl->collected) * 100) / $crsl->meta;
+                    $percent = ( $aux > 100 )? 100 : $aux ;
+                ?>
 
                 <div class="eachCarousel">
                     <div class="eachCarouselCover" style="background-image:url(proj-img/<?= $crsl->imgB ; ?>)"></div>
@@ -27,8 +30,12 @@
                             <h1><?= $crsl->title; ?></h1>
 
                             <div class="projectInfos">
-                                <div class="projectGoal"></div>
-                                <div class="projectDescription"><?= $crsl->ds ;  ?></div>
+                                <div class="projectGoal"><?= round($percent); ?>%</div>
+                                <div class="projectDescription">
+                                    <p>
+                                        <?= $crsl->ds ;  ?>
+                                    </p>
+                                </div>
                             </div>
 
                             <div class="authors">
@@ -37,12 +44,14 @@
                                     <li title="<?= $crsl->creator; ?>" style="background-image:url(user-img/<?= $crsl->imgU ; ?>)">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </li>
-                                    <?php array_map(function($coauthor){
+                                    <?php if($crsl->coauthor !== "no"){ 
+                                    array_map(function($coauthor){
                                         $co = explode(":",$coauthor);
                                     ?>
                                     <li title="<?= $co[0]; ?>" style="background-image:url(user-img/<?= $co[1] ; ?>)" ></li>
                                     <?php
-                                    },explode(",",$crsl->coauthor)) ;?>
+                                    },explode(",",$crsl->coauthor)) ;
+                                    }?>
                                 </ul>
                             </div>
                         </div>

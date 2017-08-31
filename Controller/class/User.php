@@ -68,6 +68,7 @@ abstract class User{
     }
     
     protected function upload($file, $target_dir){
+        //COLOCAR NOME DO USUARIO NA FOTO DE PERFIL
         $name = date("Y-m-d").basename($file["name"]);
         $target_file = $target_dir . $name;
         $uploadOk = 1;

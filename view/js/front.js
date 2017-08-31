@@ -48,10 +48,40 @@ function fin(project){
     }
 }
 
+function changeSlide(actual,position){
+    let slide = $(".eachCarousel").eq(position);
+
+    $(".atual").removeClass("atual");
+    if( position ==  0 ){
+        $("#carouselPosition ul li.selected").removeClass("selected");
+        $("#carouselPosition ul li").first().addClass("selected");
+        $(".eachCarousel").first().addClass("atual").show("slide", { direction: "right" }, 1000); 
+    }else{
+        $("#carouselPosition ul li.selected").removeClass("selected").next().addClass("selected");
+        $(slide).next().addClass("atual").show("slide", { direction: "right" }, 1000); 
+    }
+    $(slide).hide("slide", { direction: "left" }, 1000); 
+}
+
+setInterval(function(){
+    let next = ( $(".atual").hasClass("last") )? 0 : $(".atual").next().index() ;
+    changeSlide($(".atual"), next);
+    
+}, 5000);
 
 function front() {
+   
+    //Carousel
+    $(".eachCarousel").first().addClass("atual");
+    $("#carouselPosition ul li").first().addClass("selected");
+    $(".eachCarousel").last().addClass("last");
     
-    $("#helloWrapper").css("display", "none");
+    //Click li
+    $("#carouselPosition ul li").click(function(){
+        let position = $(this).index();
+        console.log(position);
+        changeSlide(position);
+    });
     
     $('#sectProjects li').click(function(){
        $('#sectProjects li').css({'border-bottom':'3px solid #fff','color':'#327DAD'});
@@ -206,7 +236,7 @@ function front() {
                         //Titulo
                         $(proj).find(".eachProjectInfo .eachProjectTag h2").html(project[index].title);
                         //Descricao
-                        $(proj).find("div.goal + .eachProjectTag p ").html(( ((project[index].ds).length > 300)? project[index].ds.substr(0,300) + " (...)" : project[index].ds));
+                        $(proj).find(".eachProjectTag p ").eq(0).html(( ((project[index].ds).length > 300)? project[index].ds.substr(0,300) + " (...)" : project[index].ds));
                         //Valor
                         $(proj).find(".eachProjectTag .goal p span").html("R$ "+project[index].collected+",00");
                         //Porcentagem

@@ -188,7 +188,7 @@ body {
 main {
   width: 100%;
   display: table;
-  margin-top: 85px; }
+  margin-top: 70px; }
 
 #menuFix {
   position: fixed;
@@ -303,7 +303,8 @@ nav {
         height: 88%;
         padding: 1%;
         color: #fff;
-        position: relative; }
+        position: relative;
+        text-shadow: 0 0 3px #000; }
         #carousel .eachCarousel .wrapper .carouselRight h1 {
           font-size: 4rem;
           font-weight: 600; }
@@ -341,17 +342,13 @@ nav {
             position: absolute;
             right: -2px;
             bottom: -2px;
-            font-size: 1.4rem;
+            font-size: 1.4em;
             color: yellow; }
         #carousel .eachCarousel .wrapper .carouselRight .projectInfos {
           width: 100%;
-          height: 50%;
-          background-color: rgba(255, 255, 255, 0.3);
-          -webkit-filter: blur(5px);
-          -moz-filter: blur(5px);
-          -ms-filter: blur(5px);
-          -o-filter: blur(5px);
-          filter: blur(5px); }
+          height: 50%; }
+          #carousel .eachCarousel .wrapper .carouselRight .projectInfos p {
+            font-size: 1.8em; }
   #carousel .eachCarouselCover {
     background-color: rgba(104, 58, 183, 0.8);
     filter: blur(3px) brightness(40%);
@@ -379,8 +376,8 @@ nav {
       position: relative;
       cursor: pointer;
       border: 1px solid #fff; }
-      #carousel #carouselPosition li:nth-child(3) {
-        background-color: #683AB7; }
+    #carousel #carouselPosition .selected {
+      background-color: #683AB7; }
   #carousel #carouselTimer {
     width: 100%;
     height: 1%;

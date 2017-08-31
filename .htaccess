@@ -7,7 +7,7 @@ RewriteRule ^error? /view/error.php
 RewriteRule ^view/?$ /view/error.php
 RewriteRule ^profile/?$ /view/error.php
 RewriteRule ^statistic/?$ /view/error.php
-RewriteRule ^teste/?$ /view/teste.php
+RewriteRule ^teste/?$ /view/talaka.php
 RewriteRule ^teste2/?$ /teste2.php
 RewriteRule ^webserv/?$ /view/webserv.html
 RewriteRule ^explore/name/([A-Za-z0-9\s]+)/?$ /view/error.php

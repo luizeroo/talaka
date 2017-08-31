@@ -136,36 +136,40 @@
                 break;
                 case "new":
                     $order = "dt_begin";
+                    $condition = "ORDER BY p.cd_project DESC";
+                    $group = "GROUP BY sub.cd_user";
                 break;
                 case "aut":
                     $order = "cd_user";
+                    $condition = "GROUP BY p.cd_user";
+                    $group = "GROUP BY sub.cd_user";
                 break;
                 case "cmt":
                     $order = "qt_comments";
             }
             $stm = $this->con->prepare("
-            SELECT * 
-        	FROM (
-        		SELECT *
-        			FROM(
-        				SELECT p.cd_project, p.nm_title, p.ds_project, p.ds_path_img as proImg, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img as userImg, p.cd_category, ((p.vl_collected *100) / p.vl_meta)dif,u.cd_user, c.nm_category, (SELECT COUNT(cmt.cd_comment) FROM Comment as cmt WHERE p.cd_project = cmt.cd_project  ) as qt_comments, IFNULL((
-        					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':' ,user.ds_path_img)) 
-        						FROM User as user 
-        						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
-        					), 'no') as coauthor
-        				FROM (Project AS p LEFT JOIN Coauthor AS co ON co.cd_project = p.cd_project ), User AS u, Category AS c, Comment AS cm
-        				WHERE p.cd_user = u.cd_user
-        				AND p.cd_category = c.cd_category
-        				AND p.ic_close IS NULL 
-        				ORDER BY p.cd_project DESC
-        				) AS sub
-        				GROUP BY sub.cd_user
+            SELECT *
+            FROM (
+                SELECT * 
+            	FROM (
+    				SELECT DISTINCT p.cd_user,p.cd_project, p.nm_title, p.ds_project, p.ds_path_img as proImg, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img as userImg, p.cd_category, ((p.vl_collected *100) / p.vl_meta)dif, c.nm_category, (SELECT COUNT(cmt.cd_comment) FROM Comment as cmt WHERE p.cd_project = cmt.cd_project  ) as qt_comments, IFNULL((
+    					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':' ,user.ds_path_img)) 
+    						FROM User as user 
+    						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
+    					), 'no') as coauthor
+    				FROM (Project AS p LEFT JOIN Coauthor AS co ON co.cd_project = p.cd_project ), User AS u, Category AS c, Comment AS cm
+    				WHERE p.cd_user = u.cd_user
+    				AND p.cd_category = c.cd_category
+    				AND p.ic_close IS NULL 
+    				". ( ($condition)? $condition : "" ) ."
+    			) AS sub
+    			". ( ($group)? $group : "" ) ."
         	) AS result
         	ORDER BY result.".$order."  DESC 
             LIMIT ?") or die("Erro 1".$this->con->error.http_response_code(405));
             $stm->bind_param("i",intval($num));
             $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
-            $stm->bind_result($id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$idC,$percent,$user,$cat,$comments,$coauthor);
+            $stm->bind_result($user,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$idC,$percent,$cat,$comments,$coauthor);
             $r = array();
             $i = 1;
             while($stm->fetch()){
