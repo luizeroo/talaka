@@ -1,3 +1,7 @@
+<?php
+defined("System-access") or header('location: /error');
+?>
+
 <body>
 
     <div id="bgtypeRegister">

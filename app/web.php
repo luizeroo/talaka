@@ -3,6 +3,7 @@ session_start();
 //Classes a serem implementadas
 include_once("../Model/Connection.php");
 include_once("../Model/System.php");
+include_once("../Model/Project.php");
 include_once("../Controller/class/User.php");
 include_once("../Controller/class/Client.php");
 include_once("../Controller/class/Visitor.php");

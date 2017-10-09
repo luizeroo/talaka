@@ -17,11 +17,12 @@ class Pagecon{
     public function index(){
         $carousel = $this->page->curl("visitor","pesq","pop","4");
         $project = $this->page->curl("visitor","pesq","pop","6");
+        $cats = $this->page->curl("visitor","allcats");
         //print_r($carousel);
         //print_r($project);
         $this->page->load("../view/parts/header.php",array("pag_title" =>"Plataforma de Financiamento Coletivo"));
         $this->page->load("../view/parts/nav.php");
-        $this->page->load("../view/home.php",array("carousel" => $carousel,"project" => $project) );
+        $this->page->load("../view/home.php",array("carousel" => $carousel,"project" => $project, "cats" => $cats) );
         $this->page->load("../view/parts/footer.php");
     }
     
@@ -29,17 +30,27 @@ class Pagecon{
         $data = $this->page->curl("visitor","project",$id);
         $comments = $this->page->curl("visitor","comments",$id);
         //print_r($comments);
-        $this->page->load("../view/nav.php",array("pag_title" =>"Projeto"));
-        $this->page->load("../view/hqproject.php",$data);
-        $this->page->load("../view/footer.php");
+        $this->page->load("../view/parts/header.php",array("pag_title" =>$data["title"]));
+        $this->page->load("../view/parts/nav.php");
+        $this->page->load("../view/project.php",array("project"=>$data));
+        $this->page->load("../view/parts/footer.php");
+    }
+    
+    public function explorar(){
+        $project = $this->page->curl("visitor","pesq","pop","12");
+        $this->page->load("../view/parts/header.php",array("pag_title" =>"Pesquisa"));
+        $this->page->load("../view/parts/nav.php");
+        $this->page->load("../view/explore.php", array("project" => $project));
+        $this->page->load("../view/parts/footer.php");
     }
     
     public function explore($termo,$pag){
         $t= str_replace(" ","%2520",$termo);
         $data = $this->page->curl("visitor","pesqName",$t,$pag);
-        $this->page->load("../view/nav.php",array("pag_title" =>"Pesquisa"));
+        $this->page->load("../view/parts/header.php",array("pag_title" =>"Pesquisa"));
+        $this->page->load("../view/parts/nav.php");
         $this->page->load("../view/explore.php",array("data" =>$data));
-        $this->page->load("../view/footer.php");
+        $this->page->load("../view/parts/footer.php");
     }
     
     public function explorecat($id,$pag){

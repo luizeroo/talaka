@@ -62,21 +62,54 @@ function changeSlide(actual,position){
     }
     $(slide).hide("slide", { direction: "left" }, 1000); 
 }
-
+/*
 setInterval(function(){
     let next = ( $(".atual").hasClass("last") )? 0 : $(".atual").next().index() ;
     changeSlide($(".atual"), next);
     
 }, 5000);
-
+*/
 function front() {
+    // Pesquisa
+    $("#searchButton:not(#searchArea)").click(function(){
+        $("#searchArea").slideDown();
+        $("#searchArea input").focus();
+        $('#searchArea input').bind('blur', function () {
+            $("#searchArea").slideUp();
+        });
+    });
+    
+    // Exploração - lista ou grelha
+    $("#list").click(function(){
+      $(".projectsList").toggleClass("projectsGrill");
+      $(this).toggleClass(".fa fa-th");
+    });
+    //-----------------------FONT---------------------------
+    $("#plus").click(function(){
+        console.log($("body").css("font-size"));
+        let size = parseInt($("body").css("font-size"));
+        $("body").css("font-size", (size + 1) + "px");
+    });
+    //To Top
+    $(window).scroll(function(){
+		if ($(this).scrollTop() > 100) {
+			$('#toTop').fadeIn();
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+	
+    $("#toTop").click(function(){
+       $('html, body').animate({scrollTop : 0},800);
+    });
+   
    
     //Carousel
     $(".eachCarousel").first().addClass("atual");
     $("#carouselPosition ul li").first().addClass("selected");
     $(".eachCarousel").last().addClass("last");
     
-    //Click li
+    //Carousel Click li
     $("#carouselPosition ul li").click(function(){
         let position = $(this).index();
         console.log(position);
@@ -268,6 +301,7 @@ function front() {
             $(this).css("border","1px solid green");
         }
     });
+    
     
     //Mostra img
     $("#selectFile").change(function (event) {

@@ -1,4 +1,6 @@
 RewriteEngine On 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 #Header set Access-Control-Allow-Origin "*"
 #Header set Access-Control-Allow-Methods: "GET, POST, PUT"
 #Header set Access-Control-Allow-Headers: "origin,Content-Type"
@@ -9,7 +11,9 @@ RewriteRule ^profile/?$ /view/error.php
 RewriteRule ^statistic/?$ /view/error.php
 RewriteRule ^teste/?$ /view/talaka.php
 RewriteRule ^teste2/?$ /teste2.php
+RewriteRule ^Router-test/? /Router-test/index.php
 RewriteRule ^webserv/?$ /view/webserv.html
+RewriteRule ^explore/? app/web.php?class=Pagecon&met=explorar
 RewriteRule ^explore/name/([A-Za-z0-9\s]+)/?$ /view/error.php
 RewriteRule ^exec/([A-Za-z]+)/([A-Za-z]+)/?$ app/web.php?class=$1&met=$2
 RewriteRule ^project/([0-9]+)/?$ app/web.php?class=Pagecon&met=project&arg0=$1

@@ -1,3 +1,6 @@
+<?php
+defined("System-access") or header('location: /error');
+?>
     <main>
         <div id="carousel">
             <div id="carouselWrapper">
@@ -14,7 +17,8 @@
                         </ul>
                     </div>
                 </div>
-                <?php foreach($carousel as $crsl){  
+                <?php foreach($carousel as $crsl){
+                    $crsl = new Project((array) $crsl );
                     $aux = (($crsl->collected) * 100) / $crsl->meta;
                     $percent = ( $aux > 100 )? 100 : $aux ;
                 ?>
@@ -98,6 +102,7 @@
                 <div id="listProjects">
                     
                     <?php foreach($project as $proj){ 
+                            $proj = new Project($proj);
                             $aux = (($proj->collected) * 100) / $proj->meta;
                             $percent = ( $aux > 100 )? 100 : $aux ;
                     ?>
@@ -161,16 +166,17 @@
                     Saiba um pouco mais sobre as categorias disponíveis no Talaka.
                 </h2>
                 <ul id="catIcons">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <?php
+                    foreach ($cats as $cat) {
+                    ?>
+                        <li>
+                            
+                            <?= $cat->nm; ?>
+                            
+                        </li>
+                    <?php
+                    }
+                    ?>
                 </ul>
                 <div id="catInfo">
                     <div class="catCover"></div>

@@ -48,11 +48,16 @@ class Visitor extends User{
             $login= $_POST['login'];
             $pwd  = $_POST['password'];
             $bio  = $_POST['bio'];
-            $obj  = (object)array("nm_user" => $nome, "ds_pwd" => $pwd,"dt_birth" => $date,"ds_biography" => $bio,"ds_login" => $login,"ds_path_img" => $img["name"]);
+            $obj  = (object)array(  "nm_user" => $nome,
+                                    "ds_pwd" => $pwd,
+                                    "dt_birth" => $date,
+                                    "ds_biography" => $bio,
+                                    "ds_login" => $login,
+                                    "ds_path_img" => $img["name"]);
             $obj->ds_img_back = "grimgar.png";
             // $obj->ds_biography = htmlspecialchars_decode( htmlentities($obj->ds_resume) );
             $obj->ds_pwd = hash("ripemd160" , $obj->ds_pwd);
-            if($this->db->inserir('User',$obj)){
+            if($this->db->insert('User',$obj)){
                 $login = (object)array("login" => $obj->ds_login, "pwd" => $pwd);
                 $resp = "success";
                 $this->db->checkUser($login);

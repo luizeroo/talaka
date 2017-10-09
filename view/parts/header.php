@@ -1,3 +1,6 @@
+<?php
+defined("System-access") or header('location: /error');
+?>
 <!DOCTYPE html>
 <html>
 

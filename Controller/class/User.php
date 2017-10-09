@@ -19,8 +19,8 @@ abstract class User{
     }
     
     public function projectGET($id){
-        $resp = ( $data = $this->db->consultarProject($id) )?"success" : "fail_select";
-        return json_encode(array("stats" => $resp, "data" => $data));
+        $resp = ( $data = $this->db->consultProject(new Project(array("id" => $id))) )?"success" : "fail_select";
+        return json_encode(array("stats" => $resp, "data" => $data->toJSON()));
     }
     
     public function commentsGET($id){
@@ -44,7 +44,7 @@ abstract class User{
     }
     
     public function profileGET($id){
-        $resp = ($data = $this->db->consultarUser($id))? "success" : "fail_alter_project";
+        $resp = ($data = $this->db->consultUser($id))? "success" : "fail_alter_project";
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     
@@ -58,12 +58,17 @@ abstract class User{
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     
+    public function allcatsGET(){
+        $resp = ($data = $this->db->listCategories())? "success" : "fail_get_categories";
+        return json_encode(array("stats" => $resp, "data" => $data));
+    }
+    
     //Especiais
     public function visitationPUT($id){
-        $num = (int)json_decode($this->db->consultarProject($id))->visit;
+        $num = (int)json_decode($this->db->consultProject($id))->visit;
         $obj = (object)array("qt_visitation" => ($num + 1));
         $where = array("cd_project"=>$id);
-        $r = ($this->db->alterar("Project",$obj,$where))? "success" : "fail";
+        $r = ($this->db->alter("Project",$obj,$where))? "success" : "fail";
         return json_encode(array("stats"=>"success","data"=>$r));
     }
     

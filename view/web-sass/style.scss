@@ -32,6 +32,7 @@
     }
 }
 #toTop {
+    display: none;
     padding: auto;
     padding: 8px 10px;
     background-color: #fff;
@@ -124,6 +125,31 @@ nav {
         .siteNav-right {
             display: flex;
             justify-content: flex-end;
+        }
+        #searchButton {
+            position:relative;
+        }
+        #searchArea{
+            width: 700px;
+            height:40px;
+            display:none;
+            position:absolute;
+            right:0;
+            top:33px;
+            input {
+                width:96%;
+                padding:2%;
+                border:0;
+                box-shadow: 0 3px 1px $mainLighter;
+                border-top:0;
+                font-size:1.4em;
+                @include placeholder{
+                    font-size:1.2em;
+                }
+            }
+            #doSearch {
+                display:none;
+            }
         }
     }
     #userloginPhoto{
@@ -404,101 +430,6 @@ section {
         padding: 0px;
         flex-flow: row wrap;
         justify-content: space-between;
-        .eachProject {
-            height: 475px;
-            @include transition(.2s);
-            width: 31%;
-            margin: 0 2% 2% 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            &:hover {
-                border-color: $mainAzul;
-                box-shadow: 0 0 3px $mainAzul;
-            }
-        }
-    }
-    .eachProjectCover {
-        border-radius: 5px 5px 0 0;
-        border-bottom: 1px solid #eee;
-        width: 100%;
-        height: 50%;
-        @include background('/resources/img/deku.jpg');
-        position: relative;
-        display: flex;
-        margin-bottom: 25px;
-        .eachProjectOwner {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            width: 60px;
-            margin-left: -35px;
-            height: 60px;
-            border: 5px solid #fff;
-            border-radius: 50%;
-            @include background('/resources/img/deku.jpg');
-            @include transition(.3s);
-            cursor: pointer;
-            &:hover {
-                border-color: $blueLighter;
-            }
-        }
-    }
-    .eachProjectInfo {
-        height: calc(48% - 25px);
-        padding: 1% 3%;
-        position: relative;
-        a {
-            text-decoration: none;
-            color: $blueDark;
-            font-size: 1.2rem;
-            display: block;
-            i {
-                font-size: 1.1em;
-            }
-        }
-        h2 {
-            font-size: 1.6rem;
-            color: #333;
-            margin: 5px 0;
-        }
-        p {
-            font-size: 1.3rem;
-        }
-        .goal {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 96%;
-            padding: 2%;
-            color: $blueDark;
-            span {
-                font-weight: 600;
-                font-size: inherit;
-            }
-            p:first-child,
-            {
-                font-size: 1.4rem;
-            }
-            li {
-                float: left;
-                &:last-child {
-                    float: right;
-                }
-            }
-        }
-        .progressbar {
-            position: relative;
-            width: calc(100% - 2px);
-            height: 10px;
-            margin: 1.5% 0;
-            border: 1px solid $mainRosa;
-            .value {
-                @include value(40%);
-                position: absolute;
-                height: 10px;
-                background-color: $mainRosa;
-            }
-        }
     }
 }
 #howItWorks {
@@ -933,4 +864,228 @@ footer {
         width:45px;
     }
 }
+
+
+.eachProject {
+    height: 475px;
+    @include transition(.2s);
+    width: 31%;
+    margin: 0 2% 2% 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    &:hover {
+        border-color: $mainAzul;
+        box-shadow: 0 0 3px $mainAzul;
+    }
+}
+.eachProjectCover {
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    height: 50%;
+    @include background('/resources/img/deku.jpg');
+    position: relative;
+    display: flex;
+    margin-bottom: 25px;
+    .eachProjectOwner {
+        position: absolute;
+        background-color:#fff;
+        bottom: -25px;
+        left: 50%;
+        width: 60px;
+        margin-left: -35px;
+        height: 60px;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        @include background('/resources/img/deku.jpg');
+        @include transition(.3s);
+        cursor: pointer;
+        &:hover {
+            border-color: $blueLighter;
+        }
+    }
+}
+.eachProjectInfo {
+    height: calc(48% - 25px);
+    padding: 1% 3%;
+    position: relative;
+    a {
+        text-decoration: none;
+        color: $blueDark;
+        font-size: 1.2rem;
+        display: block;
+        i {
+            font-size: 1.1em;
+        }
+    }
+    h2 {
+        font-size: 1.6rem;
+        color: #333;
+        margin: 5px 0;
+    }
+    p {
+        font-size: 1.3rem;
+    }
+    .goal {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 96%;
+        padding: 2%;
+        color: $blueDark;
+        span {
+            font-weight: 600;
+            font-size: inherit;
+        }
+        p:first-child,
+        {
+            font-size: 1.4rem;
+        }
+        li {
+            float: left;
+            &:last-child {
+                float: right;
+            }
+        }
+    }
+    .progressbar {
+        position: relative;
+        width: calc(100% - 2px);
+        height: 10px;
+        margin: 1.5% 0;
+        border: 1px solid $mainRosa;
+        .value {
+            @include value(40%);
+            position: absolute;
+            height: 10px;
+            background-color: $mainRosa;
+        }
+    }
+}
+
+
+// Area de Exploração
+#exploreHeader{
+    width:100%;
+    background-image: url(/resources/img/memphis-colorful.png);
+    filter: brightness(105%);
+    padding:5% 0;
+    text-align:center;
+    h1{
+        font-size:4em;
+        color:$mainDark;
+        font-weight:600;
+    }
+    h2{
+        font-size:3em;
+        font-weight:lighter;
+    }
+}
+section#results{
+    width:96%;
+    padding:2%;
+    .wrapper{
+        display:flex;
+    }
+    h3 {
+        font-size:1.6em;
+        color:#666;
+        font-weight:400;
+        text-transform:uppercase;
+    }
+    aside{
+        width:15%;
+        .filterSection{
+            padding:1% 0;
+            margin:1% 0 30px 0;
+            li {
+                margin:1% 0;
+                padding:2% 0;
+                font-size:1.4em;
+                cursor:pointer;
+            }
+        }    
+    }
+    .resultsProject{
+        width:85%;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-between;
+    }
+    .sortBy{
+        flex-wrap:none;
+        width:96%;
+        display:block;
+        padding:0 2% 2% 2%;
+        text-align:right;
+        font-size:1.4em;
+        select{
+            font-size:1em;
+            padding:0 1%;
+            border:1px solid $mainLighter;
+            option{
+                font-size:1em;
+            }
+        }
+        i {
+            font-size:1.3em;
+            color:$mainDark;
+            padding:0 1%;
+            display:inline-block;
+            @include transition(.2s);
+            &:hover{
+                color:$mainLighter;
+            }
+        }
+    }
+    #moreProjects{
+        margin:.5% auto;
+        background-color:$blueDark;
+        padding:15px 20px;
+        font-size:1.6em;
+        color:#fff;
+        width:160px;
+        font-style:none;
+    }
+}
+
+.projectsList{
+     display:flex;
+     width:32%;
+     margin:1% 0.5% 2% 0.5%;
+     .eachProject{
+         width:100%;
+     }
+}
+
+.projectsGrill {
+    width:100%;
+    margin:1% 0;
+    .eachProject{
+        width:100%;
+        height:250px;
+        .eachProjectCover{
+            width:30%;
+            height:100%;
+            border:0;
+            float:left;
+            border-radius:5px 0px 0px 5px;
+        }
+        .eachProjectInfo{
+            float:left;
+            width:60%;
+            .eachProjectTag{
+                position:absolute;
+                height:250px;
+                font-size:1.6em;
+            }
+           .goal{
+               position:absolute;
+               bottom:0;
+           }
+        }
+    }
+}
+
+
 

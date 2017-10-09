@@ -1,7 +1,7 @@
-
-    <a href="main">
-        <div id="toTop"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
-    </a>
+<?php
+defined("System-access") or header('location: /error');
+?>
+    <div id="toTop"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
 
     <div id="menuFix">
         <div id="acessibility">
@@ -20,9 +20,11 @@
             <div class="wrapper">
                 <div class="siteNav-left">
                     <ul>
+                        <a href="/explore">
                         <li>
                             <i class="fa fa-book" aria-hidden="true"></i>Explorar
                         </li>
+                        </a>
                         <li>Começar uma campanha</li>
                     </ul>
                 </div>
@@ -34,7 +36,15 @@
                 <div class="siteNav-right">
                     <ul>
                         <li>
-                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <i class="fa fa-search" aria-hidden="true" id="searchButton">
+                                <div id="searchArea">
+                                    <form method="get" action="">
+                                        <input type="text" name="pesquisa" placeholder="Pesquisar projetos">
+                                        <input type="submit" id="doSearch">
+                                    </form>
+                                </div>
+                            </i>
+                            
                         </li>
                         <li>
                             Como funciona
