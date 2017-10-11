@@ -1,0 +1,1093 @@
+@charset "UTF-8";
+@import "mixins";
+@import "reset";
+
+$base: "/Talaka/";
+// LAYOUT
+// - ACESSIBILIDADE
+#acessibility {
+    display: flex;
+    width: 100%;
+    padding: 5px 0;
+    background-color: $blueLighter;
+    i {
+        display: inline-block;
+        margin: 0 10px
+    }
+    ul {
+        margin: auto;
+    }
+    li {
+        cursor: pointer;
+        color: #fff;
+        display: inline-block;
+        padding: 0 20px;
+        border-right: 1px solid rgba(0, 0, 100, .2);
+        font-size: 1rem;
+        @include transition(.2s);
+        &:hover {
+            text-decoration: underline;
+        }
+        &:last-child {
+            border: 0;
+        }
+    }
+}
+#toTop {
+    display: none;
+    padding: auto;
+    padding: 8px 10px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    color: $blueLighter;
+    font-size: 2em;
+    text-align: center;
+    border-radius: 50%;
+    transition: .3s;
+    cursor: pointer;
+    border: 2px solid #fff;
+    z-index: 10;
+    &:hover {
+        border-color: $blueLighter;
+    }
+    i {
+        display: block;
+    }
+}
+// - WRAPPER {
+.wrapper {
+    width: 86%;
+    margin: auto;
+    padding: 0 2%;
+}
+// MAIN
+main {
+    width: 100%;
+    display: table;
+    margin-top: 70px;
+}
+// - MENU
+#menuFix {
+    position: fixed;
+    width: 100%;
+    height: 75px;
+    top: 0;
+    z-index: 100
+}
+#menuFix>nav>div>div.siteNav-right>ul>li:nth-child(1)>i {
+    margin: 0;
+}
+nav {
+    width: 100%;
+    background: #fff;
+    display: flex;
+    padding: 5px 0 0 0;
+    flex-wrap: nowrap;
+    box-shadow: 0 0 15px $mainLighter;
+    a{
+        text-decoration: none;
+    }
+    ul {
+        display: table;
+        li {
+            padding: 10px 10px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            border-bottom: 3px solid #fff;
+            transition: .3s;
+            display: inline-flex;
+            color: $mainRosa;
+            &:hover {
+                border-bottom-color: $mainRosa;
+            }
+            i {
+                margin: 0 10px 0 0;
+            }
+        }
+    }
+    .wrapper {
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        .siteNav-middle {
+            width: 12%;
+            h1 {
+                text-align: center;
+                font-size: 3em;
+                font-family: 'Courgette', cursive;
+                color: $mainDark;
+            }
+        }
+        .siteNav-right,
+        .siteNav-left {
+            width: 40%;
+        }
+        .siteNav-right {
+            display: flex;
+            justify-content: flex-end;
+        }
+        #searchButton {
+            position:relative;
+        }
+        #searchArea{
+            width: 700px;
+            height:40px;
+            display:none;
+            position:absolute;
+            right:0;
+            top:33px;
+            input {
+                width:96%;
+                padding:2%;
+                border:0;
+                box-shadow: 0 3px 1px $mainLighter;
+                border-top:0;
+                font-size:1.4em;
+                @include placeholder{
+                    font-size:1.2em;
+                }
+            }
+            #doSearch {
+                display:none;
+            }
+        }
+    }
+    #userloginPhoto{
+        width: 5vh;
+        height: 5vh;
+        border-radius: 50%;
+        background-size: cover;
+    }
+    
+}
+// CARROSSEL
+#carousel {
+    width: 100%;
+    height: 65vh;
+    position: relative;
+    overflow: hidden;
+    #carouselWrapper {
+        width: 500%;
+        height: 97%;
+        position: relative;
+        overflow: hidden;
+        //margin-left: -100%;
+    }
+    .eachCarousel {
+        width: 20%;
+        height: 100%;
+        position: relative;
+        float: left;
+        display: flex;
+        .wrapper {
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            height: 90%;
+            display: flex;
+            width: 85%;
+            >div {
+                height: 96%;
+                margin: 0 2%;
+            }
+            .carouselLeft {
+                width: 21%;
+                .headerProjectCover {
+                    width: 100%;
+                    height: 90%;
+                    @include background( unquote($base+'resources/img/deku.jpg'));
+                }
+                a {
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    height: 6%;
+                    padding: 2.5% 0;
+                    background-color: $mainRosa;
+                    vertical-align: middle;
+                    font-size: 1.5rem;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    color: #fff;
+                    i {
+                        display: inline-block;
+                        margin: 3px 5px 0 5px;
+                        font-size: 12px
+                    }
+                }
+            }
+            .carouselRight {
+                width: 69%;
+                height: 88%;
+                padding: 1%;
+                color: #fff;
+                position: relative;
+                text-shadow: 0 0 3px #000;
+                h1 {
+                    font-size: 4rem;
+                    font-weight: 600;
+                }
+                .authors {
+                    position: absolute;
+                    bottom: 0;
+                }
+                h2 {
+                    font-size: 2rem;
+                    margin: 10px 0 0 5px;
+                    font-weight: 100;
+                    display: block;
+                }
+                ul {
+                    display: flex;
+                }
+                li {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    border: 2px solid #fff;
+                    cursor: pointer;
+                    @include transition(.3s);
+                    flex-direction: row;
+                    margin: 10px 10px 10px 0px;
+                    @include background(unquote($base+'resources/img/deku.jpg'));
+                    position: relative;
+                    &:hover {
+                        border: 2px solid $blueLighter;
+                    }
+                    i {
+                        position: absolute;
+                        right: -2px;
+                        bottom: -2px;
+                        font-size: 1.4em;
+                        color: yellow;
+                    }
+                }
+                .projectInfos {
+                    width: 100%;
+                    height: 50%;
+                    // background-color: rgba(255, 255, 255, .3);
+                    p{
+                        font-size: 1.8em;
+                    }
+                }
+            }
+        }
+    }
+    .eachCarouselCover {
+        background-color: rgba(104, 58, 183, .8);
+        filter: blur(3px) brightness(40%);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        @include background(unquote($base+'resources/img/deku.jpg'));
+    }
+    #carouselPosition {
+        width: 100%;
+        height: 2%;
+        position: relative;
+        bottom: 0;
+        display: flex;
+        ul {
+            display: block;
+            width: 100%;
+            background-color: $mainLighter;
+            display: flex
+        }
+        li {
+            height: 85%;
+            width: 20%;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid #fff;
+        }
+        .selected{
+            background-color: $mainRoxo;
+        }
+    }
+    #carouselTimer {
+        width: 100%;
+        height: 1%;
+        position: relative;
+        bottom: 0;
+        #progress {
+            position: relative;
+            width: 10%;
+            height: 100%;
+            background-color: $blueLighter;
+            @include animation('progress 5s infinite');
+        }
+    }
+    #helloWrapper {
+        background-image: unquote( url + "(" + $base+  'resources/img/memphis-colorful.png' + ")");
+        filter: brightness(105%);
+        #logo {
+            width: 100px;
+            height: 100px;
+            @include background( unquote($base+'resources/img/talaka_logo.png'));
+            background-size: 100px;
+            margin: auto;
+            @include animation('appears 2s');
+        }
+        .wrapper {
+            height: 220px;
+        }
+        *:not(ul):not(a):not(p) {
+            display: block;
+            text-align: center;
+            font-size: 1.5em;
+            color: $mainDark;
+        }
+        p {
+            font-size: 2.4em;
+            font-weight: 100;
+            margin: 10px 0 20px 0;
+            @include animation('appears 2s');
+        }
+        ul {
+            margin: 20px auto;
+            display: table;
+            animation-delay: 1s;
+            @include animation('appears 2s');
+        }
+        li {
+            float: left;
+            padding: 10px 15px;
+            border: 2px solid $mainDark;
+            margin: 0 30px;
+            cursor: pointer;
+            @include transition(.2s);
+            &:hover {
+                border-color: $mainRosa;
+            }
+            &:first-child {
+                margin-left: 0;
+                background-color: $mainDark;
+                color: #fff;
+            }
+            &:last-child {
+                margin-right: 0;
+                background-color: #fff;
+                color: $mainDark;
+            }
+        }
+    }
+}
+section {
+    width: 100%;
+    padding: 1% 0;
+    .wrapper {
+        margin: 0 auto;
+    }
+}
+#indexProjects {
+    ul:first-child {
+        display: flex;
+        padding: 20px 0;
+        position: relative;
+        width: 98%;
+        >li {
+            @include animation('appears 2s');
+            padding: 10px;
+            font-size: 1.6rem;
+            color: $blueDark;
+            cursor: pointer;
+            border-bottom: 2px solid #fff;
+            @include transition(.3s);
+            flex-wrap: nowrap;
+            &:hover:not(:last-child) {
+                border-bottom: 2px solid $blueLighter;
+            }
+            &:last-child {
+                right: 0%;
+                top: 50%;
+                margin-top: -12.5px;
+                position: absolute;
+                border: 2px solid $mainDark;
+                padding: 0 10px 5px 10px;
+                color: $mainDark;
+                @include transition(.2s);
+                &:hover {
+                    background-color: $mainDark;
+                    color: #fff;
+                }
+                a {
+                    text-decoration: none;
+                    margin: 0;
+                    font-size: 1.2rem;
+                    color: inherit;
+                }
+            }
+        }
+    }
+    i {
+        display: inline-block;
+        margin: 0 5px 0 0;
+    }
+    #listProjects {
+        @include animation('appears 2s');
+        display: flex;
+        padding: 0px;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+}
+#howItWorks {
+    border-top: 3px solid $purpleDark;
+    position: relative;
+    background-color: $mainRoxo;
+    padding: 70px 0;
+    h1,
+    i {
+        color: #fff;
+        font-size: 4.5em;
+        font-weight: lighter;
+        text-align: center;
+        display: block;
+        margin: 10px auto
+    }
+    h1 * {
+        font-size: inherit;
+        font-weight: 600
+    }
+    .worksArea {
+        width: 96%;
+        padding: 20px 2%;
+        margin: 50px 0;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        .lozenge {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            @include animation('lozenge 3s infinite alternate');
+            margin-left: 60px;
+            margin-top: 25px;
+        }
+        .worksInfo {
+            width: calc(90% - 350px);
+            padding: 5% 5%;
+            color: #fff;
+        }
+        .lozenge+div p {
+            font-size: 2em;
+            text-indent: 30px;
+        }
+    }
+}
+#categories {
+    border-top: 3px solid $blueDark;
+    padding: 50px 0;
+    background-color: $blueLighter;
+    #catInfo {
+        width: 80%;
+        height: auto;
+        display: table;
+        margin: 50px auto;
+    }
+    .catCover {
+        width: 220px;
+        height: 220px;
+        float: left;
+        border-bottom: 3px solid $mainRoxo;
+        border-radius: 50%;
+        box-shadow: 0 0 10px black;
+        @include background(unquote($base+'resources/img/deku.jpg'));
+    }
+    p {
+        display: block;
+        width: calc(92% - 220px);
+        text-align: center;
+        font-size: 1.6em;
+        float: left;
+        padding: 1% 4%;
+        margin: 10px auto;
+        color: #333
+    }
+    a {
+        padding: 10px 20px;
+        border: 3px solid $blueDark;
+        transition: .3s;
+        text-decoration: none;
+        font-size: 1.6em;
+        display: inline-block;
+        clear: both;
+        &:hover {
+            color: #fff;
+            background-color: $blueDark;
+        }
+    }
+    i {
+        font-size: 5em;
+        margin: 15px;
+        color: $blueLighter
+    }
+    .wrapper {
+        padding: 4% 2%;
+        text-align: center;
+        background-color: #fff
+    }
+    #catIcons {
+        display: flex;
+        width: 70%;
+        justify-content: space-between;
+        margin: 20px auto;
+        li {
+            background-color: $blueLighter;
+            border: 3px solid #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 10px;
+            transition: .3s;
+            cursor: pointer;
+            &:hover {
+                border-color: $blueLighter;
+            }
+            &:active {
+                border-color: $blueDark;
+            }
+        }
+    }
+    h1 {
+        font-weight: 500;
+        font-size: 3.5em;
+        color: $blueDark
+    }
+    h2 {
+        font-weight: 400;
+        font-size: 2.8em;
+        color: #666
+    }
+    h3 {
+        font-weight: 400;
+        font-size: 2.6em;
+    }
+}
+footer {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: $mainDark;
+    color: #fff;
+    .wrapper {
+        padding: 0;
+        width: 90%;
+        padding: 5px 0;
+        ul {
+            display: flex;
+            justify-content: space-between;
+        }
+        li {
+            display: inline-flex;
+            font-size: 1.4em;
+            padding:.5% 5%;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: .3s;
+            text-align: center;
+            &:hover {
+                border-bottom-color: #fff;
+            }
+        }
+    }
+    .footer {
+        clear: both;
+        display: block;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, .2);
+        padding: 5px 0 0 0;
+        text-align: center;
+        p {
+            font-size: 1.4em;
+            padding: 5px 0;
+        }
+    }
+}
+#loginInitial {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    background-image:  unquote( url + "(" + $base+  'resources/img/memphis-colorful.png' + ")");
+    a,input[type="submit"] {
+        display: inline-block;
+        padding: 5px 15px;
+        margin: 15px 20px 0 0;
+        font-size: 1.2em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #fff;
+        border: 2px solid $mainDark;
+    }
+    h1 {
+        font-size: 3.5em;
+        font-weight: 500;
+        color: $mainRosa
+    }
+    h2 {
+        font-size: 2.4em;
+        margin: 5px 0 10px 0;
+        font-weight: 400;
+        color: $mainDark
+    }
+    p {
+        font-size: 1.4em
+    }
+    > div {
+        padding: 0 5%;
+        margin: auto;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    #register {
+        width: 65%;
+        .wrapper {
+            background-color: rgba(255, 255, 255, .6);
+        }
+    }
+    #register > div > a:nth-child(4) {
+        background-color: $mainDark;
+    }
+    #register > div > a:nth-child(5) {
+        color: $mainDark;
+    }
+    #login {
+        width: 35%;
+        background-color: $mainDark;
+        input:not([type="submit"]) {
+            width: 92%;
+            padding: 4%;
+            margin: 3% 0;
+            font-size: 1.4em;
+            border:0;
+            border-bottom: 2px solid rgba(255,255,255,.3);
+            background-color:transparent;
+            color:#fff;
+            @include placeholder{
+                color: #fff;
+            }
+        }
+        h1{
+            color:#fff;
+        }
+    }
+    #login > div > form > input[type="submit"]{
+        background-color: #fff;
+        color:$mainDark;
+    }
+    #login > div > form > a:nth-child(4){
+        color: #fff;
+    }
+    .wrapper {
+        vertical-align: middle;
+        padding: 5%;
+    }
+}
+#bgtypeRegister{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    #typeRegister{
+        width: 50%;
+        background-color:#fff;
+        height: 50vh;
+        margin: auto;
+        text-align: center;
+        border:1px solid $mainLighter;
+        border-radius: .5em;
+        h2{
+            font-size: 2em;
+            padding:20px 0;
+            font-weight: 400
+        }
+        ul{
+            display:flex;
+            justify-content: center;
+            a{
+                display:inline-block;
+                width: 40%;
+            }
+        }
+        li{
+            width:90%;
+            height:200px;
+            border:1px solid #d2d2d2;
+            margin:2% 5%;
+            transition: .3s;
+            background-size: 120px;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            position: relative;
+            &:hover{
+                border-color: $blueLighter;
+            }
+        }
+        li:after{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: block;
+            font-size: 1.6em;
+            padding:5px 0
+        }
+        #person{
+            background-image:  unquote( url + "(" + $base+  'resources/img/person.png' + ")");
+            &:after{
+                content: "Pessoa Física";
+            }
+        }
+        #team{
+            background-image:  unquote( url + "(" + $base+  'resources/img/team.png' + ")");
+            &:after{
+                content: "Pessoa Jurídica";
+            }
+        }
+    }
+}
+#signup{
+    .wrapper{
+        border:1px solid pink;
+        width: 70%;
+        border-bottom: 0;
+        ul{
+            display:flex;
+            justify-content: space-between;
+            li{
+                padding:1% 2%;
+                border:1px solid #ddd;
+                width: 30%;
+                text-align: center;
+                font-size: 1.6em;
+                i{
+                    display:block;
+                    margin:5px auto;
+                }
+                .dadospessoais{
+                    color:$mainAzul
+                }
+                .dadosfinanciamento{
+                    color:green
+                }
+                .dadosartista{
+                    color:$mainRosa;
+                }
+            }
+        }
+    }
+    h1{
+        font-size: 2.4em;
+        padding:20px 20px 10px 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color:$mainDark;
+        border-bottom: 2px solid $mainLighter;
+        i{
+            display:inline-block;
+            margin:0 10px 0 0;
+        }
+    }
+    h2{
+        font-size: 2.2em;
+        margin-top:20px;
+        font-weight: 600;
+        text-align: center;
+        color:$mainDark
+    }
+    p{
+        font-size: 1.6em;
+        text-align: center
+    }
+    form{
+        width: 70%;
+        margin:auto;
+    }
+    label{
+        margin:0;
+        font-size: 1.6em;
+        display: block;
+        padding:5px 0;
+        margin:15px 0 0 0;
+        color:$mainDark;
+        i{
+            display:inline-block;
+            margin:0 5px;
+            color:$blueDark;
+        }
+    }
+    input:not([type='submit']), textarea#bio{
+        width: 98%;
+        padding:1%;
+        font-size: 1.5em;
+        border:1px solid $mainRosa;
+        color:$mainDark;
+        @include placeholder{
+                color: $mainDark;
+            }
+    }
+    .inputQuestion{
+        width:98%;
+        padding:1%;
+        font-size: 1.3em;
+        color:#777;
+        display: none;
+        border: 1px solid $blueLighter;
+    }
+    textarea#bio{
+        min-height: 100px;
+        resize: vertical;
+    }
+    input[type='submit'], a{
+        display:block;
+        padding:10px 15px;
+        text-decoration: none;
+        font-size: 1.4em;
+        margin:10px auto;
+        border:2px solid $mainDark;
+        background-color:#fff;
+        color: $mainDark;
+    }
+    input[type='submit']{
+        background-color: $mainDark;
+        color:#fff;
+    }
+    a{
+        width:45px;
+    }
+}
+
+
+.eachProject {
+    height: 475px;
+    @include transition(.2s);
+    width: 31%;
+    margin: 0 2% 2% 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    &:hover {
+        border-color: $mainAzul;
+        box-shadow: 0 0 3px $mainAzul;
+    }
+}
+.eachProjectCover {
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    height: 50%;
+    @include background(unquote($base+'resources/img/deku.jpg'));
+    position: relative;
+    display: flex;
+    margin-bottom: 25px;
+    .eachProjectOwner {
+        position: absolute;
+        background-color:#fff;
+        bottom: -25px;
+        left: 50%;
+        width: 60px;
+        margin-left: -35px;
+        height: 60px;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        @include background(unquote($base+'resources/img/deku.jpg'));
+        @include transition(.3s);
+        cursor: pointer;
+        &:hover {
+            border-color: $blueLighter;
+        }
+    }
+}
+.eachProjectInfo {
+    height: calc(48% - 25px);
+    padding: 1% 3%;
+    position: relative;
+    a {
+        text-decoration: none;
+        color: $blueDark;
+        font-size: 1.2rem;
+        display: block;
+        i {
+            font-size: 1.1em;
+        }
+    }
+    h2 {
+        font-size: 1.6rem;
+        color: #333;
+        margin: 5px 0;
+    }
+    p {
+        font-size: 1.3rem;
+    }
+    .goal {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 96%;
+        padding: 2%;
+        color: $blueDark;
+        span {
+            font-weight: 600;
+            font-size: inherit;
+        }
+        p:first-child,
+        {
+            font-size: 1.4rem;
+        }
+        li {
+            float: left;
+            &:last-child {
+                float: right;
+            }
+        }
+    }
+    .progressbar {
+        position: relative;
+        width: calc(100% - 2px);
+        height: 10px;
+        margin: 1.5% 0;
+        border: 1px solid $mainRosa;
+        .value {
+            @include value(40%);
+            position: absolute;
+            height: 10px;
+            background-color: $mainRosa;
+        }
+    }
+}
+
+
+// Area de Exploração
+#exploreHeader{
+    width:100%;
+    background-image:  unquote( url + "(" + $base+  'resources/img/memphis-colorful.png' + ")");
+    filter: brightness(105%);
+    padding:5% 0;
+    text-align:center;
+    h1{
+        font-size:4em;
+        color:$mainDark;
+        font-weight:600;
+    }
+    h2{
+        font-size:3em;
+        font-weight:lighter;
+    }
+}
+section#results{
+    width:96%;
+    padding:2%;
+    .wrapper{
+        display:flex;
+    }
+    h3 {
+        font-size:1.6em;
+        color:#666;
+        font-weight:400;
+        text-transform:uppercase;
+    }
+    aside{
+        width:15%;
+        .filterSection{
+            padding:1% 0;
+            margin:1% 0 30px 0;
+            li {
+                margin:1% 0;
+                padding:2% 0;
+                font-size:1.4em;
+                cursor:pointer;
+            }
+        }    
+    }
+    .resultsProject{
+        width:85%;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-between;
+    }
+    .sortBy{
+        flex-wrap:none;
+        width:96%;
+        display:block;
+        padding:0 2% 2% 2%;
+        text-align:right;
+        font-size:1.4em;
+        select{
+            font-size:1em;
+            padding:0 1%;
+            border:1px solid $mainLighter;
+            option{
+                font-size:1em;
+            }
+        }
+        i {
+            font-size:1.3em;
+            color:$mainDark;
+            padding:0 1%;
+            display:inline-block;
+            @include transition(.2s);
+            &:hover{
+                color:$mainLighter;
+            }
+        }
+    }
+    #moreProjects{
+        margin:.5% auto;
+        background-color:$blueDark;
+        padding:15px 20px;
+        font-size:1.6em;
+        color:#fff;
+        width:160px;
+        font-style:none;
+    }
+}
+
+.projectsList{
+     display:flex;
+     width:32%;
+     margin:1% 0.5% 2% 0.5%;
+     .eachProject{
+         width:100%;
+     }
+}
+
+.projectsGrill {
+    width:100%;
+    margin:1% 0;
+    .eachProject{
+        width:100%;
+        height:250px;
+        .eachProjectCover{
+            width:30%;
+            height:100%;
+            border:0;
+            float:left;
+            border-radius:5px 0px 0px 5px;
+        }
+        .eachProjectInfo{
+            float:left;
+            width:60%;
+            .eachProjectTag{
+                position:absolute;
+                height:250px;
+                font-size:1.6em;
+            }
+           .goal{
+               position:absolute;
+               bottom:0;
+           }
+        }
+    }
+}
+
+
+
