@@ -927,7 +927,13 @@ footer {
     }
     p {
         font-size: 1.3rem;
+        position: relative;
+        overflow: hidden;
     }
+    span.dsHidden{
+        font-weight: normal;
+    }
+    
     .goal {
         position: absolute;
         bottom: 0;
@@ -1013,30 +1019,60 @@ section#results{
         display:flex;
         flex-wrap:wrap;
         justify-content: space-between;
-    }
-    .sortBy{
-        flex-wrap:none;
-        width:96%;
-        display:block;
-        padding:0 2% 2% 2%;
-        text-align:right;
-        font-size:1.4em;
-        select{
-            font-size:1em;
-            padding:0 1%;
-            border:1px solid $mainLighter;
-            option{
-                font-size:1em;
+        #headerInput{
+            width:99%;
+            margin:0 0 2% 0;
+            input{
+                width:100%;
+                border:0;
+                padding:1.5% 1%;
+                font-size:1.4em;
+                border:1px solid rgba(0,0,0,.1);
             }
         }
-        i {
-            font-size:1.3em;
-            color:$mainDark;
-            padding:0 1%;
-            display:inline-block;
-            @include transition(.2s);
-            &:hover{
-                color:$mainLighter;
+    }
+    #headerSearch{
+        width:100%;
+        display:flex;
+        h4 {
+            font-size:2em;
+            width:50%;
+            margin:0;
+            padding-left:1%;
+            span{
+                font-size:.8em;
+                font-weight:lighter;
+            }
+            #spanSearch {
+                color:$mainDark;
+                font-size:inherit;
+            }
+        }
+        .sortBy{
+            flex-wrap:none;
+            width:46%;
+            display:block;
+            padding:0 2% 2% 2%;
+            text-align:right;
+            font-size:1.4em;
+            margin-top:2%;
+            select{
+                font-size:1em;
+                padding:0 1%;
+                border:1px solid $mainLighter;
+                option{
+                    font-size:1em;
+                }
+            }
+            i {
+                font-size:1.3em;
+                color:$mainDark;
+                padding:0 1%;
+                display:inline-block;
+                @include transition(.2s);
+                &:hover{
+                    color:$mainLighter;
+                }
             }
         }
     }
