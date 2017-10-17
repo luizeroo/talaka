@@ -3,6 +3,8 @@
 namespace Talaka\Controllers;
 
 use Talaka\Models\Page;
+use Talaka\Models\System;
+
 //Page Controller
 
 class Pagecon{
@@ -15,13 +17,26 @@ class Pagecon{
         $this->page = new Page();
         define("System-access","Allow",TRUE);
     }
-    
-    public function index(){
-        $carousel = $this->page->curl("Visitor","pesq","pop","4");
-        $project = $this->page->curl("Visitor","pesq","pop","6");
-        $cats = $this->page->curl("Visitor","allcats");
-        //print_r($carousel);
-        //print_r($project);
+    //Base para funcoes de Rotas
+    public function index($request, $response){
+        //Get info
+        $carousel = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "pesq",
+            "arg0"  => "pop",
+            "arg1"  => "4"
+        ]);
+        $project = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "pesq",
+            "arg0"  => "pop",
+            "arg1"  => "6"
+        ]);
+        $cats = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "allcats"
+        ]);
+        //Render Page
         $this->page->load("view/parts/header.php",array("pag_title" =>"Plataforma de Financiamento Coletivo"));
         $this->page->load("view/parts/nav.php");
         $this->page->load("view/home.php",array("carousel" => $carousel,"project" => $project, "cats" => $cats) );
@@ -29,7 +44,8 @@ class Pagecon{
         $this->page->render();
     }
     
-    public function project($id){
+    public function project($request, $response){
+        
         $data = $this->page->curl("visitor","project",$id);
         $comments = $this->page->curl("visitor","comments",$id);
         //print_r($comments);
@@ -39,22 +55,47 @@ class Pagecon{
         $this->page->load("view/parts/footer.php");
     }
     
-    public function explorar(){
-        $project = $this->page->curl("Visitor","pesq","pop","12");
+    public function explorar($request, $response){
+        $project = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "pesq",
+            "arg0"  => "pop",
+            "arg1"  => "12"
+        ]);
         $this->page->load("view/parts/header.php",array("pag_title" =>"Pesquisa"));
         $this->page->load("view/parts/nav.php");
-        $this->page->load("view/explore.php", array("project" => $project));
+        $this->page->load("view/explore.php", [
+            "project" => $project
+        ]);
         $this->page->load("view/parts/footer.php");
         $this->page->render();
     }
     
-    public function explore($termo,$pag){
-        $t= str_replace(" ","%2520",$termo);
-        $data = $this->page->curl("visitor","pesqName",$t,$pag);
-        $this->page->load("view/parts/header.php",array("pag_title" =>"Pesquisa"));
+    public function explore($request, $response){
+        $t = urldecode($request->getParam('termo'));
+        $data = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "pesqName",
+            "arg0"  => $t,
+            "arg1"  => $request->getParam('page')
+        ]);
+        $this->page->load("view/parts/header.php",[
+            "pag_title" => "Pesquisa"
+        ]);
         $this->page->load("view/parts/nav.php");
-        $this->page->load("view/explore.php",array("data" =>$data));
+        if($data['total'] !== 0){
+            $data['projects'] = array_map(function($proj){
+                return (array) $proj;
+            }, $data['projects']);
+        }
+        $this->page->load("view/explore.php",[
+            "project"   => $data['projects'],
+            "total"     => $data['total'],
+            "termo"     => $request->getParam('termo'),
+            "page"      => $request->getParam('page')
+        ]);
         $this->page->load("view/parts/footer.php");
+        $this->page->render();
     }
     
     public function explorecat($id,$pag){
@@ -62,7 +103,9 @@ class Pagecon{
         $nm = System::getCategory($id);
         $data['termo'] = 'Categoria procurado : "'.$nm.'"';
         $this->page->load("view/nav.php",array("pag_title" =>$nm));
-        $this->page->load("view/explore.php",array("data" =>$data));
+        $this->page->load("view/explore.php",[
+            "data" => $data
+        ]);
         $this->page->load("view/footer.php");
     }
     

@@ -2,8 +2,7 @@
 
 namespace Talaka\Controllers\Users;
 
-include_once("../Model/Payment.php");
-header("Content-Type: application/json");
+use Talaka\Models\Payment;
 
 class Client extends User{
     

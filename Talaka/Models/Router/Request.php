@@ -6,9 +6,10 @@ class Request{
 
     private $params = [];
     private $attrs = [];
+    private $httpMethod = "";
     
-    public function __construct(){
-        
+    public function __construct($httpMethod){
+        $this->httpMethod = $httpMethod;
     }
     
     public function setParam($key, $value){
@@ -31,6 +32,14 @@ class Request{
     
     public function getParams(){
         return $this->params;
+    }
+    
+    public function getAttributes(){
+        return $this->attrs;
+    }
+    
+    public function getHttpMethod(){
+        return $this->httpMethod;
     }
     
 }

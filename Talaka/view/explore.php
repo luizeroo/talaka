@@ -2,15 +2,6 @@
 defined("System-access") or header('location: /error');
 use Talaka\Models\Project;
 ?>
-
-<?php
-//var_dump($data);
-
-for($i = 0; $i < count($data) - 3; $i++) {
-    $project = new Project($data["d".$i]);
-    var_dump($project);
-}
-?>
 <main>
     <div id="exploreHeader">
         <div class="wrapper">
@@ -57,56 +48,81 @@ for($i = 0; $i < count($data) - 3; $i++) {
                 </div>
             </aside>
             <div class="resultsProject" id="listProjects">
-                <div class="sortBy">
-                    Organizar por: 
-                    <select>
-                        <option>Popularidade</option>
-                        <option>Novos Autores</option>
-                        <option>Novos Projetos</option>
-                        <option>Mais comentados</option>
-                        <option>Perto de mim</option>
-                    </select>
-                    <i class="fa fa-list" aria-hidden="true" id="list" title="Visualização em Lista"></i>
+                <div id="headerInput">
+                    <form onsubmit="return false;">
+                        <input type="search" class="search" name="pesquisa" placeholder="Pesquisar campanhas">
+                    </form>
                 </div>
-                    <?php foreach($project as $proj){ 
+                <div id="headerSearch">
+                    <?php if(isset($termo)){ ?>
+                    <h4>
+                        Termo pesquisado <span id="spanSearch">"<?= urldecode($termo);?>"</span> <br>
+                        <span><?= ($total > 1)? $total." resultados encontrados" : $total." resultado encontrado";  ?> </span>
+                    </h4>
+                    <?php } ?>
+                    <div class="sortBy">
+                        Organizar por: 
+                        <select>
+                            <option>Popularidade</option>
+                            <option>Novos Autores</option>
+                            <option>Novos Projetos</option>
+                            <option>Mais comentados</option>
+                            <option>Perto de mim</option>
+                        </select>
+                        <i class="fa fa-list" aria-hidden="true" id="list" title="Visualização em Lista"></i>
+                    </div>
+                </div>
+                    <?php 
+                        if($total == 0){
+                    ?>
+                        <h4>Nenhum Projeto Encontrado</h4>
+                        <p> O termo "<strong><?= $termo;?></strong>" não foi encontrado no TALAKA  :(</p>
+                    <?php
+                        }else{
+                        
+                        foreach($project as $proj){ 
                             $proj = new Project($proj);
                             $aux = (($proj->collected) * 100) / $proj->meta;
-                            $percent = ( $aux > 100 )? 100 : $aux ;
+                            $percent = ( $aux > 100 )? 100 : $aux;
                     ?>
                     <div class="projectsList">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'].'/project/'.$proj->id; ?>" >
-                        <div class="eachProject">
-                            <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
-                                <div class="eachProjectOwner" title="<?= $proj->creator ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->imgU; ?>)"></div>
-                            </div>
-                            <div class="eachProjectInfo">
-                                <div class="eachProjectTag">
-                                    <a href="#">
-                                        <i class="fa fa-tag" aria-hidden="true"></i><span> <?= $proj->category ;?> </span>
-                                    </a>
-                                    <h2><?= $proj->title ;?></h2>
-                                    <p>
-                                        <?= (strlen($proj->ds) > 300)? substr($proj->ds,0,300)." (...)" : $proj->ds ;?>
-                                    </p>
-
-                                    <div class="goal">
-                                        <p><span>R$ <?= $proj->collected ;?>,00</span> acumulados</p>
-                                        <div class="progressbar">
-                                            <div class="value" style="width: <?= $percent; ?>%" ></div>
+                        <a href="https://<?= $_SERVER['HTTP_HOST'].'/project/'.$proj->id; ?>" >
+                            <div class="eachProject">
+                                <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
+                                    <div class="eachProjectOwner" title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
+                                </div>
+                                <div class="eachProjectInfo">
+                                    <div class="eachProjectTag">
+                                        <a href="#">
+                                            <i class="fa fa-tag" aria-hidden="true"></i><span> <?= $proj->category ;?> </span>
+                                        </a>
+                                        <h2><?= $proj->title ;?></h2>
+                                        <p>
+                                            <?= (strlen($proj->ds) > 300)? substr($proj->ds,0, 300) . "<span class='dsHidden'>" . substr($proj->ds, 300, strlen($proj->ds)) . "</span>" : $proj->ds;?>
+                                        </p>
+    
+                                        <div class="goal">
+                                            <p><span>R$ <?= $proj->collected ;?>,00</span> acumulados</p>
+                                            <div class="progressbar">
+                                                <div class="value" style="width: <?= $percent; ?>%" ></div>
+                                            </div>
+                                            <ul>
+                                                <li><?= round($aux); ?>%</li>
+                                                <li>Aberto até <span><?= implode("/", array_reverse(explode("-",$proj->dtF)) ); ?></span></li>
+                                            </ul>
                                         </div>
-                                        <ul>
-                                            <li><?= round($aux); ?>%</li>
-                                            <li>Aberto até <span><?= implode("/", array_reverse(explode("-",$proj->dtF)) ); ?></span></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     </div>
-                    <?php } ?>
+                    <?php } //foreach 
+                    }//else
+                    ?>
             </div>
         </div>
+        <?php if($total > 6){ ?>
         <a href="#"><div id="moreProjects"> Carregar mais campanhas </div></a>
+        <?php }?>
     </section>
 </main>

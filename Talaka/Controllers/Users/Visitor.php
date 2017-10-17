@@ -2,8 +2,6 @@
 
 namespace Talaka\Controllers\Users;
 
-//header("Content-Type: application/json");
-
 class Visitor extends User{
     
     public function __construct($type){

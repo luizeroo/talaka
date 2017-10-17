@@ -79,10 +79,24 @@ function front() {
         });
     });
     
+    // Descricao do projeto
+    $("span.dsHidden").css({'display':'none'}).after('<span>...</span>');
+    
     // Exploração - lista ou grelha
     $("#list").click(function(){
-      $(".projectsList").toggleClass("projectsGrill");
-      $(this).toggleClass(".fa fa-th");
+        $(".projectsList").toggleClass("projectsGrill");
+        //$(this).toggleClass("fa fa-th");
+        //Remove all class
+        if($(this).hasClass("fa-list")){
+            $(this).removeClass('fa-list');
+            $(this).addClass("fa-th");
+            $("span.dsHidden").css({'display':'inline'}).next().remove();
+        }else{
+            $(this).removeClass('fa-th');
+            $(this).addClass("fa-list");
+            $("span.dsHidden").css({'display':'none'}).after('<span>...</span>');
+        }
+      
     });
     //-----------------------FONT---------------------------
     $("#plus").click(function(){
@@ -127,14 +141,23 @@ function front() {
     });
     
     //Pesquisa
-    $("#search").keypress(function(event){
+    $(".search").keypress(function(event){
         if(event.which == 13 ){
             var arg = $(this).val();
             if(arg == null || arg == undefined || arg == ""){
                 alert("O campo está vazio");
             }else{
-                 window.self.location = "/explore/name/"+arg+"/1";
+                 window.self.location = "/explore/"+arg+"/1";
             }
+        }
+    });
+    //OU
+    $("#doSearch").click(function(){
+        let arg = $(".navSearch").val();  
+        if(arg == null || arg == undefined || arg == ""){
+            alert("O campo está vazio");
+        }else{
+            window.self.location = "/explore/"+arg+"/1";
         }
     });
     
@@ -178,13 +201,12 @@ function front() {
                     contentType: "application/json",
                     processData: false,
                 }).done(function(response){
-                    var r = JSON.parse(response);
-                    if(r.stats == "success"){
+                    if(response.stats == "success"){
                         window.self.location = "/";
                     }else{
-                        alert(r.data);
+                        alert(response.data);
                     }
-                    console.log(r);
+                    console.log(response);
                 }).fail(function(response){
                     alert("Erro ao efetuar login");
                 });
@@ -240,18 +262,18 @@ function front() {
         $("#listProjects").html('<section class="loader"><div class="book"><figure class="page"></figure><figure class="page"></figure><figure class="page"></figure></div></section>');
         let server = document.URL;
         $.ajax({
-                url: "https://"+server.split("/")[2]+"/exec/visitor/pesq/"+method+"/6",
-                method: "GET",
+                url: "/exec/visitor/pesq/"+method+"/6",
+                method: "POST",
                 async: true,
                 headers:{"content-type":"application/json"},
                 contentType: "application/json",
                 processData: false,
             }).done(function(response){
-                let r = JSON.parse(response);
+                //let r = JSON.parse(response);
                 //Caso de sucesso
-                if(r.stats === "success"){
+                if(response.stats === "success"){
                     //Passa resultado para objeto
-                    let project = $.map(JSON.parse(r.data), function(el) { return el });
+                    let project = $.map(JSON.parse(response.data), function(el) { return el });
                     //Pega lista atual de projetos pra ser alterada
                     
                     //--------------------------REMONTA PROJETOS ----------------------------------------//
@@ -261,9 +283,9 @@ function front() {
                         //Link
                         $(proj).parent("a").attr("href", "https://"+server.split("/")[2]+"/project/"+project[index].id);
                         //Fundo
-                        $(proj).find(".eachProjectCover").attr("style","background-image:url(/proj-img/"+project[index].img+")");
+                        $(proj).find(".eachProjectCover").attr("style","background-image:url(/Talaka/proj-img/"+project[index].img+")");
                         //Criador
-                        $(proj).find(".eachProjectOwner").attr("title",project[index].creator).attr("style","background-image:url(/user-img/"+project[index].imgU+")");
+                        $(proj).find(".eachProjectOwner").attr("title",project[index].creator).attr("style","background-image:url(/Talaka/user-img/"+project[index].imgU+")");
                         //Categoria
                         $(proj).find(".eachProjectTag a span").html(" "+project[index].category);
                         //Titulo
@@ -284,6 +306,7 @@ function front() {
                     $("#listProjects").html(projectsArea).fadeIn();
                         
                 }else{
+                    console.log(response);
                     alert('Problema');
                 }
             }).fail(function(response){
@@ -393,7 +416,6 @@ function comentar(proj){
         alert(r.stats);
     });
 }
-
 
 //---------------------Função de terceiros-----------------------------//
 function implode (glue, pieces) {

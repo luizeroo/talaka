@@ -3,7 +3,6 @@
 namespace Talaka\Models;
 
 include_once("../Model/Pagarme/Pagarme.php");
-header("Content-Type: application/json");
 
 class Payment{
     

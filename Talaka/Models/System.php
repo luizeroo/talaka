@@ -199,11 +199,29 @@ class System{
         $stm->bind_param("i",intval($num));
         $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
         $stm->bind_result($user,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$idC,$percent,$cat,$comments,$coauthor);
-        $r = array();
-        $i = 1;
+        $r = [];
         while($stm->fetch()){
-            $r["d".$i] = array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"creator"=>$creator,"imgB"=>$imgB,"imgU"=>$imgU,"idC"=>$idC,"percent"=>$percent,"user"=>$user,"category"=>$cat,"comments"=>$comments,"coauthor"=>$coauthor) or die("Erro no json");
-            $i++;
+            $r[] = [
+                "id"        => $id,
+                "title"     => $title,
+                "ds"        => utf8_encode($ds),
+                "img"       => $img,
+                "meta"      => $vlM,
+                "collected" => $vlC,
+                "dtB"       => $dtB,
+                "dtF"       => $dtF,
+                "creator"   => [
+                    "id"        => $idC,
+                    "name"      => $creator,
+                    "img"       => $imgU
+                ],$creator,
+                "imgB"      => $imgB,
+                "percent"   => $percent,
+                "user"      => $user,
+                "category"  => $cat,
+                "comments"  => $comments,
+                "coauthor"  => $coauthor
+            ] or die("Erro no json");
         }
         $stm->close();
         return json_encode($r);
@@ -273,7 +291,7 @@ class System{
     }
     
     public function pesqProject($term,$pag){
-        $term= str_replace("%2520"," ",$term);
+        $term= urldecode($term);
         $max = (($pag - 1) == 0)? 0 : (($pag - 1) * 5) + 1;
         $name = "%".$term."%";
         $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.vl_meta, p.vl_collected, p.dt_final, p.ds_path_img, p.cd_category, p.cd_user, u.nm_user, u.ds_path_img, p.ic_close
@@ -286,10 +304,23 @@ class System{
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
         $stm->bind_result($id,$title,$ds,$vlM,$vlC,$dt,$img,$idC,$idU,$nmU,$imgU,$close)or die("Erro 4");
         $r = array();
-        $i = 0;
         while($stm->fetch()){
-            $r["d".$i] = array("id" => $id, "title" => $title, "ds" => utf8_encode($ds), "meta" => $vlM,"collected" => $vlC, "img"=>$img, "dt"=>$dt,"idC"=>$idC,"creator"=> array("id"=>$idU,"name"=>$nmU,"img"=>$imgU),"close"=>$close);
-            $i++;
+            $r["projects"][] = [
+                "id"        => $id,
+                "title"     => $title,
+                "ds"        => utf8_encode($ds),
+                "meta"      => $vlM,
+                "collected" => $vlC,
+                "img"       => $img,
+                "dt"        => $dt,
+                "idC"       => $idC,
+                "creator"   => [
+                    "id"        => $idU,
+                    "name"      => $nmU,
+                    "img"       => $imgU
+                ],
+                "close"     => $close
+            ];
         }
         $stm->close();
         $stmt = $this->con->prepare("call Num_results( ? )")or die("Erro 1".$this->con->error.http_response_code(405));
@@ -298,7 +329,7 @@ class System{
         $stmt->bind_result($result)or die("Erro 4");
         $stmt->fetch();
         $r["total"] = $result;
-        $r["term"] = 'term procurado : "'.$term.'"';
+        $r["term"] = 'Termo procurado : "'.$term.'"';
         $r["atual"] = $pag;
         $stmt->close();
         return json_encode($r);

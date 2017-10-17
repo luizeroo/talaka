@@ -17,7 +17,6 @@ class Router{
     private $request;
     
     public function __construct(){
-        $this->request = new Request();
     }
     
     public function run(){
@@ -25,6 +24,8 @@ class Router{
         $route = $_SERVER['REQUEST_URI'];
         //Get method 
         $httpMethod = $_SERVER['REQUEST_METHOD'];
+        //Set Request
+        $this->request = new Request($httpMethod);
         if($route == "/"){
             $closure = $this->routes['GET']['base']['closure'];
             return call_user_func_array($closure,[$this->request, $response]);
@@ -67,7 +68,7 @@ class Router{
         return $this->map('POST', $route, $callback);
     }
     
-    private function map($method ,$route, $callback){
+    public function map($method ,$route, $callback){
         //Validate callback
         if(!($callback instanceof Closure)){
             $callback = explode(":",$callback);
@@ -126,8 +127,13 @@ class Router{
         	$key = $auxKey;
         }
         //Put in router
-        $this->routes[$method] = $this->getRoute($key, $this->routes[$method]);
-        
+        if(is_array($method)){
+            foreach($method as $met){
+                $this->routes[$met] = $this->getRoute($key, $this->routes[$met]);    
+            }
+        }else{
+            $this->routes[$method] = $this->getRoute($key, $this->routes[$method]);
+        }
         return true;
     }
     

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Talaka\\Controllers\\ApiController' => $baseDir . '/Talaka/Controllers/ApiController.php',
     'Talaka\\Controllers\\Pagecon' => $baseDir . '/Talaka/Controllers/Pagecon.php',
     'Talaka\\Controllers\\Users\\Client' => $baseDir . '/Talaka/Controllers/Users/Client.php',
     'Talaka\\Controllers\\Users\\User' => $baseDir . '/Talaka/Controllers/Users/User.php',

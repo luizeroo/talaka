@@ -46,7 +46,7 @@ use Talaka\Models\Project;
                             <div class="authors">
                                 <h2> Autores</h2>
                                 <ul>
-                                    <li title="<?= $crsl->creator; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $crsl->imgU ; ?>)">
+                                    <li title="<?= $crsl->creator->name; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $crsl->creator->img ; ?>)">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </li>
                                     <?php if($crsl->coauthor !== "no"){ 
@@ -111,7 +111,7 @@ use Talaka\Models\Project;
                     <a href="https://<?= $_SERVER['HTTP_HOST'].'/project/'.$proj->id; ?>" >
                         <div class="eachProject">
                             <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
-                                <div class="eachProjectOwner" title="<?= $proj->creator ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->imgU; ?>)"></div>
+                                <div class="eachProjectOwner" title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
                             </div>
                             <div class="eachProjectInfo">
                                 <div class="eachProjectTag">

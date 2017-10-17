@@ -39,8 +39,8 @@ use Talaka\Controllers\Pagecon;
                         <li>
                             <i class="fa fa-search" aria-hidden="true" id="searchButton">
                                 <div id="searchArea">
-                                    <form method="get" action="">
-                                        <input type="text" name="pesquisa" placeholder="Pesquisar projetos">
+                                    <form onsubmit="return false;">
+                                        <input type="text" class="search navSearch" name="pesquisa" placeholder="Pesquisar projetos">
                                         <input type="submit" id="doSearch">
                                     </form>
                                 </div>
@@ -54,7 +54,7 @@ use Talaka\Controllers\Pagecon;
                             if(Pagecon::is_logged()){
                             ?>
                             <li>
-                                <div id="userloginPhoto" style="background-image: url(/user-img/<?= $_SESSION[imgUser];?> )"></div>
+                                <div id="userloginPhoto" style="background-image: url(<?= base_url; ?>user-img/<?= $_SESSION[imgUser];?> )"></div>
                             </li>
                             <?php 
                             }else{ 
