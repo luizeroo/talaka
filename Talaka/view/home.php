@@ -108,7 +108,7 @@ use Talaka\Models\Project;
                             $percent = ( $aux > 100 )? 100 : $aux ;
                     ?>
                     
-                    <a href="https://<?= $_SERVER['HTTP_HOST'].'/project/'.$proj->id; ?>" >
+                    <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'. str_replace(" ","+",$proj->title); ?>" >
                         <div class="eachProject">
                             <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
                                 <div class="eachProjectOwner" title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>

@@ -45,14 +45,27 @@ class Pagecon{
     }
     
     public function project($request, $response){
-        
-        $data = $this->page->curl("visitor","project",$id);
-        $comments = $this->page->curl("visitor","comments",$id);
+        $data = $this->page->curl('GET', [
+            "class" => "visitor",
+            "met"   => "project",
+            "arg0"  => $request->getParam('title')
+        ]);
+        $comments = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "comments",
+            "arg0"  => $data['id']
+        ]);
         //print_r($comments);
-        $this->page->load("view/parts/header.php",array("pag_title" =>$data["title"]));
+        $this->page->load("view/parts/header.php",[
+            "pag_title" => $data["title"]
+        ]);
         $this->page->load("view/parts/nav.php");
-        $this->page->load("view/project.php",array("project"=>$data));
+        $this->page->load("view/project.php",[
+            "project"   => $data,
+            "comments"  => $comments
+        ]);
         $this->page->load("view/parts/footer.php");
+        $this->page->render();
     }
     
     public function explorar($request, $response){

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/css?family=Patrick+Hand+SC|Bangers|Happy+Monkey);
 @-webkit-keyframes progress {
   0% {
     width: 0; }
@@ -230,7 +231,8 @@ nav {
     display: flex;
     justify-content: space-between; }
     nav .wrapper .siteNav-middle {
-      width: 12%; }
+      width: 12%;
+      cursor: pointer; }
       nav .wrapper .siteNav-middle h1 {
         text-align: center;
         font-size: 3em;
@@ -942,10 +944,37 @@ footer {
   width: 31%;
   margin: 0 2% 2% 0;
   border: 1px solid #ddd;
-  border-radius: 5px; }
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  /* The ribbons */
+  /* Custom styles */
+  /* Different positions */ }
   .eachProject:hover {
     border-color: #327DAD;
     box-shadow: 0 0 3px #327DAD; }
+  .eachProject .corner-ribbon {
+    width: 200px;
+    background: #683AB7;
+    position: absolute;
+    z-index: 9;
+    font-size: 1.5rem;
+    top: 25px;
+    left: -50px;
+    text-align: center;
+    line-height: 50px;
+    letter-spacing: 1px;
+    color: #f0f0f0;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  .eachProject .corner-ribbon.shadow {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
+  .eachProject .corner-ribbon.top-right {
+    top: 25px;
+    right: -50px;
+    left: auto;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg); }
 
 .eachProjectCover {
   border-radius: 5px 5px 0 0;
@@ -1081,6 +1110,8 @@ section#results {
         padding: 1.5% 1%;
         font-size: 1.4em;
         border: 1px solid rgba(0, 0, 0, 0.1); }
+      section#results .resultsProject #headerInput input:after {
+        content: '...'; }
   section#results #headerSearch {
     width: 100%;
     display: flex; }
@@ -1159,5 +1190,25 @@ section#results {
       .projectsGrill .eachProject .eachProjectInfo .goal {
         position: absolute;
         bottom: 0; }
+
+#headerProject {
+  width: 100%;
+  height: 225px;
+  background-color: #094F7D;
+  filter: brightness(30%); }
+
+section#infosProject .wrapper {
+  margin: 0 auto;
+  padding: 20px 0;
+  background-color: red;
+  min-height: 300px;
+  position: relative; }
+  section#infosProject .wrapper #projetoCapa {
+    width: 250px;
+    height: 350px;
+    left: 60px;
+    position: absolute;
+    top: -150px;
+    background-color: purple; }
 
 /*# sourceMappingURL=style.css.map */

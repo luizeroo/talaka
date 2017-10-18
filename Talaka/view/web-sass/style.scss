@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import "mixins";
 @import "reset";
+@import url(//fonts.googleapis.com/css?family=Patrick+Hand+SC|Bangers|Happy+Monkey);
 
 $base: "/Talaka/";
 // LAYOUT
@@ -113,6 +114,7 @@ nav {
         justify-content: space-between;
         .siteNav-middle {
             width: 12%;
+            cursor: pointer;
             h1 {
                 text-align: center;
                 font-size: 3em;
@@ -875,9 +877,48 @@ footer {
     margin: 0 2% 2% 0;
     border: 1px solid #ddd;
     border-radius: 5px;
+    position: relative;
+    overflow: hidden;
     &:hover {
         border-color: $mainAzul;
         box-shadow: 0 0 3px $mainAzul;
+    }
+    
+    // ------ Corner Ribbon ------ //
+    /* The ribbons */
+    
+    .corner-ribbon{
+      width: 200px;
+      background: #683AB7;
+      position: absolute;
+      z-index: 9;
+      font-size: 1.5rem;
+      top: 25px;
+      left: -50px;
+      text-align: center;
+      line-height: 50px;
+      letter-spacing: 1px;
+      color: #f0f0f0;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+    
+    .big{
+        
+    }
+    
+    /* Custom styles */
+    .corner-ribbon.shadow{
+      box-shadow: 0 0 3px rgba(0,0,0,.3);
+    }
+    
+    /* Different positions */
+    .corner-ribbon.top-right{
+      top: 25px;
+      right: -50px;
+      left: auto;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
     }
 }
 .eachProjectCover {
@@ -1029,6 +1070,9 @@ section#results{
                 font-size:1.4em;
                 border:1px solid rgba(0,0,0,.1);
             }
+            input:after{
+                content: '...';
+            }
         }
     }
     #headerSearch{
@@ -1125,5 +1169,27 @@ section#results{
     }
 }
 
-
-
+// PAGINA DE PROJETO
+#headerProject {
+    width:100%;
+    height:225px;
+    background-color:$blueDark;
+    filter: brightness(30%);
+}
+section#infosProject{
+    .wrapper {
+        margin:0 auto;
+        padding:20px 0;
+        background-color:red;
+        min-height:300px;
+        position:relative;
+        #projetoCapa{
+            width:250px;
+            height:350px;
+            left:60px;
+            position:absolute;
+            top:-150px;
+            background-color:purple;
+        }
+    }
+}

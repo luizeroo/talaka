@@ -1,18 +1,18 @@
 <?php
 defined("System-access") or header('location: /error');
+use Talaka\Models\Project;
 ?>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <?php
 
 $proj = new Project($project);
-
-var_dump($proj);
-
+// var_dump($proj);
 ?>
+<main>
+    <div id="headerProject" style="background-image:"></div>
+    <!-- Página de Projeto -->
+    <section id="infosProject"> 
+        <div class="wrapper">
+                <div id="projetoCapa"></div>
+        </div>
+    </section>
+</main>

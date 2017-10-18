@@ -14,10 +14,12 @@ class Project{
     private $dtF;
     private $img;
     private $cover;
-    private $creator;
+    private $creator; // name, id, img
     private $visit;
     private $total;
     private $close;
+    private $idC;
+    private $category;
 
     
     public function __construct($obj){

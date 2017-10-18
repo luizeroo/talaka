@@ -129,16 +129,16 @@ class System{
     }
     
     public function consultProject(Project $proj){
-        $stm = $this->con->prepare("SELECT p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,p.qt_visitation,count(f.cd_user) total,p.ds_resume, p.ic_close
+        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,p.qt_visitation,count(f.cd_user) total,p.ds_resume, p.ic_close
         FROM Project as p, User as u, Financing as f
         WHERE p.cd_user = u.cd_user
         AND p.cd_project = f.cd_project
-        AND p.cd_project = ?") or die("Erro 1".$this->con->error.http_response_code(405));
-        $stm->bind_param("i",intval($proj->id)) or die("Erro 2".$stm->error.http_response_code(405));
+        AND p.nm_title = ?") or die("Erro 1".$this->con->error.http_response_code(405));
+        $stm->bind_param("s",$proj->title) or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
-        $stm->bind_result($title,$ds,$img,$cover,$vlM,$vlC,$dtB,$dtF,$creator,$creID,$imgU,$visit,$total,$resume,$close)or die("Erro 4");
+        $stm->bind_result($id,$title,$ds,$img,$cover,$vlM,$vlC,$dtB,$dtF,$creator,$creID,$imgU,$visit,$total,$resume,$close)or die("Erro 4");
         $stm->fetch();
-        $resp = new Project(array("id"=>$proj->id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"cover"=>$cover,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"creator"=> array("id" => $creID, "name" => $creator,"img" => $imgU ),"visit"=>$visit,"total"=>$total,"resume"=>$resume,"close"=>$close))or die("Erro ao criar objeto de Project");
+        $resp = new Project(array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"cover"=>$cover,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"creator"=> array("id" => $creID, "name" => $creator,"img" => $imgU ),"visit"=>$visit,"total"=>$total,"resume"=>$resume,"close"=>$close))or die("Erro ao criar objeto de Project");
         $stm->close();
         return $resp;
     }
@@ -292,17 +292,17 @@ class System{
     
     public function pesqProject($term,$pag){
         $term= urldecode($term);
-        $max = (($pag - 1) == 0)? 0 : (($pag - 1) * 5) + 1;
+        $max = ($pag == 1)? 0 : (($pag - 1) * 12) + 1;
         $name = "%".$term."%";
-        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.vl_meta, p.vl_collected, p.dt_final, p.ds_path_img, p.cd_category, p.cd_user, u.nm_user, u.ds_path_img, p.ic_close
+        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.vl_meta, p.vl_collected, p.dt_final, p.ds_path_img, c.nm_category, p.cd_user, u.nm_user, u.ds_path_img, p.ic_close
         FROM Project as p, User as u, Category as c
         WHERE (p.nm_title LIKE ? OR c.nm_category  LIKE ?)
         AND u.cd_user = p.cd_user
 		AND p.cd_category = c.cd_category
-        LIMIT ?,6") or die("Erro 1".$this->con->error.http_response_code(405));
+        LIMIT ?,12") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("ssi",$name,$name,$max)or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
-        $stm->bind_result($id,$title,$ds,$vlM,$vlC,$dt,$img,$idC,$idU,$nmU,$imgU,$close)or die("Erro 4");
+        $stm->bind_result($id,$title,$ds,$vlM,$vlC,$dt,$img,$category,$idU,$nmU,$imgU,$close)or die("Erro 4");
         $r = array();
         while($stm->fetch()){
             $r["projects"][] = [
@@ -312,8 +312,8 @@ class System{
                 "meta"      => $vlM,
                 "collected" => $vlC,
                 "img"       => $img,
-                "dt"        => $dt,
-                "idC"       => $idC,
+                "dtF"       => $dt,
+                "category"  => $category,
                 "creator"   => [
                     "id"        => $idU,
                     "name"      => $nmU,

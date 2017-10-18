@@ -70,7 +70,7 @@ setInterval(function(){
 }, 5000);
 */
 function front() {
-    // Pesquisa
+    // =============== Pesquisa ================
     $("#searchButton:not(#searchArea)").click(function(){
         $("#searchArea").slideDown();
         $("#searchArea input").focus();
@@ -78,9 +78,17 @@ function front() {
             $("#searchArea").slideUp();
         });
     });
-    
+    // Pesquisa - Teclado virtual
+    $(".search").after('<i title="Teclado Virtual" class="fa fa-keyboard-o keyboardicon" aria-hidden="true"></i>').next().css({
+        "display"   : "inline",
+        "position"  : "absolute",
+        "font-size" : "2.3em",
+        "padding"   : "0.7%",
+        "right"     : "13%",
+        "cursor"    : "pointer"
+    });
     // Descricao do projeto
-    $("span.dsHidden").css({'display':'none'}).after('<span>...</span>');
+    $("span.dsHidden").css({'display':'none'}).after('<span>(...)</span>');
     
     // Exploração - lista ou grelha
     $("#list").click(function(){
@@ -94,7 +102,7 @@ function front() {
         }else{
             $(this).removeClass('fa-th');
             $(this).addClass("fa-list");
-            $("span.dsHidden").css({'display':'none'}).after('<span>...</span>');
+            $("span.dsHidden").css({'display':'none'}).after('<span>(...)</span>');
         }
       
     });
@@ -285,7 +293,7 @@ function front() {
                         //Fundo
                         $(proj).find(".eachProjectCover").attr("style","background-image:url(/Talaka/proj-img/"+project[index].img+")");
                         //Criador
-                        $(proj).find(".eachProjectOwner").attr("title",project[index].creator).attr("style","background-image:url(/Talaka/user-img/"+project[index].imgU+")");
+                        $(proj).find(".eachProjectOwner").attr("title",project[index].creator.name).attr("style","background-image:url(/Talaka/user-img/"+project[index].creator.img+")");
                         //Categoria
                         $(proj).find(".eachProjectTag a span").html(" "+project[index].category);
                         //Titulo
@@ -389,10 +397,12 @@ function front() {
     });
     
     //---------------JQUERY DE TERCEIROS
-    $('.keyboard').keyboard({ layout: 'qwerty' }).addTyping();
-    
-    $('#acessibility ul li').eq(0).click(function () {
-        var kb = $(this).prev().getkeyboard();
+    $('.keyboard').keyboard({ 
+        layout: 'qwerty',
+        openOn: ''
+    }).addTyping();
+    $('.keyboardicon').click(function () {
+        let kb = $(this).prev().getkeyboard();
         // typeIn( text, delay, callback );
         kb.reveal();
     });

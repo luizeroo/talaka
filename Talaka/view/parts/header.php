@@ -16,18 +16,18 @@ defined("System-access") or header('location: /error');
     
     <!--KEYBOARD-->
     <!-- jQuery & jQuery UI + theme (required) -->
-	<link href="https://code.jquery.com/ui/1.10.3/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-
-	<!-- keyboard widget css & script (required) -->
-	<link href="<?= base_url; ?>view/js/lib/keyboard/css/keyboard.css" rel="stylesheet">
-	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.js"></script>
-
-	<!-- keyboard extensions (optional) -->
-	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.mousewheel.js"></script>
-	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.extension-typing.js"></script>
-	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.extension-autocomplete.js"></script>
+  	<link href="https://code.jquery.com/ui/1.10.3/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  
+  	<!-- keyboard widget css & script (required) -->
+  	<link href="<?= base_url; ?>view/js/lib/keyboard/css/keyboard.css" rel="stylesheet">
+  	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.js"></script>
+  
+  	<!-- keyboard extensions (optional) -->
+  	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.mousewheel.js"></script>
+  	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.extension-typing.js"></script>
+  	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.extension-autocomplete.js"></script>
     
     <!-- Book Loader -->
     <style>

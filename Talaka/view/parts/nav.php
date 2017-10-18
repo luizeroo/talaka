@@ -31,7 +31,7 @@ use Talaka\Controllers\Pagecon;
                 </div>
 
                 <div class="siteNav-middle">
-                    <h1>talaka</h1>
+                    <h1 onclick="window.self.location = '/';">talaka</h1>
                 </div>
 
                 <div class="siteNav-right">
@@ -40,7 +40,7 @@ use Talaka\Controllers\Pagecon;
                             <i class="fa fa-search" aria-hidden="true" id="searchButton">
                                 <div id="searchArea">
                                     <form onsubmit="return false;">
-                                        <input type="text" class="search navSearch" name="pesquisa" placeholder="Pesquisar projetos">
+                                        <input type="search" class="search navSearch" name="pesquisa" placeholder="Pesquisar projetos">
                                         <input type="submit" id="doSearch">
                                     </form>
                                 </div>

@@ -3,6 +3,7 @@
 namespace Talaka\Controllers\Users;
 
 use Talaka\Models\System;
+use Talaka\Models\Project;
 
 abstract class User{
     
@@ -22,8 +23,9 @@ abstract class User{
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     
-    public function projectGET($id){
-        $resp = ( $data = $this->db->consultProject(new Project(array("id" => $id))) )?"success" : "fail_select";
+    public function projectGET($title){
+        $title = urldecode($title);
+        $resp = ( $data = $this->db->consultProject(new Project(array("title" => $title))) )?"success" : "fail_select";
         return json_encode(array("stats" => $resp, "data" => $data->toJSON()));
     }
     

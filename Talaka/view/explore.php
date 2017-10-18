@@ -50,7 +50,7 @@ use Talaka\Models\Project;
             <div class="resultsProject" id="listProjects">
                 <div id="headerInput">
                     <form onsubmit="return false;">
-                        <input type="search" class="search" name="pesquisa" placeholder="Pesquisar campanhas">
+                        <input type="search" class="search keyboard" value="<?= (isset($termo))? urldecode($termo):"";?>" name="pesquisa" placeholder="Pesquisar campanhas">
                     </form>
                 </div>
                 <div id="headerSearch">
@@ -73,7 +73,7 @@ use Talaka\Models\Project;
                     </div>
                 </div>
                     <?php 
-                        if($total == 0){
+                        if( isset($total) && $total == 0){
                     ?>
                         <h4>Nenhum Projeto Encontrado</h4>
                         <p> O termo "<strong><?= $termo;?></strong>" não foi encontrado no TALAKA  :(</p>
@@ -86,8 +86,11 @@ use Talaka\Models\Project;
                             $percent = ( $aux > 100 )? 100 : $aux;
                     ?>
                     <div class="projectsList">
-                        <a href="https://<?= $_SERVER['HTTP_HOST'].'/project/'.$proj->id; ?>" >
+                        <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'.str_replace(" ","+",$proj->title); ?>" >
                             <div class="eachProject">
+                                <?php if($proj->close == 1){?>
+                                <div class="corner-ribbon top-right sticky blue"><span class="big">Desativado</span></div>
+                                <?php } ?>
                                 <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
                                     <div class="eachProjectOwner" title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
                                 </div>
@@ -121,7 +124,7 @@ use Talaka\Models\Project;
                     ?>
             </div>
         </div>
-        <?php if($total > 6){ ?>
+        <?php if($total > 12){ ?>
         <a href="#"><div id="moreProjects"> Carregar mais campanhas </div></a>
         <?php }?>
     </section>

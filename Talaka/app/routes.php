@@ -6,7 +6,7 @@ header('Content-Type: text/html; charset=utf-8');
 $app->get("/", "Pagecon:index");
 $app->get("/explore", "Pagecon:explorar");
 $app->get("/explore/{termo:(.*)}/{page:[0-9]+}","Pagecon:explore");
-$app->get("/project/{id:[0-9]+}", "Pagecon:project");
+$app->get("/campanha/{title:(.*)}", "Pagecon:project");
 //Visitor
 $app->get("/signin", "Pagecon:signin");
 $app->get("/signup", "Pagecon:signup");
