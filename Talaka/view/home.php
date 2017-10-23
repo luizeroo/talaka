@@ -6,7 +6,7 @@ use Talaka\Models\Project;
         <div id="carousel">
             <div id="carouselWrapper">
 
-                <div class="eachCarousel" id="helloWrapper">
+                <div class="eachCarousel carOff atual" id="helloWrapper">
                     <div class="wrapper">
                         <div id="logo"></div>
                         <p>Conheça a plataforma de financiamento coletivo de quadrinhos nacionais</p>
@@ -18,18 +18,18 @@ use Talaka\Models\Project;
                         </ul>
                     </div>
                 </div>
-                <?php foreach($carousel as $crsl){
+                <?php foreach($carousel as $key => $crsl){
                     $crsl = new Project((array) $crsl );
                     $aux = (($crsl->collected) * 100) / $crsl->meta;
                     $percent = ( $aux > 100 )? 100 : $aux ;
                 ?>
 
-                <div class="eachCarousel">
+                <div class="eachCarousel carOff <?= ($key == (count($carousel) - 1))? "last" : "" ;?>">
                     <div class="eachCarouselCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $crsl->imgB ; ?>)"></div>
                     <div class="wrapper">
                         <div class="carouselLeft">
                             <div class="headerProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $crsl->img ; ?>)"></div>
-                            <a href="#"> <i class="fa fa-heart-o" aria-hidden="true"></i> Conheça o projeto </a>
+                            <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'. str_replace(" ","+",$crsl->title); ?>"> <i class="fa fa-heart-o" aria-hidden="true"></i> Conheça o projeto </a>
                         </div>
                         <div class="carouselRight">
                             <h1><?= $crsl->title; ?></h1>
@@ -46,14 +46,14 @@ use Talaka\Models\Project;
                             <div class="authors">
                                 <h2> Autores</h2>
                                 <ul>
-                                    <li title="<?= $crsl->creator->name; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $crsl->creator->img ; ?>)">
+                                    <li data-title="<?= $crsl->creator->name; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $crsl->creator->img ; ?>)">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </li>
                                     <?php if($crsl->coauthor !== "no"){ 
                                     array_map(function($coauthor){
                                         $co = explode(":",$coauthor);
                                     ?>
-                                    <li title="<?= $co[0]; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $co[1] ; ?>)" ></li>
+                                    <li data-title="<?= $co[0]; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $co[1] ; ?>)" ></li>
                                     <?php
                                     },explode(",",$crsl->coauthor)) ;
                                     }?>
@@ -67,7 +67,7 @@ use Talaka\Models\Project;
             </div>
             <div id="carouselPosition">
                 <ul>
-                    <li></li>
+                    <li class="selected"></li>
                     <li></li>
                     <li></li>
                     <li></li>
@@ -97,7 +97,7 @@ use Talaka\Models\Project;
                     <li>
                         <i class="fa fa-map-o" aria-hidden="true"></i> Populares Perto de você
                     </li>
-                    <li><a href="#">Ver todos</a></li>
+                    <li><a href="/explore">Ver todos</a></li>
                 </ul>
 
                 <div id="listProjects">
@@ -111,7 +111,7 @@ use Talaka\Models\Project;
                     <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'. str_replace(" ","+",$proj->title); ?>" >
                         <div class="eachProject">
                             <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
-                                <div class="eachProjectOwner" title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
+                                <div class="eachProjectOwner" data-title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
                             </div>
                             <div class="eachProjectInfo">
                                 <div class="eachProjectTag">

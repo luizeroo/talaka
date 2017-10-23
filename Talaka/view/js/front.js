@@ -48,28 +48,39 @@ function fin(project){
     }
 }
 
-function changeSlide(actual,position){
-    let slide = $(".eachCarousel").eq(position);
-
-    $(".atual").removeClass("atual");
-    if( position ==  0 ){
-        $("#carouselPosition ul li.selected").removeClass("selected");
-        $("#carouselPosition ul li").first().addClass("selected");
-        $(".eachCarousel").first().addClass("atual").show("slide", { direction: "right" }, 1000); 
+function changeSlide(position = false){
+    let next;
+    if(position){
+        //Pega posicao do 
+        next = position;
     }else{
-        $("#carouselPosition ul li.selected").removeClass("selected").next().addClass("selected");
-        $(slide).next().addClass("atual").show("slide", { direction: "right" }, 1000); 
+        //Pega o proximo da lista
+        next = ($(".eachCarousel.atual").hasClass("last"))? 0 : $(".eachCarousel.atual").next().index();
     }
-    $(slide).hide("slide", { direction: "left" }, 1000); 
+    //Remove classe atual
+    $(".eachCarousel.atual").hide().removeClass("atual");
+    $("#carouselPosition ul li.selected").removeClass("selected");
+    //Adiciona atual para o proximo carrousel
+    $(".eachCarousel").eq(next).fadeIn().addClass("atual");
+    $("#carouselPosition ul li").eq(next).addClass("selected");
 }
-/*
-setInterval(function(){
-    let next = ( $(".atual").hasClass("last") )? 0 : $(".atual").next().index() ;
-    changeSlide($(".atual"), next);
-    
+
+var timerCarrousel = setInterval(function(){
+    changeSlide();
 }, 5000);
-*/
+
 function front() {
+    
+    //========================== TAB Project
+    //$(".tabProject").not(":eq(0)").hide();
+    $("#projetoContain #menu li").click(function(){
+        let tabData = $(this).data("tab");
+        let tab = $(".tabProject[data-tab='"+tabData+"']");
+        $(tab).fadeIn();
+        console.log(tab);
+        $(".tabProject").not(":eq("+tab.index()+")").hide();
+        
+    });
     // =============== Pesquisa ================
     $("#searchButton:not(#searchArea)").click(function(){
         $("#searchArea").slideDown();
@@ -124,18 +135,28 @@ function front() {
     $("#toTop").click(function(){
        $('html, body').animate({scrollTop : 0},800);
     });
-   
-   
-    //Carousel
-    $(".eachCarousel").first().addClass("atual");
-    $("#carouselPosition ul li").first().addClass("selected");
-    $(".eachCarousel").last().addClass("last");
+    //SORT DE PESQUISA NA TELA
+    //SORT PROJECT BY DEFINED TYPE
+    $("#sort").change(function(){
+        let type = $(this).find(":selected").data('type');
+        let sorted = $('.projectsList').sort(function (a, b) {
+            let contentA = (type == 'np')? new Date($(a).data(type)) : parseInt( $(a).data(type));
+            let contentB = (type == 'np')? new Date($(b).data(type)) : parseInt( $(b).data(type));
+            return (contentA > contentB) ? -1 : (contentA < contentB) ? 1 : 0;
+        });
+        $('.projectsList').remove();
+        $('#listProjects').append(sorted);
+    });
     
     //Carousel Click li
     $("#carouselPosition ul li").click(function(){
         let position = $(this).index();
-        console.log(position);
+        clearInterval(timerCarrousel);
         changeSlide(position);
+        $("#progress").css("width","10%");
+        timerCarrousel = setInterval(function(){
+            changeSlide();
+        }, 5000);
     });
     
     $('#sectProjects li').click(function(){
@@ -155,7 +176,7 @@ function front() {
             if(arg == null || arg == undefined || arg == ""){
                 alert("O campo está vazio");
             }else{
-                 window.self.location = "/explore/"+arg+"/1";
+                 window.self.location = "/explore/"+urlencode(arg)+"/1";
             }
         }
     });
@@ -165,7 +186,7 @@ function front() {
         if(arg == null || arg == undefined || arg == ""){
             alert("O campo está vazio");
         }else{
-            window.self.location = "/explore/"+arg+"/1";
+            window.self.location = "/explore/"+urlencode(arg)+"/1";
         }
     });
     
@@ -396,6 +417,16 @@ function front() {
             */
     });
     
+    $("#progress").hover(function() {
+      
+    //   this.style.webkitAnimationPlayState = "paused";
+    //   $(this).css("width","0%");
+    //   $(this).on('webkitAnimationEnd', function() {
+    //     this.style.webkitAnimationPlayState = "running";
+    //   });
+    });
+    
+    
     //---------------JQUERY DE TERCEIROS
     $('.keyboard').keyboard({ 
         layout: 'qwerty',
@@ -406,6 +437,8 @@ function front() {
         // typeIn( text, delay, callback );
         kb.reveal();
     });
+    
+    
 }
 
 function comentar(proj){
@@ -470,6 +503,18 @@ function previewIMG(img,event){
     });
     reader.readAsDataURL(event.target.files[0]);
 }
+//======== UTILS =========
+function urlencode(text){
+    return text
+    	.replace(/&/g, "%26amp%3B")
+        .replace(/ç/g, "%26ccedil%3B")
+        .replace(/ã/g, "%26atilde%3B").replace(/á/g, "%26aacute%3B").replace(/â/g, "%26acirc%3B").replace(/à/g, "%26agrave%3B").replace(/ä/g, "%26auml%3B")
+        .replace(/õ/g, "%26otilde%3B").replace(/ó/g, "%26oacute%3B").replace(/ô/g, "%26acirc%3B").replace(/ò/g, "%26agrave%3B").replace(/ö/g, "%26ouml%3B")
+        .replace(/é/g, "%26eacute%3B").replace(/ê/g, "%26ecirc%3B").replace(/è/g, "%26egrave%3B").replace(/ë/g, "%26euml%3B")
+        .replace(/í/g, "%26iacute%3B").replace(/î/g, "%26icirc%3B").replace(/ì/g, "%26igrave%3B").replace(/ï/g, "%26iuml%3B")
+        .replace(/ú/g, "%26uacute%3B").replace(/û/g, "%26ucirc%3B").replace(/ù/g, "%26ugrave%3B").replace(/ü/g, "%26uuml%3B");
+        
+}
 
 function sleep(milliseconds) {
   var start = new Date().getTime();
@@ -480,4 +525,32 @@ function sleep(milliseconds) {
   }
 }
 
-
+window.onload = function(){
+    //========================== CAROUSEL ======================
+    $(".eachCarousel").not(":eq(0)").hide();
+    //========================== PROJETO =======================
+    //Crop
+    $('#projetoCapa').each(function() {
+        //set size
+        let th = $(this).height(),//box height
+            tw = $(this).width(),//box width
+            im = $(this).children('img'),//image
+            ih = im.height(),//inital image height
+            iw = im.width();//initial image width
+        if (ih>iw) {//if portrait
+            im.addClass('ww').removeClass('wh');//set width 100%
+        } else {//if landscape
+            im.addClass('wh').removeClass('ww');//set height 100%
+        }
+        //set offset
+        let nh = im.height(),//new image height
+            nw = im.width(),//new image width
+            hd = (nh-th)/2,//half dif img/box height
+            wd = (nw-tw)/2;//half dif img/box width
+        if (nh<nw) {//if portrait
+            im.css({marginLeft: '-'+wd+'px', marginTop: 0});//offset left
+        } else {//if landscape
+            im.css({marginTop: '-'+hd+'px', marginLeft: 0});//offset top
+        }
+    });
+};

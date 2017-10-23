@@ -62,10 +62,10 @@ use Talaka\Models\Project;
                     <?php } ?>
                     <div class="sortBy">
                         Organizar por: 
-                        <select>
+                        <select id="sort">
                             <option>Popularidade</option>
-                            <option>Novos Autores</option>
-                            <option>Novos Projetos</option>
+                            <option data-type="na">Novos Autores</option>
+                            <option data-type="np">Novos Projetos</option>
                             <option>Mais comentados</option>
                             <option>Perto de mim</option>
                         </select>
@@ -85,14 +85,14 @@ use Talaka\Models\Project;
                             $aux = (($proj->collected) * 100) / $proj->meta;
                             $percent = ( $aux > 100 )? 100 : $aux;
                     ?>
-                    <div class="projectsList">
-                        <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'.str_replace(" ","+",$proj->title); ?>" >
+                    <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'.str_replace(" ","+",$proj->title); ?>" >
+                        <div class="projectsList" data-np="<?= $proj->dtB;?>" data-na="<?= $proj->creator->id; ?>">
                             <div class="eachProject">
                                 <?php if($proj->close == 1){?>
                                 <div class="corner-ribbon top-right sticky blue"><span class="big">Desativado</span></div>
                                 <?php } ?>
                                 <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
-                                    <div class="eachProjectOwner" title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
+                                    <div class="eachProjectOwner" data-title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
                                 </div>
                                 <div class="eachProjectInfo">
                                     <div class="eachProjectTag">
@@ -117,8 +117,8 @@ use Talaka\Models\Project;
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                     <?php } //foreach 
                     }//else
                     ?>

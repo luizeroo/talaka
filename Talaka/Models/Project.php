@@ -19,7 +19,9 @@ class Project{
     private $total;
     private $close;
     private $idC;
-    private $category;
+    private $category; // name, id
+    private $coauthor;
+    private $tags;
 
     
     public function __construct($obj){

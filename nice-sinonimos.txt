@@ -1,1 +1,8 @@
 curl 'https://www.sinonimos.com.br/bola/' -v -H 'accept-encoding: gzip, deflate, br' -H 'accept-language: pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4' -H 'upgrade-insecure-requests: 1' -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36' -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8' -H 'referer: https://www.sinonimos.com.br/' -H 'authority: www.sinonimos.com.br' -H 'cookie: __gads=ID=05bb93e9542aff86:T=1502153417:S=ALNI_Mb5aMWVefro6wqOrOv7Ld5jYF0ojQ; PHPSESSID=k8re6h5v4cr8s143cfag0h64r1; _ga=GA1.3.793636904.1502153455; _gid=GA1.3.1430032419.1502153455; _gat=1; __lx209998_load_cnt=4; __lx209998_load_tmr=1502153461358; __lx209998_load_tmr_pre=1502153962148' --compressed ;
+
+
+https://fengyuanchen.github.io/cropperjs/
+
+https://images2.alphacoders.com/837/837892.png
+
+https://myanimelist.cdn-dena.com/images/anime/5/65187.jpg

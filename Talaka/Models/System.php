@@ -129,16 +129,50 @@ class System{
     }
     
     public function consultProject(Project $proj){
-        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,p.qt_visitation,count(f.cd_user) total,p.ds_resume, p.ic_close
-        FROM Project as p, User as u, Financing as f
+        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,p.qt_visitation,count(f.cd_user) total,p.ds_resume, c.nm_category, c.cd_category ,p.ic_close,IFNULL((
+					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':' ,user.ds_path_img)) 
+						FROM User as user 
+						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
+					), 'no') as coauthor,IFNULL((
+					SELECT GROUP_CONCAT(CONCAT(t.cd_tag,':' ,t.nm_tag)) 
+						FROM Tag as t 
+						WHERE t.cd_tag IN (SELECT pt.cd_tag FROM ProjectTags as pt WHERE pt.cd_project = p.cd_project)
+					), 'no') as tags
+        FROM Project as p, User as u, Financing as f, Category as c
         WHERE p.cd_user = u.cd_user
         AND p.cd_project = f.cd_project
+        AND p.cd_category = c.cd_category
         AND p.nm_title = ?") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("s",$proj->title) or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
-        $stm->bind_result($id,$title,$ds,$img,$cover,$vlM,$vlC,$dtB,$dtF,$creator,$creID,$imgU,$visit,$total,$resume,$close)or die("Erro 4");
+        $stm->bind_result($id,$title,$ds,$img,$cover,$vlM,$vlC,$dtB,$dtF,$creator,$creID,$imgU,$visit,$total,$resume,$nmC,$idC,$close,$coauthor,$tags)or die("Erro 4");
         $stm->fetch();
-        $resp = new Project(array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"cover"=>$cover,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"creator"=> array("id" => $creID, "name" => $creator,"img" => $imgU ),"visit"=>$visit,"total"=>$total,"resume"=>$resume,"close"=>$close))or die("Erro ao criar objeto de Project");
+        $resp = new Project([
+            "id"        => $id,
+            "title"     => $title,
+            "ds"        => utf8_encode($ds),
+            "img"       => $img,
+            "cover"     => $cover,
+            "meta"      => $vlM,
+            "collected" => $vlC,
+            "dtB"       => $dtB,
+            "dtF"       => $dtF,
+            "creator"   => [
+                "id"        => $creID,
+                "name"      => $creator,
+                "img"       => $imgU 
+            ],
+            "category"  => [
+                "id"        => $idC,
+                "name"      => $nmC
+            ],
+            "visit"     => $visit,
+            "total"     => $total,
+            "resume"    => $resume,
+            "close"     => $close,
+            "coauthor"  => $coauthor,
+            "tags"      => utf8_encode($tags)
+            ])or die("Erro ao criar objeto de Project");
         $stm->close();
         return $resp;
     }
@@ -181,7 +215,7 @@ class System{
         FROM (
             SELECT * 
         	FROM (
-				SELECT DISTINCT p.cd_user,p.cd_project, p.nm_title, p.ds_project, p.ds_path_img as proImg, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img as userImg, p.cd_category, ((p.vl_collected *100) / p.vl_meta)dif, c.nm_category, (SELECT COUNT(cmt.cd_comment) FROM Comment as cmt WHERE p.cd_project = cmt.cd_project  ) as qt_comments, IFNULL((
+				SELECT DISTINCT p.cd_user,p.cd_project, p.nm_title, p.ds_project, p.ds_path_img as proImg, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img as userImg, u.created_at, p.cd_category, ((p.vl_collected *100) / p.vl_meta)dif, c.nm_category, (SELECT COUNT(cmt.cd_comment) FROM Comment as cmt WHERE p.cd_project = cmt.cd_project  ) as qt_comments, IFNULL((
 					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':' ,user.ds_path_img)) 
 						FROM User as user 
 						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
@@ -198,7 +232,7 @@ class System{
         LIMIT ?") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("i",intval($num));
         $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
-        $stm->bind_result($user,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$idC,$percent,$cat,$comments,$coauthor);
+        $stm->bind_result($user,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$dtU,$idC,$percent,$cat,$comments,$coauthor);
         $r = [];
         while($stm->fetch()){
             $r[] = [
@@ -211,10 +245,11 @@ class System{
                 "dtB"       => $dtB,
                 "dtF"       => $dtF,
                 "creator"   => [
-                    "id"        => $idC,
+                    "id"        => $user,
                     "name"      => $creator,
-                    "img"       => $imgU
-                ],$creator,
+                    "img"       => $imgU,
+                    "dtB"       => $dtB
+                ],
                 "imgB"      => $imgB,
                 "percent"   => $percent,
                 "user"      => $user,
@@ -294,7 +329,7 @@ class System{
         $term= urldecode($term);
         $max = ($pag == 1)? 0 : (($pag - 1) * 12) + 1;
         $name = "%".$term."%";
-        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.vl_meta, p.vl_collected, p.dt_final, p.ds_path_img, c.nm_category, p.cd_user, u.nm_user, u.ds_path_img, p.ic_close
+        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.vl_meta, p.vl_collected, p.dt_begin,p.dt_final, p.ds_path_img, c.nm_category, p.cd_user, u.nm_user, u.ds_path_img, u.created_at,p.ic_close
         FROM Project as p, User as u, Category as c
         WHERE (p.nm_title LIKE ? OR c.nm_category  LIKE ?)
         AND u.cd_user = p.cd_user
@@ -302,7 +337,7 @@ class System{
         LIMIT ?,12") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("ssi",$name,$name,$max)or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
-        $stm->bind_result($id,$title,$ds,$vlM,$vlC,$dt,$img,$category,$idU,$nmU,$imgU,$close)or die("Erro 4");
+        $stm->bind_result($id,$title,$ds,$vlM,$vlC,$dtB,$dtF,$img,$category,$idU,$nmU,$imgU,$dtU,$close)or die("Erro 4");
         $r = array();
         while($stm->fetch()){
             $r["projects"][] = [
@@ -312,12 +347,14 @@ class System{
                 "meta"      => $vlM,
                 "collected" => $vlC,
                 "img"       => $img,
-                "dtF"       => $dt,
+                "dtB"       => $dtB,
+                "dtF"       => $dtF,
                 "category"  => $category,
                 "creator"   => [
                     "id"        => $idU,
                     "name"      => $nmU,
-                    "img"       => $imgU
+                    "img"       => $imgU,
+                    "dtB"       => $dtU
                 ],
                 "close"     => $close
             ];
