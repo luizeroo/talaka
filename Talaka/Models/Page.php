@@ -31,6 +31,10 @@ class Page{
         ($json)? header('Content-Type: application/json; charset=utf-8') : header('Content-Type: text/html; charset=utf-8');
         echo $this->view;
     }
+    
+    public function redirect($url = "/" ){
+        header("Location:" . $url);   
+    }
 
 }
 

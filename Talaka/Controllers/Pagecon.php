@@ -50,6 +50,9 @@ class Pagecon{
             "met"   => "project",
             "arg0"  => $request->getParam('title')
         ]);
+        if(empty($data["title"])){
+            $this->page->redirect("/error/". urlencode("Projeto não encontrado"));
+        }
         $comments = $this->page->curl('GET',[
             "class" => "visitor",
             "met"   => "comments",
@@ -178,17 +181,30 @@ class Pagecon{
         }
     }
     
-    public function profile($id){
-        if ($id == $_SESSION['cdUser']){
-            header('location: /myprofile');
-        } else {
-            $user = $this->page->curl("client","profile",$id);
-            $user['myprojects'] = $this->page->curl("client","myprojects",$id);
-            $user['myfinances'] = $this->page->curl("client","myfinances",$id);
-            $this->page->load("view/nav.php",array("pag_title" =>"Perfil"));
-            $this->page->load('view/profile.php',$user);
-            $this->page->load("view/footer.php");
-        }
+    public function profile($request, $response){
+        $user = $this->page->curl("GET",[
+            "class" => "visitor",
+            "met"   => "profile",
+            "arg0"  => $request->getParam("username")
+        ]);
+        $this->page->load("view/parts/header.php",[
+            "pag_title" => "Perfil"
+        ]);
+        $this->page->load("view/parts/nav.php");
+        //$user = $_SESSION['user'];
+        $this->page->load('view/profile.php',$user);
+        $this->page->load("view/parts/footer.php");
+        $this->page->render();
+        // if ($id == $_SESSION['cdUser']){
+        //     header('location: /myprofile');
+        // } else {
+        //     $user = $this->page->curl("client","profile",$id);
+        //     $user['myprojects'] = $this->page->curl("client","myprojects",$id);
+        //     $user['myfinances'] = $this->page->curl("client","myfinances",$id);
+        //     $this->page->load("view/nav.php",array("pag_title" =>"Perfil"));
+        //     $this->page->load('view/profile.php',$user);
+        //     $this->page->load("view/footer.php");
+        // }
     }
     
     public function statistic($id){
@@ -200,6 +216,13 @@ class Pagecon{
             $this->page->load('view/statistic.php', array("stats"=>$sta));
             $this->page->load("view/footer.php");
         }
+    }
+    
+    //Logout
+    public function logout($request, $response){
+        unset($_SESSION['user']);
+        session_destroy();
+        $this->page->redirect("/");
     }
     
     //Error
@@ -217,7 +240,16 @@ class Pagecon{
     }
     
     public static function is_logged(){
-        return isset($_SESSION['cdUser']);
+        return isset($_SESSION['user']);
+    }
+    
+    public function teste($request, $response){
+        $data = $this->page->curl('GET',[
+            "class" => "visitor",
+            "met"   => "teste"
+        ], TRUE);
+        
+        var_dump($data);
     }
     
 }

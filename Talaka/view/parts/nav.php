@@ -54,7 +54,7 @@ use Talaka\Controllers\Pagecon;
                             if(Pagecon::is_logged()){
                             ?>
                             <li>
-                                <div id="userloginPhoto" style="background-image: url(<?= base_url; ?>user-img/<?= $_SESSION[imgUser];?> )"></div>
+                                <div id="userloginPhoto" style="background-image: url(<?= base_url; ?>user-img/<?= $_SESSION['user']['img'];?> )"></div>
                             </li>
                             <?php 
                             }else{ 

@@ -75,53 +75,86 @@ class System{
         return true;
     }
     
-    public function consultUser($id){
+    //Select para todos
+    public function select($table,$where,$columns = "*"){
+        //Prepara o sql
+        $type = "";
+        $vls = [];
+        $query = "SELECT ".$columns." FROM ".$table." WHERE";
+        foreach ($where as $col => $val) {
+            $query .= " ".$col." = ? AND";
+            $type  .= gettype($val)[0];
+            $vls[] = &$where[$col];
+        }
+        $query = substr($query, 0, -3);
+        $stm = $this->con->prepare($query) or die("Erro 1 " . $query .$con->error.http_response_code(405));
+        call_user_func_array(array($stm,"bind_param"),array_merge(array($type), $vls))or die("Erro 2".$stm->error.http_response_code(405));
+        $stm->execute() or die("Erro 3".$stm->error.http_response_code(405));
+        $result = $this->fetch($stm);
+        var_dump($result);
+        die();
+        $stm->close();
+        return $result;
+    }
+    
+    public function consultUser($username){
         $stm = $this->con->prepare("SELECT u.ds_login, u.ds_path_img, u.nm_user, u.ds_biography, u.ds_email, u.ds_img_back, 
         (
         SELECT COUNT( p.cd_project ) 
         FROM User AS u, Project AS p
         WHERE p.cd_user = u.cd_user
-        AND u.cd_user = ?
+        AND u.ds_login = ?
         ) AS projects, 
         (
         SELECT COUNT( DISTINCT f.cd_project ) 
         FROM User AS u,Project AS p, Financing AS f
         WHERE f.cd_user = u.cd_user
         AND f.cd_project = p.cd_project
-        AND u.cd_user = ?
+        AND u.ds_login = ?
         ) AS finan
         FROM User AS u, Project AS p, Financing AS f
-        WHERE u.cd_user = ?
+        WHERE u.ds_login = ?
         GROUP BY u.ds_login") or die("Erro 1 ".$con->error.http_response_code(405));
-        $stm->bind_param("iii",$id,$id,$id) or die("Erro 2 ".$stm->error.http_response_code(405));
+        $stm->bind_param("sss",$username,$username,$username) or die("Erro 2 ".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3 ".$stm->error.http_response_code(405));
         $stm->bind_result($login,$img,$nome,$biography,$email,$cover,$projects,$finances);
         $stm->fetch();
         $stm->close();
-        return json_encode(array(   "id" => $id,
-                                    "login" => $login,
-                                    "img" => $img,
-                                    "nome" => $nome,
-                                    "biography" => $biography,
-                                    "email" => $email ,
-                                    "cover" => $cover,
-                                    "projects" => $projects,
-                                    "finances" => $finances ));
+        return json_encode([
+            "id" => $id,
+            "login" => $login,
+            "img" => $img,
+            "nome" => $nome,
+            "biography" => $biography,
+            "email" => $email ,
+            "cover" => $cover,
+            "projects" => $projects,
+            "finances" => $finances
+        ]);
     }
     
     public function checkUser($obj){
         $obj->pwd = hash("ripemd160" , $obj->pwd);
-        $stm = $this->con->prepare("SELECT cd_user, nm_user, ds_path_img FROM User WHERE ds_login = ? and ds_pwd = ?") or die("Erro 1 ".$this->con->error.http_response_code(405));
+        $stm = $this->con->prepare("SELECT `cd_user`,`nm_user`,`ds_login`,`ds_email`,`ds_biography`,`ds_path_img`,`dt_birth`,`ds_img_back`,`created_at`,`updated_at` FROM User WHERE ds_login = ? and ds_pwd = ?") or die("Erro 1 ".$this->con->error.http_response_code(405));
         $stm->bind_param("ss", $obj->login, $obj->pwd) or die("Erro 2 ".$stm->error.http_response_code(405));
         $stm->execute();
-        $stm->bind_result($cdU,$nmU,$imgU);
+        $stm->bind_result($cdU,$nmU,$dsLogin,$email,$bio,$imgU,$nasc,$cover, $criado,$atualizacao);
         $stm->fetch();
         if ($cdU === "" || $cdU === null){
             return json_encode(array("stats"=>"fail", "data"=> "Login ou senha Incorretos"));
         } else {
-            $_SESSION["cdUser"]=$cdU;
-            $_SESSION["nmUser"]=$nmU;
-            $_SESSION["imgUser"]=$imgU;
+            $_SESSION["user"]= [
+                "id"            => $cdU,
+                "name"          => $nmU,
+                "login"         => $dsLogin,
+                "email"         => $email,
+                "bio"           => $bio,
+                "img"           => $imgU,
+                "nasc"          => $nasc,
+                "cover"         => $cover,
+                "criacao"       => $criado,
+                "atuzalizado"   => $atualizacao
+            ];
             return json_encode(array("stats"=>"success", "data"=>"login efetuado"));
         }
         $stm->close();
@@ -434,6 +467,37 @@ class System{
         }
         $stm->close();
         return json_encode($r);
+    }
+    
+    private function fetch($result){    
+        $array = [];
+        
+        if(get_class($result) == "mysqli_stmt"){
+            $result->store_result();
+            
+            $variables = array();
+            $data = array();
+            $meta = $result->result_metadata();
+            
+            while($field = $meta->fetch_field())
+                $variables[] = &$data[$field->name]; // pass by reference
+            
+            call_user_func_array(array($result, 'bind_result'), $variables);
+            
+            $i=0;
+            while($result->fetch()){
+                $array[$i] = array();
+                foreach($data as $k=>$v)
+                    $array[$i][$k] = $v;
+                $i++;
+                
+                // don't know why, but when I tried $array[] = $data, I got the same one result in all rows
+            }
+        }elseif($result instanceof mysqli_result){
+            while($row = $result->fetch_assoc())
+                $array[] = $row;
+        }
+        return $array;
     }
     
 }

@@ -70,6 +70,102 @@ var timerCarrousel = setInterval(function(){
 }, 5000);
 
 function front() {
+    $("#financiarProjeto").click(function(){
+       $("#financiamento") .fadeIn();
+       $("#financiamento").css("display","flex");
+       $("#continuar").click(function() {
+          $("#areaPlataforma").fadeOut("fast");
+          $("#areaFinanciamento").css("width","100%");
+       });
+       $("#bg, #cancelar").click(function() {
+           $("#financiamento").fadeOut();
+           $("#areaFinanciamento").css("width","68%");
+           $("#areaPlataforma").fadeIn("fast");
+       })
+    });
+    //================ FINANCIAMENTO ===================================
+    //Abrir forma de pagamento
+    $("#escolherForma li").click(function() {
+       $(this).children(".efetuarPagamento").slideDown();
+    });
+    //CARTAO -----------------------------------------------------------
+    $('#creditNumero input').on('keyup change', function(e){
+        if($.inArray(e.keyCode, [48,49,50,51,52,53,54,55,56,57,8,96,97,98,99,100,101,102,103,104,105]) == -1){
+            e.preventDefault();
+            return false;
+        }
+        let $t = $(this);
+        if ($t.val().length > 3) {
+            $t.next().focus();
+        }
+        
+        let cardNumber = "";
+        $('.input-cart-number').each(function(){
+            cardNumber += $(this).val() + " ";
+            if ($(this).val().length == 4) {
+                $(this).next().focus();
+            }
+        })
+        
+        $('.credit-card-box .number').html(cardNumber);
+    });
+    $('#cardName').on('keyup change', function(e){
+        if($(this).val().length > 15){
+            if($.inArray(e.keyCode, [16,17,37,38,39,40]) != -1){
+                return false;
+            }
+            
+            let atual = parseFloat($('.credit-card-box .card-holder div').css('font-size'));
+            if(e.keyCode == 8){
+                $('.credit-card-box .card-holder div').css('font-size', atual + (atual * 0.03));
+            }else{
+                $('.credit-card-box .card-holder div').css('font-size', atual - (atual * 0.03));
+            }
+        }else{
+            $('.credit-card-box .card-holder div').css('font-size', 33);
+        }
+        $('.credit-card-box .card-holder div').html($(this).val());
+    });
+    $('#cardMonth, #cardYear').change(function(){
+        m = $('#cardMonth option:selected').val();
+        m = (m < 10) ? '0' + m : m;
+        y = $('#cardYear').val().substr(2,2);
+        $('.card-expiration-date div').html(m + '/' + y);
+    });
+    $('#cardCcv').on('focus', function(){
+        $('.credit-card-box').addClass('hover');
+    }).on('blur', function(){
+        $('.credit-card-box').removeClass('hover');
+    }).on('keyup change', function(){
+        $('.ccv div').html($(this).val());
+    });
+    // Fechar dados recompensa
+    $("#dadosContribuicao .cadaRecompensa").not(".cadaRecompensa_extends").unbind().click(function() {
+        let position = $(this).index();
+        $("#dadosContribuicao .cadaRecompensa").not(":eq("+position+")").fadeOut(200);
+        $(this).addClass("cadaRecompensa_extends");
+        $(this).animate({
+            width: '100%'
+        });
+        //$(this).find("#valorDoado").focus();
+    });
+    
+    $("#voltar").unbind().click(function(event) {
+        $(".cadaRecompensa_extends").animate({
+            width: '23.5%'
+        }).attr("class","cadaRecompensa");
+        $("#dadosContribuicao .cadaRecompensa").fadeIn(500);
+        event.stopImmediatePropagation();
+    });
+    
+    
+    
+    // faq
+    $("#faq li").click(function(){
+       $("span",this).toggleClass("fixed");
+    });
+    
+    
     
     //========================== TAB Project
     //$(".tabProject").not(":eq(0)").hide();
@@ -554,3 +650,4 @@ window.onload = function(){
         }
     });
 };
+

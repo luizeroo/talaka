@@ -204,6 +204,12 @@ body {
     #acessibility li:last-child {
       border: 0; }
 
+.clear {
+  clear: both;
+  width: 100%;
+  display: block;
+  height: 1px; }
+
 #toTop {
   display: none;
   padding: auto;
@@ -757,7 +763,8 @@ footer {
   position: absolute;
   display: flex;
   background-image: url(/Talaka/resources/img/memphis-colorful.png); }
-  #loginInitial a, #loginInitial input[type="submit"] {
+  #loginInitial a,
+  #loginInitial input[type="submit"] {
     display: inline-block;
     padding: 5px 15px;
     margin: 15px 20px 0 0;
@@ -935,21 +942,26 @@ footer {
     display: inline-block;
     margin: 0 5px;
     color: #094F7D; }
-#signup input:not([type='submit']), #signup textarea#bio {
+#signup input:not([type='submit']),
+#signup textarea#bio {
   width: 98%;
   padding: 1%;
   font-size: 1.5em;
   border: 1px solid #DC367F;
   color: #A50249; }
-  #signup input:not([type='submit'])::-webkit-input-placeholder, #signup textarea#bio::-webkit-input-placeholder {
+  #signup input:not([type='submit'])::-webkit-input-placeholder,
+  #signup textarea#bio::-webkit-input-placeholder {
     color: #A50249; }
-  #signup input:not([type='submit']):-moz-placeholder, #signup textarea#bio:-moz-placeholder {
+  #signup input:not([type='submit']):-moz-placeholder,
+  #signup textarea#bio:-moz-placeholder {
     /* Firefox 18- */
     color: #A50249; }
-  #signup input:not([type='submit'])::-moz-placeholder, #signup textarea#bio::-moz-placeholder {
+  #signup input:not([type='submit'])::-moz-placeholder,
+  #signup textarea#bio::-moz-placeholder {
     /* Firefox 19+ */
     color: #A50249; }
-  #signup input:not([type='submit']):-ms-input-placeholder, #signup textarea#bio:-ms-input-placeholder {
+  #signup input:not([type='submit']):-ms-input-placeholder,
+  #signup textarea#bio:-ms-input-placeholder {
     color: #A50249; }
 #signup .inputQuestion {
   width: 98%;
@@ -961,7 +973,8 @@ footer {
 #signup textarea#bio {
   min-height: 100px;
   resize: vertical; }
-#signup input[type='submit'], #signup a {
+#signup input[type='submit'],
+#signup a {
   display: block;
   padding: 10px 15px;
   text-decoration: none;
@@ -1449,7 +1462,8 @@ section#infosProject {
         section#infosProject .wrapper #projetoInformacoes #botoes #financiarProjeto {
           background-color: #327DAD;
           color: #fff;
-          border-radius: .3em 0 0 .3em; }
+          border-radius: .3em 0 0 .3em;
+          cursor: pointer; }
         section#infosProject .wrapper #projetoInformacoes #botoes #visualizarDemonstracao {
           color: #327DAD;
           border-radius: 0 .3em .3em 0; }
@@ -1611,5 +1625,632 @@ section#infosProject {
     #conhecerProjeto #projetoAtualizacoes .cadaAtt .commentaryAtt .cadaComentario {
       border: 1px solid #e9e9e9ssa;
       padding: 5px; }
+
+#financiamento {
+  -webkit-animation-delay: 2s;
+  /* Safari 4.0 - 8.0 */
+  animation-delay: 2s;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  display: none; }
+  #financiamento h1,
+  #financiamento h2 {
+    font-size: 1.6em;
+    font-weight: 500;
+    color: #A50249; }
+  #financiamento #bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: -moz-linear-gradient(top, rgba(165, 2, 73, 0.64) 0%, rgba(58, 14, 133, 0.67) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(165, 2, 73, 0.64) 0%, rgba(58, 14, 133, 0.67) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(165, 2, 73, 0.64) 0%, rgba(58, 14, 133, 0.67) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a3a50249', endColorstr='#ab3a0e85', GradientType=0);
+    /* IE6-9 */
+    left: 0;
+    top: 0; }
+  #financiamento > .wrapper {
+    background-color: #fff;
+    box-shadow: 0 0 15px #666;
+    z-index: 100;
+    position: relative;
+    max-height: 85vh;
+    border-radius: .3em;
+    padding: 1%;
+    width: 84%;
+    box-sizing: border-box;
+    display: flex; }
+    #financiamento > .wrapper #areaFinanciamento {
+      width: 68%;
+      width: 100%;
+      padding: 1%;
+      position: relative;
+      -webkit-transition: 0.3s;
+      -moz-transition: 0.3s;
+      -ms-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s; }
+      #financiamento > .wrapper #areaFinanciamento #nav {
+        width: calc(100% - 20px);
+        padding: 10px; }
+        #financiamento > .wrapper #areaFinanciamento #nav ul {
+          margin: 0 0 10px 0;
+          display: flex;
+          justify-content: space-around; }
+          #financiamento > .wrapper #areaFinanciamento #nav ul li {
+            padding: 5px 10px;
+            box-sizing: border-box;
+            width: 25%;
+            margin: 0 1%;
+            font-size: 1.3em;
+            text-align: center;
+            border-bottom: 3px solid #EE84B3;
+            color: #EE84B3; }
+            #financiamento > .wrapper #areaFinanciamento #nav ul li:first-child {
+              border-color: red;
+              color: #A50249;
+              margin-left: 0; }
+            #financiamento > .wrapper #areaFinanciamento #nav ul li:last-child {
+              margin-right: 0; }
+        #financiamento > .wrapper #areaFinanciamento #nav p {
+          font-size: 1.4em;
+          color: #333; }
+        #financiamento > .wrapper #areaFinanciamento #nav h1 {
+          font-size: 2em; }
+      #financiamento > .wrapper #areaFinanciamento #usuariologado {
+        width: 98%;
+        padding: 1%;
+        display: flex; }
+        #financiamento > .wrapper #areaFinanciamento #usuariologado div {
+          display: table; }
+        #financiamento > .wrapper #areaFinanciamento #usuariologado #fotoUsuario {
+          width: 60px;
+          height: 60px;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          border-radius: 50%; }
+        #financiamento > .wrapper #areaFinanciamento #usuariologado #dadosUsuario {
+          display: flex;
+          align-items: center;
+          text-align: left;
+          padding: 1% 2%;
+          width: calc(98% - 75px);
+          box-sizing: border-box; }
+          #financiamento > .wrapper #areaFinanciamento #usuariologado #dadosUsuario p {
+            font-size: 1.4em; }
+          #financiamento > .wrapper #areaFinanciamento #usuariologado #dadosUsuario span {
+            color: #333; }
+          #financiamento > .wrapper #areaFinanciamento #usuariologado #dadosUsuario a {
+            color: inherit;
+            font-size: inherit; }
+      #financiamento > .wrapper #areaFinanciamento #contribuicao {
+        padding: 2% 1%; }
+        #financiamento > .wrapper #areaFinanciamento #contribuicao p {
+          font-size: 1.4em;
+          margin-bottom: 20px; }
+        #financiamento > .wrapper #areaFinanciamento #contribuicao h2 {
+          font-size: 2em; }
+        #financiamento > .wrapper #areaFinanciamento #contribuicao .area {
+          display: block;
+          width: 98%;
+          padding: 1%;
+          border: 1px solid #c2c2c2;
+          cursor: pointer;
+          margin: 1% 0;
+          font-size: 1.4em;
+          -webkit-transition: 0.2s;
+          -moz-transition: 0.2s;
+          -ms-transition: 0.2s;
+          -o-transition: 0.2s;
+          transition: 0.2s; }
+          #financiamento > .wrapper #areaFinanciamento #contribuicao .area:hover {
+            border-color: #7EB5D8; }
+          #financiamento > .wrapper #areaFinanciamento #contribuicao .area:checked {
+            background-color: pink; }
+          #financiamento > .wrapper #areaFinanciamento #contribuicao .area input {
+            margin: 1%; }
+          #financiamento > .wrapper #areaFinanciamento #contribuicao .area i {
+            width: 20px;
+            color: #094F7D; }
+        #financiamento > .wrapper #areaFinanciamento #contribuicao .acoes {
+          padding: 10px 50px;
+          border: 2px solid #c2c2c2;
+          -webkit-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -ms-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          background-color: #fff;
+          float: right;
+          text-transform: uppercase;
+          margin: 2% 0 0 2%;
+          border: 3px solid #094F7D;
+          color: #094F7D;
+          font-size: 1.2em; }
+        #financiamento > .wrapper #areaFinanciamento #contribuicao #cancelar {
+          border-color: #094F7D; }
+          #financiamento > .wrapper #areaFinanciamento #contribuicao #cancelar:hover {
+            border-color: #327DAD; }
+        #financiamento > .wrapper #areaFinanciamento #contribuicao #continuar {
+          background-color: #094F7D;
+          color: #fff; }
+          #financiamento > .wrapper #areaFinanciamento #contribuicao #continuar:hover {
+            background-color: #327DAD;
+            border-color: #327DAD; }
+      #financiamento > .wrapper #areaFinanciamento .formulario {
+        padding: 10px; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPessoais {
+        display: none; }
+      #financiamento > .wrapper #areaFinanciamento #dadosContribuicao {
+        padding: 0;
+        display: none; }
+        #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper {
+          width: 100%;
+          height: 320px;
+          position: relative; }
+          #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul {
+            width: 100%;
+            flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; }
+            #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa {
+              width: 23.5%;
+              height: 300px;
+              box-sizing: border-box;
+              border: 1px solid #c2c2c2;
+              margin: 1% 0;
+              -webkit-transition: 0.5s;
+              -moz-transition: 0.5s;
+              -ms-transition: 0.5s;
+              -o-transition: 0.5s;
+              transition: 0.5s;
+              cursor: pointer; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa:hover {
+                transform: scale(1.1);
+                border-color: #A50249; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .valor {
+                width: 100%;
+                background-color: #A50249;
+                padding: 10px;
+                box-sizing: border-box;
+                font-size: 2.2em;
+                color: #fff;
+                font-weight: 500;
+                text-align: center;
+                position: relative; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .valor span {
+                  display: block;
+                  font-size: .5em;
+                  padding: 0;
+                  font-weight: 400; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .valor #voltar {
+                  display: none;
+                  left: 0;
+                  top: 0;
+                  position: absolute;
+                  background-color: #fff;
+                  color: #A50249;
+                  font-size: 1.4em;
+                  padding: 15px;
+                  height: 100%;
+                  box-sizing: border-box; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .recompensaDescricao {
+                padding: 1%;
+                height: 170px; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .recompensaDescricao p {
+                  padding: 10px;
+                  font-size: 1.4em;
+                  border-bottom: 1px solid rgba(213, 14, 101, 0.05); }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .recompensaDescricao p i {
+                    margin-right: 5px;
+                    font-size: .8em;
+                    color: #A50249; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .recompensaDescricao .descricao,
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa .recompensaDescricao .donate {
+                  border: 0;
+                  display: none; }
+            #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends {
+              overflow: auto;
+              padding-bottom: 20px; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends:hover {
+                transform: scale(1);
+                border: 1px solid #c2c2c2; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .descricao,
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate {
+                display: block !important; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends #voltar {
+                display: block !important; }
+              #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate {
+                width: 96%;
+                padding: 1%;
+                margin-bottom: 1%;
+                border-top: 1px dotted #ccc; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate label {
+                  display: block;
+                  font-size: 1.8em;
+                  font-weight: 600; }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate label span {
+                    display: block;
+                    font-size: .8em;
+                    font-weight: 400;
+                    margin-bottom: 10px; }
+                    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate label span b {
+                      color: #A50249; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #continuarContribuicao {
+                  padding: 10px 15px;
+                  background-color: #094F7D;
+                  box-sizing: border-box;
+                  width: 15%;
+                  height: 42px;
+                  margin-left: 1%;
+                  color: #fff;
+                  font-size: 1.6em;
+                  cursor: pointer;
+                  border: 0;
+                  -webkit-transition: 0.3s;
+                  -moz-transition: 0.3s;
+                  -ms-transition: 0.3s;
+                  -o-transition: 0.3s;
+                  transition: 0.3s; }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #continuarContribuicao:hover {
+                    background-color: #327DAD; }
+                #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #valorDoado {
+                  width: 79%;
+                  border: 1px solid #c2c2c2;
+                  padding: 10px 2%;
+                  font-size: 1.6em;
+                  color: #A50249; }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #valorDoado::-webkit-input-placeholder {
+                    color: #A50249; }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #valorDoado:-moz-placeholder {
+                    /* Firefox 18- */
+                    color: #A50249; }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #valorDoado::-moz-placeholder {
+                    /* Firefox 19+ */
+                    color: #A50249; }
+                  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa_extends .donate #valorDoado:-ms-input-placeholder {
+                    color: #A50249; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento #escolherForma input {
+        display: none; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento #escolherForma .escolha {
+        font-size: 1.4em;
+        width: 96%;
+        padding: 1%;
+        border: 1px solid #c2c2c2;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -ms-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+        display: block;
+        margin: 5px 0 10px 0; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #escolherForma .escolha i {
+          -webkit-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -ms-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          color: #094F7D;
+          width: 20px; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento #escolherForma input:hover + .escolha {
+        border-color: #7EB5D8; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #escolherForma input:hover + .escolha i {
+          color: #327DAD; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento #escolherForma input:checked + .escolha {
+        background-color: rgba(100, 0, 200, 0.1);
+        border-color: #327DAD;
+        color: #327DAD;
+        font-weight: 600; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento .efetuarPagamento {
+        width: 100%;
+        padding: 1%;
+        box-sizing: border-box;
+        display: none;
+        position: relative;
+        z-index: 5; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box {
+        perspective: 800px;
+        float: left;
+        max-width: 400px;
+        width: 40%;
+        height: 280px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box:hover .flip, #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box.hover .flip {
+          transform: rotateY(180deg); }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .front,
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .back {
+          width: 400px;
+          height: 250px;
+          border-radius: 15px;
+          backface-visibility: hidden;
+          background: linear-gradient(135deg, #bd6772, #53223f);
+          position: absolute;
+          color: #fff;
+          font-family: Inconsolata;
+          top: 0;
+          left: 0;
+          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .front::before,
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .back::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url("http://cdn.flaticon.com/svg/44/44386.svg") no-repeat center;
+            background-size: cover;
+            opacity: .05; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .flip {
+          transition: 0.6s;
+          transform-style: preserve-3d;
+          position: relative; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .logo {
+          position: absolute;
+          top: 9px;
+          right: 20px;
+          width: 60px; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .logo svg {
+            width: 100%;
+            height: auto;
+            fill: #fff; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .front {
+          z-index: 2;
+          transform: rotateY(0deg); }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .back {
+          transform: rotateY(180deg); }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .back .logo {
+            top: 185px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .chip {
+          position: absolute;
+          width: 60px;
+          height: 45px;
+          top: 20px;
+          left: 20px;
+          background: linear-gradient(135deg, #ddccf0 0%, #d1e9f5 44%, #f8ece7 100%);
+          border-radius: 8px; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .chip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 4px solid rgba(128, 128, 128, 0.1);
+            width: 80%;
+            height: 70%;
+            border-radius: 5px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .strip {
+          background: linear-gradient(135deg, #404040, #1a1a1a);
+          position: absolute;
+          width: 100%;
+          height: 50px;
+          top: 30px;
+          left: 0; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .number {
+          position: absolute;
+          margin: 0 auto;
+          top: 103px;
+          left: 19px;
+          font-size: 38px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box label {
+          font-size: 10px;
+          letter-spacing: 1px;
+          text-shadow: none;
+          text-transform: uppercase;
+          font-weight: normal;
+          opacity: 0.5;
+          display: block;
+          margin-bottom: 3px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .card-holder,
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .card-expiration-date {
+          position: absolute;
+          margin: 0 auto;
+          top: 180px;
+          left: 19px;
+          font-size: 22px;
+          text-transform: capitalize; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .card-holder div,
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .card-expiration-date div {
+            font-size: 1.5em; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .card-expiration-date {
+          text-align: right;
+          left: auto;
+          right: 20px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .ccv {
+          height: 36px;
+          background: #fff;
+          width: 91%;
+          border-radius: 5px;
+          top: 110px;
+          left: 0;
+          right: 0;
+          position: absolute;
+          margin: 0 auto;
+          color: #000;
+          text-align: right;
+          padding: 10px; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .ccv label {
+            margin: -25px 0 14px;
+            color: #fff; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box .ccv div {
+            font-size: 2.5em; }
+      #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario {
+        width: 58%;
+        float: left;
+        height: 250px;
+        padding: 2%;
+        box-sizing: border-box;
+        margin: 0 1%; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario input,
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario select {
+          display: inline-block;
+          padding: 1% 2%;
+          font-size: 1.4en;
+          box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+          border: 1px solid #c2c2c2;
+          border-radius: .3em;
+          box-sizing: border-box;
+          height: 30px; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario label {
+          text-transform: uppercase;
+          margin: 20px 0 10px 0;
+          display: block;
+          font-size: 1.3em; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario label:first-child {
+            margin-top: 0; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario fieldset {
+          border: 0; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #creditNumero {
+          display: flex;
+          justify-content: space-between; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #creditNumero input {
+            width: 23%; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #creditDono {
+          margin-bottom: 10px; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #creditDono input {
+            width: 100%; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #creditFinal {
+          display: flex;
+          width: 100%;
+          justify-content: space-between; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #creditFinal div {
+            width: 33%; }
+        #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #finalizar {
+          margin-top: 20px; }
+          #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario #finalizar input {
+            background-color: red;
+            border: 0;
+            padding: 10px 15px;
+            background-color: #A50249;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            height: auto; }
+    #financiamento > .wrapper #areaPlataforma {
+      width: 28%;
+      padding: 1%;
+      display: none; }
+      #financiamento > .wrapper #areaPlataforma #aviso h2,
+      #financiamento > .wrapper #areaPlataforma #aviso p,
+      #financiamento > .wrapper #areaPlataforma #aviso a {
+        margin: 10px 0; }
+      #financiamento > .wrapper #areaPlataforma #aviso span {
+        color: #DC367F;
+        font-weight: 400; }
+      #financiamento > .wrapper #areaPlataforma #aviso p,
+      #financiamento > .wrapper #areaPlataforma #aviso a {
+        font-size: 1.3em; }
+      #financiamento > .wrapper #areaPlataforma #aviso a {
+        color: #094F7D; }
+      #financiamento > .wrapper #areaPlataforma #faq li {
+        padding: 5px;
+        font-size: 1em;
+        color: #094F7D; }
+      #financiamento > .wrapper #areaPlataforma #faq span {
+        display: none;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -ms-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s; }
+      #financiamento > .wrapper #areaPlataforma #faq .fixed {
+        padding: 5px;
+        display: block;
+        text-decoration: none; }
+
+#erro {
+  display: flex;
+  position: absolute;
+  background-color: #094F7D;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  align-items: center; }
+  #erro .wrapper {
+    display: flex;
+    width: 80%; }
+    #erro .wrapper .icons {
+      width: 50%;
+      position: relative;
+      /*
+          credits: Saransh Sinha
+          url: https://codepen.io/saransh/pen/aezht
+      */ }
+      #erro .wrapper .icons .message-box {
+        height: 200px;
+        width: 380px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: 50px;
+        color: #FFF;
+        font-family: Roboto;
+        font-weight: 300; }
+      #erro .wrapper .icons .message-box h1 {
+        font-size: 60px;
+        line-height: 46px;
+        margin-bottom: 40px; }
+      #erro .wrapper .icons .buttons-con .action-link-wrap {
+        margin-top: 40px; }
+      #erro .wrapper .icons .buttons-con .action-link-wrap a {
+        background: #68c950;
+        padding: 8px 25px;
+        border-radius: 4px;
+        color: #FFF;
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.3s linear;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px; }
+      #erro .wrapper .icons .buttons-con .action-link-wrap a:hover {
+        background: #5A5C6C;
+        color: #fff; }
+      #erro .wrapper .icons #Polygon-1, #erro .wrapper .icons #Polygon-2, #erro .wrapper .icons #Polygon-3, #erro .wrapper .icons #Polygon-4, #erro .wrapper .icons #Polygon-4, #erro .wrapper .icons #Polygon-5 {
+        animation: float 1s infinite ease-in-out alternate; }
+      #erro .wrapper .icons #Polygon-2 {
+        animation-delay: .2s; }
+      #erro .wrapper .icons #Polygon-3 {
+        animation-delay: .4s; }
+      #erro .wrapper .icons #Polygon-4 {
+        animation-delay: .6s; }
+      #erro .wrapper .icons #Polygon-5 {
+        animation-delay: .8s; }
+@keyframes float {
+  100% {
+    transform: translateY(20px); } }
+      @media (max-width: 450px) {
+        #erro .wrapper .icons .message-box {
+          top: 50%;
+          left: 50%;
+          margin-top: -100px;
+          margin-left: -190px;
+          text-align: center; } }
+    #erro .wrapper .error {
+      color: #fff;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column; }
+      #erro .wrapper .error h1 {
+        font-size: 8em; }
 
 /*# sourceMappingURL=style.css.map */

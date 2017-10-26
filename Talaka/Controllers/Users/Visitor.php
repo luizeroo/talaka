@@ -80,6 +80,16 @@ class Visitor extends User{
         }
     }
     
+    public function testeGET(){
+        $resp = ($data = $this->db->select("User",[
+            "cd_user" => 7
+        ]))? "success" : "fail_select";
+        return json_encode([
+            "stats" => $resp,
+            "data"  => json_encode($data) 
+        ]);
+    }
+    
     
 }
 

@@ -49,8 +49,8 @@ abstract class User{
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     
-    public function profileGET($id){
-        $resp = ($data = $this->db->consultUser($id))? "success" : "fail_alter_project";
+    public function profileGET($username){
+        $resp = ($data = $this->db->consultUser($username))? "success" : "fail_alter_project";
         return json_encode(array("stats" => $resp, "data" => $data));
     }
     
