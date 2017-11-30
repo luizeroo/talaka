@@ -7,7 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Talaka\\Controllers\\ApiController' => $baseDir . '/Talaka/Controllers/ApiController.php',
-    'Talaka\\Controllers\\Pagecon' => $baseDir . '/Talaka/Controllers/Pagecon.php',
+    'Talaka\\Controllers\\PageController' => $baseDir . '/Talaka/Controllers/PageController.php',
+    'Talaka\\Controllers\\Users\\Admin' => $baseDir . '/Talaka/Controllers/Users/Admin.php',
     'Talaka\\Controllers\\Users\\Client' => $baseDir . '/Talaka/Controllers/Users/Client.php',
     'Talaka\\Controllers\\Users\\User' => $baseDir . '/Talaka/Controllers/Users/User.php',
     'Talaka\\Controllers\\Users\\Visitor' => $baseDir . '/Talaka/Controllers/Users/Visitor.php',

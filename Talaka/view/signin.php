@@ -19,10 +19,13 @@ defined("System-access") or header('location: /error');
             <div class="wrapper">
                 <h1>Bem-vindo!</h1>
                 <h2>Crie uma conta Talaka aqui.</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum consectetur nulla, sed iaculis ex molestie sed. Fusce mattis nunc nec porttitor varius. Sed tincidunt finibus feugiat. Aenean nibh urna, tempor vel luctus id, dignissim at sem. Pellentesque tincidunt, justo ac pharetra tempor, lacus sapien pretium turpis, ut pellentesque augue felis sed erat. Cras quis tortor id justo dictum suscipit sed eget ante. Nam lacinia sapien id tellus pharetra vestibulum.
+                <p>
+                    Cadastre-se na MAIOR plataforma de crowdfunding de quadrinhos do país e contribua para que diversos projetos virem realidade.
+                    Caso você seja um artista independente que deseja ter seu projeto financiado, basta se cadastrar no Talaka e criar a sua campanha na plataforma.
+                    Assim ela poderá ser vista por diversas pessoas que irão se interessar e apoiar o seu sonho.
                 </p>
                 <a href="#" id="doRegister">Registrar</a>
-                <a href="index.html">Voltar</a>
+                <a href="/">Voltar</a>
             </div>
         </div>
         <div id="login">

@@ -52,6 +52,8 @@ class Client extends User{
             $obj->vl_financing = $jsonObj->vl;
             $obj->nm_paymethod = $jsonObj->method;
             $obj->dt_financing = date("Y-m-d");
+            //Anônimo
+            $obj->ic_anonymous = ($jsonObj->mode == "anonimo") ? 1 : 0 ;
             
             $resp = ( $data = $this->db->insert('Financing',$obj) )? "success" : "fail_insert";
             //Caso tenha inserido com sucesso
@@ -68,6 +70,9 @@ class Client extends User{
                 $infoT->nm_user = $user->nome;
                 $infoT->ds_email = $user->email;
                 $infoT->id_financing = $data->id_financing;
+                if($jsonObj->method == "credit_card"){
+                    $infoT->card = $jsonObj->card;
+                }
                 
                 //Cria payment
                 $this->pay = new Payment();

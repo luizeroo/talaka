@@ -12,14 +12,14 @@ use Talaka\Models\Project;
     <section id="results">
         <div class="wrapper">
             <aside id="filter">
-                <div class="filterSection" id="filterCampaign">
-                    <h3>Tipos de Campanhas</h3>
-                    <ul>
-                        <li>Todas as campanhas</li>
-                        <li>Campanhas Tudo ou Nada</li>
-                        <li>Campanhas Flex</li>
-                    </ul>
-                </div>
+                <!--<div class="filterSection" id="filterCampaign">-->
+                <!--    <h3>Tipos de Campanhas</h3>-->
+                <!--    <ul>-->
+                <!--        <li>Todas as campanhas</li>-->
+                <!--        <li>Campanhas Tudo ou Nada</li>-->
+                <!--        <li>Campanhas Flex</li>-->
+                <!--    </ul>-->
+                <!--</div>-->
                 
                 <div class="filterSection" id="filterTag">
                     <h3>Categorias</h3>
@@ -75,8 +75,10 @@ use Talaka\Models\Project;
                     <?php 
                         if( isset($total) && $total == 0){
                     ?>
-                        <h4>Nenhum Projeto Encontrado</h4>
-                        <p> O termo "<strong><?= $termo;?></strong>" não foi encontrado no TALAKA  :(</p>
+                        <div class='nenhumEncontrado'>
+                            <h4>Nenhum Projeto Encontrado</h4>
+                            <p> O termo "<strong><?= $termo;?></strong>" não foi encontrado no TALAKA  :(</p>
+                        </div>
                     <?php
                         }else{
                         

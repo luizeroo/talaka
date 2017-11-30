@@ -1,8 +1,11 @@
 <?php
 defined("System-access") or header('location: /error');
 use Talaka\Models\Project;
+use Talaka\Controllers\PageController;
 ?>
+
     <main>
+        <script src="https://cdn.rawgit.com/kottenator/jquery-circle-progress/1.2.0/dist/circle-progress.js"></script>
         <div id="carousel">
             <div id="carouselWrapper">
 
@@ -11,7 +14,8 @@ use Talaka\Models\Project;
                         <div id="logo"></div>
                         <p>Conheça a plataforma de financiamento coletivo de quadrinhos nacionais</p>
                         <ul>
-                            <li>Criar campanha</li>
+                            <li>
+                                <a href='/criar-campanha'>Criar campanha</a></li>
                             <a href="#howItWorks">
                                 <li>O que é financiamento coletivo?</li>
                             </a>
@@ -35,7 +39,23 @@ use Talaka\Models\Project;
                             <h1><?= $crsl->title; ?></h1>
 
                             <div class="projectInfos">
-                                <div class="projectGoal"><?= round($percent); ?>%</div>
+                                <div class="projectGoal">
+                                    
+                                    <?= round($percent); ?>%
+                                    
+                                    
+                                    <div <?= 'class="second circle" id="c'.$a.'"';?>>
+                                      <strong></strong>
+                                    </div>
+                                    <?= '<script type="text/javascript">
+                                            $("#c'.$a.'").circleProgress({
+                                                value: '. round($percent) .'
+                                            }).on("circle-animation-progress", function(event, progress) {
+                                              $(this).find("strong").html(parseInt(' .round($data['d'.$a]->percent).'* progress) + "<i>%</i>");
+                                            });
+                                    </script>';?>
+                                    
+                                    </div>
                                 <div class="projectDescription">
                                     <p>
                                         <?= $crsl->ds ;  ?>
@@ -46,14 +66,18 @@ use Talaka\Models\Project;
                             <div class="authors">
                                 <h2> Autores</h2>
                                 <ul>
-                                    <li data-title="<?= $crsl->creator->name; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $crsl->creator->img ; ?>)">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </li>
+                                    <a href="/perfil/<?= $crsl->creator->username;?>">
+                                        <li data-title="<?= $crsl->creator->name; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $crsl->creator->img ; ?>)">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </li>
+                                    </a>
                                     <?php if($crsl->coauthor !== "no"){ 
                                     array_map(function($coauthor){
                                         $co = explode(":",$coauthor);
                                     ?>
-                                    <li data-title="<?= $co[0]; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $co[1] ; ?>)" ></li>
+                                    <a href="/perfil/<?= $co[2]; ?>">
+                                        <li data-title="<?= $co[0]; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $co[1] ; ?>)" ></li>
+                                    </a>
                                     <?php
                                     },explode(",",$crsl->coauthor)) ;
                                     }?>
@@ -94,9 +118,11 @@ use Talaka\Models\Project;
                     <li data-type="aut">
                         <i class="fa fa-user-o" aria-hidden="true"></i> Novos autores
                     </li>
-                    <li>
-                        <i class="fa fa-map-o" aria-hidden="true"></i> Populares Perto de você
-                    </li>
+                    <?php if(PageController::is_logged()){ ?>
+                        <li>
+                            <i class="fa fa-map-o" aria-hidden="true"></i> Populares Perto de você
+                        </li>
+                    <?php } ?>
                     <li><a href="/explore">Ver todos</a></li>
                 </ul>
 
@@ -108,14 +134,17 @@ use Talaka\Models\Project;
                             $percent = ( $aux > 100 )? 100 : $aux ;
                     ?>
                     
-                    <a href="https://<?= $_SERVER['HTTP_HOST'].'/campanha/'. str_replace(" ","+",$proj->title); ?>" >
-                        <div class="eachProject">
+                    
+                        <div class="eachProject" onclick="toProject('<?= urlencode($proj->title);?>')">
                             <div class="eachProjectCover" style="background-image:url(<?= base_url; ?>proj-img/<?= $proj->img; ?>)" >
-                                <div class="eachProjectOwner" data-title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)"></div>
+                                <!--<a href="/perfil/<?php /*$proj->creator->username*/?>" >-->
+                                    <div class="eachProjectOwner" data-title="<?= $proj->creator->name ;?>" style="background-image:url(<?= base_url; ?>user-img/<?= $proj->creator->img; ?>)">
+                                    </div>
+                                <!--</a>-->
                             </div>
                             <div class="eachProjectInfo">
                                 <div class="eachProjectTag">
-                                    <a href="#">
+                                    <a href="/explore/<?= urlencode($proj->category);?>/1">
                                         <i class="fa fa-tag" aria-hidden="true"></i><span> <?= $proj->category ;?> </span>
                                     </a>
                                     <h2><?= $proj->title ;?></h2>
@@ -136,8 +165,7 @@ use Talaka\Models\Project;
                                 </div>
                             </div>
                         </div>
-                    </a>
-                    <?php } ?>
+                    <?php  } ?>
                     
                 </div>
             </div>
@@ -149,7 +177,6 @@ use Talaka\Models\Project;
                 <h1>O que é <b>financiamento coletivo?</b> </h1>
 
                 <div class="worksArea">
-                    <div class="lozenge"></div>
                     <div class="worksInfo">
                         <p><b>Financiamento coletivo</b> nada mais é do que o ato de <b>financiar</b> com algum valor projetos de artistas ou grupos que você acredita que merecem ganhar vida. E caso esses projetos cumpram suas metas, com a sua ajuda, eles finalmente podem sair do papel!</p>
                         <p> O financiamento coletivo no <b>Talaka</b> dá chance para que os novos artistas se lancem no mercado e os já conhecidos possam criar novos materiais com ajuda dos seus queridos fãs.
@@ -170,10 +197,8 @@ use Talaka\Models\Project;
                     <?php
                     foreach ($cats as $cat) {
                     ?>
-                        <li>
-                            
+                        <li data-link="<?=$cat->nm;?>">
                             <?= $cat->nm; ?>
-                            
                         </li>
                     <?php
                     }
@@ -186,7 +211,7 @@ use Talaka\Models\Project;
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus iaculis metus et volutpat. Praesent sit amet sollicitudin erat, et molestie turpis. Curabitur tempor ipsum quis placerat commodo. Vestibulum lorem magna, consequat eu efficitur in, pharetra ac leo. Donec luctus, felis non ullamcorper sollicitudin, diam leo accumsan nisl, id mollis justo enim et nisl. Donec sed dapibus magna, eget gravida libero. Etiam rutrum mi eget justo molestie, ac viverra lorem laoreet.
                     </p>
 
-                    <a href="#">Explorar categoria</a>
+                    <a href="/explore/Fic%26ccedil%3B%26atilde%3Bo%20Cient%26iacute%3Bfica/1">Explorar categoria</a>
                 </div>
             </div>
         </section>

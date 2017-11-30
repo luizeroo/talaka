@@ -29,6 +29,17 @@ defined("System-access") or header('location: /error');
   	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.extension-typing.js"></script>
   	<script src="<?= base_url; ?>view/js/lib/keyboard/js/jquery.keyboard.extension-autocomplete.js"></script>
     
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109196755-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-109196755-1');
+    </script>
+
+    
     <!-- Book Loader -->
     <style>
         /*Book Loader 

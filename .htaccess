@@ -11,6 +11,8 @@ ErrorDocument 404 /Talaka/view/error.php
 #RewriteRule ^exec/([A-Za-z]+)/([A-Za-z]+)/([A-Za-z0-9!@#$%^&*\s]+)/?$ app/web.php?class=$1&met=$2&arg0=$3
 #RewriteRule ^exec/([A-Za-z]+)/([A-Za-z]+)/([A-Za-z0-9!@#$%^&*\s]+)/([0-9]+)?$ app/web.php?class=$1&met=$2&arg0=$3&arg1=$4  
 
+
+
 FallbackResource /Talaka/index.php 
 # RewriteRule ^error? /view/error.php
 # RewriteRule ^view/?$ /view/error.php

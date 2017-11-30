@@ -91,14 +91,12 @@ class System{
         call_user_func_array(array($stm,"bind_param"),array_merge(array($type), $vls))or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute() or die("Erro 3".$stm->error.http_response_code(405));
         $result = $this->fetch($stm);
-        var_dump($result);
-        die();
         $stm->close();
         return $result;
     }
     
     public function consultUser($username){
-        $stm = $this->con->prepare("SELECT u.ds_login, u.ds_path_img, u.nm_user, u.ds_biography, u.ds_email, u.ds_img_back, 
+        $stm = $this->con->prepare("SELECT u.ds_login,u.dt_birth, u.ds_path_img, u.nm_user, u.ds_biography, u.ds_email, u.ds_img_back, 
         (
         SELECT COUNT( p.cd_project ) 
         FROM User AS u, Project AS p
@@ -111,25 +109,38 @@ class System{
         WHERE f.cd_user = u.cd_user
         AND f.cd_project = p.cd_project
         AND u.ds_login = ?
-        ) AS finan
+        ) AS finan,
+        (SELECT COUNT( DISTINCT (
+        `cd_user`
+        ) ) 
+        FROM  `Financing` 
+        WHERE  `cd_project` 
+        IN (
+        
+        SELECT  `cd_project` 
+        FROM  `Project` 
+        WHERE  `cd_user` = u.cd_user
+        )) AS supporters
         FROM User AS u, Project AS p, Financing AS f
         WHERE u.ds_login = ?
         GROUP BY u.ds_login") or die("Erro 1 ".$con->error.http_response_code(405));
         $stm->bind_param("sss",$username,$username,$username) or die("Erro 2 ".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3 ".$stm->error.http_response_code(405));
-        $stm->bind_result($login,$img,$nome,$biography,$email,$cover,$projects,$finances);
+        $stm->bind_result($login,$birth,$img,$name,$biography,$email,$cover,$projects,$finances, $supporters);
         $stm->fetch();
         $stm->close();
         return json_encode([
             "id" => $id,
             "login" => $login,
+            "birth" => $birth,
             "img" => $img,
-            "nome" => $nome,
+            "name" => $name,
             "biography" => $biography,
             "email" => $email ,
             "cover" => $cover,
             "projects" => $projects,
-            "finances" => $finances
+            "finances" => $finances,
+            "supporters" => $supporters
         ]);
     }
     
@@ -162,8 +173,8 @@ class System{
     }
     
     public function consultProject(Project $proj){
-        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,p.qt_visitation,count(f.cd_user) total,p.ds_resume, c.nm_category, c.cd_category ,p.ic_close,IFNULL((
-					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':' ,user.ds_path_img)) 
+        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,u.ds_login,p.qt_visitation,count(f.cd_user) total,p.ds_resume, c.nm_category, c.cd_category ,p.ic_close,IFNULL((
+					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':',user.ds_path_img,':',user.ds_login)) 
 						FROM User as user 
 						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
 					), 'no') as coauthor,IFNULL((
@@ -178,7 +189,7 @@ class System{
         AND p.nm_title = ?") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("s",$proj->title) or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
-        $stm->bind_result($id,$title,$ds,$img,$cover,$vlM,$vlC,$dtB,$dtF,$creator,$creID,$imgU,$visit,$total,$resume,$nmC,$idC,$close,$coauthor,$tags)or die("Erro 4");
+        $stm->bind_result($id,$title,$ds,$img,$cover,$vlM,$vlC,$dtB,$dtF,$creator,$creID,$imgU,$username,$visit,$total,$resume,$nmC,$idC,$close,$coauthor,$tags)or die("Erro 4");
         $stm->fetch();
         $resp = new Project([
             "id"        => $id,
@@ -193,6 +204,7 @@ class System{
             "creator"   => [
                 "id"        => $creID,
                 "name"      => $creator,
+                "username"  => $username,
                 "img"       => $imgU 
             ],
             "category"  => [
@@ -248,8 +260,8 @@ class System{
         FROM (
             SELECT * 
         	FROM (
-				SELECT DISTINCT p.cd_user,p.cd_project, p.nm_title, p.ds_project, p.ds_path_img as proImg, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img as userImg, u.created_at, p.cd_category, ((p.vl_collected *100) / p.vl_meta)dif, c.nm_category, (SELECT COUNT(cmt.cd_comment) FROM Comment as cmt WHERE p.cd_project = cmt.cd_project  ) as qt_comments, IFNULL((
-					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':' ,user.ds_path_img)) 
+				SELECT DISTINCT p.cd_user,p.cd_project, p.nm_title, p.ds_project, p.ds_path_img as proImg, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, u.nm_user, p.ds_img_back, u.ds_path_img as userImg, u.ds_login, u.created_at, p.cd_category, ((p.vl_collected *100) / p.vl_meta)dif, c.nm_category, (SELECT COUNT(cmt.cd_comment) FROM Comment as cmt WHERE p.cd_project = cmt.cd_project  ) as qt_comments, IFNULL((
+					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':',user.ds_path_img,':',user.ds_login )) 
 						FROM User as user 
 						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
 					), 'no') as coauthor
@@ -265,7 +277,7 @@ class System{
         LIMIT ?") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("i",intval($num));
         $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
-        $stm->bind_result($user,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$dtU,$idC,$percent,$cat,$comments,$coauthor);
+        $stm->bind_result($user,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$creator,$imgB,$imgU,$username,$dtU,$idC,$percent,$cat,$comments,$coauthor);
         $r = [];
         while($stm->fetch()){
             $r[] = [
@@ -280,6 +292,7 @@ class System{
                 "creator"   => [
                     "id"        => $user,
                     "name"      => $creator,
+                    "username"  => $username,
                     "img"       => $imgU,
                     "dtB"       => $dtB
                 ],
@@ -358,6 +371,30 @@ class System{
         return json_encode($r);
     }
     
+    public function backers(Project $project){
+        $stm = $this->con->prepare("SELECT cd_user, ds_login, nm_user, ds_path_img
+        FROM User
+        WHERE cd_user IN (
+        	SELECT cd_user 
+            FROM Financing
+            WHERE cd_project = ?
+        )") or die("Erro 1".$this->con->error.http_response_code(405));
+        $stm->bind_param("i",$project->id) or die("Erro 2".$stm->error.http_response_code(405));
+        $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
+        $stm->bind_result($id,$username,$name,$img)or die("Erro 4");
+        $resp = [];
+        while($stm->fetch()){
+            $resp[] = [
+                "id"        => $id,
+                "name"      => $name,
+                "username"  => $username,
+                "img"       => $img 
+            ];
+        }
+        $stm->close();
+        return $resp;
+    }
+    
     public function pesqProject($term,$pag){
         $term= urldecode($term);
         $max = ($pag == 1)? 0 : (($pag - 1) * 12) + 1;
@@ -423,6 +460,31 @@ class System{
         $r['collected'] = $resp->collected;
         return json_encode($r);
     }
+    // ----------------------- ADMIN -------------------
+    public function checkAdmin($obj){
+        //$obj->pwd = hash("ripemd160" , $obj->pwd);
+        $stm = $this->con->prepare("SELECT `cd_admin`,`nm_admin` FROM Admin WHERE nm_admin = ? and ds_pwd = ?") or die("Erro 1 ".$this->con->error.http_response_code(405));
+        $stm->bind_param("ss", $obj->login, $obj->pwd) or die("Erro 2 ".$stm->error.http_response_code(405));
+        $stm->execute();
+        $stm->bind_result($cdAdmin,$nmAdmin);
+        $stm->fetch();
+        if ($cdAdmin === "" || $cdAdmin === null){
+            $stm->close();
+            return json_encode(array("stats"=>"fail", "data"=> "Login ou senha Incorretos"));
+        } else {
+            $_SESSION["_ADMIN"]= [
+                "id"            => $cdAdmin,
+                "name"          => $nmAdmin,
+            ];
+            
+            $stm->close();
+            return json_encode(array("stats"=>"success", "data"=>"login efetuado"));
+        }
+        $stm->close();
+        return true;
+    }
+    
+    
     
     //---------------------------------------------------------------------------------------------------//
     //-------------------------------------ESPECIAIS-----------------------------------------------------//
@@ -452,18 +514,29 @@ class System{
     }
     
     public function getComments($id){
-        $stm = $this->con->prepare("SELECT cd_comment,cd_user,dthr_comment,ds_comment FROM Comment
-                                    WHERE cd_project = ?
-                                    AND ic_hold != 1
-                                    ORDER BY dthr_comment DESC")or die("Erro 1".$this->con->error);
+        $stm = $this->con->prepare("SELECT c.cd_comment,c.cd_user,u.ds_login,u.nm_user,u.ds_path_img,c.dthr_comment,c.ds_comment,c.cd_parent
+                                    FROM Comment as c, User as u
+                                    WHERE c.cd_project = ?
+                                    AND u.cd_user = c.cd_user
+                                    AND c.ic_hold != 1
+                                    ORDER BY c.dthr_comment DESC")or die("Erro 1".$this->con->error);
         $stm->bind_param("i",$id)or die("Erro 2".$this->con->error);
         $stm->execute()or die("Erro 3".$this->con->error);
-        $stm->bind_result($id,$user,$dthr,$cmmt)or die("Erro 4".$stm->error);
-        $r = array();
-        $i = 0;
+        $stm->bind_result($id,$idU,$username,$nameU,$imgU,$dthr,$cmmt,$parent)or die("Erro 4".$stm->error);
+        $r = [];
         while($stm->fetch()){
-            $r["c".$i] = array("id" => $id, "user" => $user, "dthr" => $dthr, "cmmt" => $cmmt );
-            $i++;
+            $r[] = [
+                "id"    => $id,
+                "user"  => [
+                    "id"        => $idU,
+                    "name"      => $nameU,
+                    "username"  => $username,
+                    "img"       => $imgU
+                ],
+                "dthr"  => $dthr,
+                "cmmt"  => $cmmt,
+                "parent" => $parent
+            ];
         }
         $stm->close();
         return json_encode($r);

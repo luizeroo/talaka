@@ -23,31 +23,42 @@ class Payment{
     }
     
     public function doTransaction($infos){
-        $this->transac_info = array("valid" => "secret",
-                                    "amount" => $infos->vl_financing,
-                                    "payment_method" => $infos->nm_paymethod,
-                                    "postback_url" => "https://talaka-pre-alpha-gmastersupreme-1.c9users.io/exec/client/postback/".$infos->cd_user."/".$infos->id_financing,
-                                    "customer" => array(
-                                        "name" => $infos->nm_user,
-                                        "document_number" => "18152564000105",
-                                        "email" => $infos->ds_email,
-                                        "address" => array(
-                                            "street" => "Rua Teste", 
-                                            "street_number" => "1811",
-                                            "neighborhood" => "Jardim Paulistano",
-                                            "zipcode" => "01451001"
-                                        ),
-                                        "phone" =>  array(
-                                            "ddi" => "55",
-                                            "ddd" => "13",
-                                            "number" => "99999999" 
-                                        )
-                                    ),
-                                    "soft_descriptor" => "Financiamento",
-                                    "boleto_instructions" => "Teste de instrucoes do boleto",
-                                    "metadata" => array(
-                                        "id_project" => $infos->cd_project
-                                    ));
+        $this->transac_info = [
+            "valid" => "secret",
+            "amount" => $infos->vl_financing,
+            "payment_method" => $infos->nm_paymethod,
+            "postback_url" => "https://talaka-pre-alpha-gmastersupreme-1.c9users.io/exec/client/postback/".$infos->cd_user."/".$infos->id_financing,
+            "customer" => [
+                "name" => $infos->nm_user,
+                "document_number" => "18152564000105",
+                "email" => $infos->ds_email,
+                "address" => [
+                    "street" => "Rua Teste", 
+                    "street_number" => "1811",
+                    "neighborhood" => "Jardim Paulistano",
+                    "zipcode" => "01451001"
+                ],
+                "phone" =>  [
+                    "ddi" => "55",
+                    "ddd" => "13",
+                    "number" => "99999999" 
+                ]
+            ],
+            "soft_descriptor" => "Financiamento",
+            "boleto_instructions" => "Teste de instrucoes do boleto",
+            "metadata" => [
+                "id_project" => $infos->cd_project
+            ]
+        ];
+        
+        //Cartao de Credito
+        if($infos->nm_paymethod == "credit_card"){
+            $this->transac_info["card_number"]          = $infos->card->number;
+            $this->transac_info["card_cvv"]             = $infos->card->cvv;
+            $this->transac_info["card_expiration_date"] = $infos->card->expiration;
+            $this->transac_info["card_holder_name"]     = $infos->card->name;
+        }
+        
         return ($this->createTransaction())? true : false;
     } 
     

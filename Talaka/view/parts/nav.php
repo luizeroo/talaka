@@ -1,6 +1,6 @@
 <?php
 defined("System-access") or header('location: /error');
-use Talaka\Controllers\Pagecon;
+use Talaka\Controllers\PageController;
 ?>
     <div id="toTop"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
 
@@ -8,12 +8,12 @@ use Talaka\Controllers\Pagecon;
         <div id="acessibility">
             <ul>
                 <li>Teclado Virtual</li>
-                <li id="contrast">Contraste</li>
+                <!--<li id="contrast">Contraste</li>-->
                 <li>
                     <i class="fa fa-minus-square" id="minus" aria-hidden="true"></i> Tamanho
                     <i class="fa fa-plus-square" id="plus" aria-hidden="true"></i>
                 </li>
-                <li>Ir ao conteúdo</li>
+                    <li>Ir ao conteúdo</li>
             </ul>
         </div>
 
@@ -23,10 +23,12 @@ use Talaka\Controllers\Pagecon;
                     <ul>
                         <a href="/explore">
                         <li>
-                            <i class="fa fa-book" aria-hidden="true"></i>Explorar
+                            Explorar
                         </li>
                         </a>
-                        <li>Começar uma campanha</li>
+                        <a href='/criar-campanha'>
+                            <li>Começar uma campanha</li>
+                        </a>
                     </ul>
                 </div>
 
@@ -47,15 +49,22 @@ use Talaka\Controllers\Pagecon;
                             </i>
                             
                         </li>
-                        <li>
-                            Como funciona
-                        </li>
+                        <!--<li>-->
+                        <!--    Como funciona-->
+                        <!--</li>-->
                             <?php 
-                            if(Pagecon::is_logged()){
+                            if(PageController::is_logged()){
                             ?>
+                            <a href="/perfil/<?= $_SESSION['user']['login'] ;?>">
+                                <li class='usuarioLogado' data-user="<?= $_SESSION['user']['id'];?>">
+                                    <div id="userloginPhoto" style="background-image: url(<?= base_url; ?>user-img/<?= $_SESSION['user']['img'];?> )"></div>
+                                </li>
+                            </a>
+                            <a href="/signout">
                             <li>
-                                <div id="userloginPhoto" style="background-image: url(<?= base_url; ?>user-img/<?= $_SESSION['user']['img'];?> )"></div>
+                                sair
                             </li>
+                            </a>
                             <?php 
                             }else{ 
                             ?>

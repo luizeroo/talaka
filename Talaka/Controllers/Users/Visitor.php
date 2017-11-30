@@ -81,8 +81,8 @@ class Visitor extends User{
     }
     
     public function testeGET(){
-        $resp = ($data = $this->db->select("User",[
-            "cd_user" => 7
+        $resp = ($data = $this->db->select("ProjectGallerie",[
+            "cd_project" => 6
         ]))? "success" : "fail_select";
         return json_encode([
             "stats" => $resp,

@@ -3,7 +3,7 @@ $(visit);
 function visit(){
     var idP = parseInt($("#projectID").html());
     var server = document.URL;
-    var url = "https://"+server.split("/")[2]+"/exec/pagecon/visit/"+idP;
+    var url = "https://"+server.split("/")[2]+"/exec/PageController/visit/"+idP;
     $.ajax({
         url: url,
         method: "GET",

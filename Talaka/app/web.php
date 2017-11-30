@@ -7,7 +7,7 @@ include_once("../Model/Project.php");
 include_once("../Controller/class/User.php");
 include_once("../Controller/class/Client.php");
 include_once("../Controller/class/Visitor.php");
-include_once("../Controller/Pagecon.php");
+include_once("../Controller/PageController.php");
 
 //Criando o objeto da classe para execução
 $class = ucfirst($_GET['class']);
@@ -16,7 +16,7 @@ $met = $_GET['met'];
 $arg0 = $_GET['arg0'];
 $arg1 = $_GET['arg1'];
 $httpM = $_SERVER['REQUEST_METHOD'];
-$method = ($class === "Pagecon" )? $met : $met.$httpM;
+$method = ($class === "PageController" )? $met : $met.$httpM;
 
 //Exemplos de curl
 //Insere User
@@ -60,5 +60,5 @@ Para o Listar
 $ob = json_decode($resp->data);
 echo $ob->d1->login . "\n";
 */
-echo ($class === "Pagecon" )? ""  : json_encode($resp);
+echo ($class === "PageController" )? ""  : json_encode($resp);
 ?>

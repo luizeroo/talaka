@@ -24,8 +24,8 @@ abstract class User{
     }
     
     public function projectGET($title){
-        $title = urldecode($title);
-        $resp = ( $data = $this->db->consultProject(new Project(array("title" => $title))) )?"success" : "fail_select";
+        $title = html_entity_decode(urldecode($title));
+        $resp = ( $data = $this->db->consultProject(new Project(["title" => $title])) )?"success" : "fail_select";
         return json_encode(array("stats" => $resp, "data" => $data->toJSON()));
     }
     
@@ -67,6 +67,41 @@ abstract class User{
     public function allcatsGET(){
         $resp = ($data = $this->db->listCategories())? "success" : "fail_get_categories";
         return json_encode(array("stats" => $resp, "data" => $data));
+    }
+    
+    public function projgallerieGET($id){
+        $resp = ($data = $this->db->select("ProjectGallerie",[
+            "cd_project" => $id
+        ]))? "success" : "fail_select";
+        return json_encode([
+            "stats" => $resp,
+            "data"  => json_encode($data) 
+        ]);
+    }
+    
+    public function rewardsGET($id){
+        $resp = ($data = $this->db->select("Reward",[
+            "cd_project" => $id
+        ]))? "success" : "fail_select";
+        //Convert especial chars
+        $data = array_map(function($d){
+            $d['ds_reward'] = htmlentities($d['ds_reward'],ENT_IGNORE, 'UTF-8');
+            $d['ds_resume'] = htmlentities($d['ds_resume'],ENT_IGNORE, 'UTF-8');
+            return $d;
+        }, $data);
+        return json_encode([
+            "stats" => $resp,
+            "data"  => json_encode($data) 
+        ]);
+    }
+    
+    public function backersGET($id){
+        $resp = ($data = $this->db->backers(new Project(["id"=>$id])
+        ))? "success" : "fail_select";
+        return json_encode([
+            "stats" => $resp,
+            "data"  => json_encode($data) 
+        ]);
     }
     
     //Especiais

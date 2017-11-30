@@ -1,7 +1,7 @@
 <?php
 defined("System-access") or header('location: /error');
 use Talaka\Models\Project;
-use Talaka\Controllers\Pagecon;
+use Talaka\Controllers\PageController;
 ?>
     <?php
 
@@ -16,10 +16,11 @@ $percent = ( $aux > 100 )? 100 : $aux;
                 <div class="wrapper">
                     <div id="projetoDestaque">
                         <div id="projetoCapa">
-                            <div id="projetoDono" style="background-image: url(
+                            <a href="/perfil/<?= $proj->creator->username ;?>">
+                                <div data-title="<?= $proj->creator->name ;?>" id="projetoDono" style="background-image: url(
                     <?= base_url . 'user-img/' . $proj->creator->img ;?> )">
-
-                            </div>
+                                </div>
+                            </a>
 
                             <img src="<?= base_url . "proj-img/" . $proj->img ;?>" title="<?= $proj->title ;?>" alt="Capa do projeto <?= $proj->title ;?>">
                         </div>
@@ -64,7 +65,7 @@ $percent = ( $aux > 100 )? 100 : $aux;
 
                         <h2>
                             <i class="fa fa-user" aria-hidden="true"></i> Projeto criado por:
-                            <a href=""><?= $proj->creator->name ;?></a>
+                            <a href="/perfil/<?= $proj->creator->username ;?>"><?= $proj->creator->name ;?></a>
                         </h2>
 
                         <?php if($proj->coauthor !== "no"){?>
@@ -76,7 +77,9 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                 <?php array_map(function($coauthor){
                                 $co = explode(":",$coauthor);
                             ?>
-                                <li data-title="<?= $co[0]; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $co[1] ; ?>)"></li>
+                                <a href="/perfil/<?= $co[2]; ?>">
+                                    <li data-title="<?= $co[0]; ?>" style="background-image:url(<?= base_url; ?>user-img/<?= $co[1] ; ?>)"></li>
+                                </a>
                                 <?php },explode(",",$proj->coauthor)); ?>
                             </ul>
 
@@ -97,29 +100,31 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                     array_map(function($tag){
                                         $t = explode(":",$tag);
                                     ?>
-                            <li>
-                                <i class="fa fa-tag" aria-hidden="true"></i>
-                                <?= $t[1];//Name?>
-                            </li>
+                             <a href="/explore/<?=$t[1];?>/1">
+                                <li>
+                                    <i class="fa fa-tag" aria-hidden="true"></i>
+                                    <?= $t[1];//Name?>
+                                </li>
+                            </a>
                             <?php
                                     },explode(",",$proj->tags)) ;
                                     }?>
                         </ul>
                         <div id="botoes">
-                            <div class="buttons" id="financiarProjeto">
+                            <div class="buttons financiarProjeto" id="<?= PageController::is_logged() ? "financiarProjeto" : "loginNecessario" ;?>">
                                 Financiar projeto
                             </div>
                             <div class="buttons" id="visualizarDemonstracao">
                                 Visualizar demonstração
                             </div>
-                            <div id="social">
-                                compartilhar campanha
-                                <ul>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
+                            <!--<div id="social">-->
+                            <!--    compartilhar campanha-->
+                            <!--    <ul>-->
+                            <!--        <li></li>-->
+                            <!--        <li></li>-->
+                            <!--        <li></li>-->
+                            <!--    </ul>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -131,12 +136,12 @@ $percent = ( $aux > 100 )? 100 : $aux;
                             <li data-tab="pc">Campanha</li>
                             <li data-tab="pg">Galeria</li>
                             <li data-tab="pa">Atualizações</li>
-                            <li data-tab="">Apoiadores <b>(30)</b></li>
-                            <li data-tab="">Comentários <b>(30)</b></li>
-                            <li data-tab="">Comunidade</li>
+                            <li data-tab="ap">Apoiadores <b>(<?= count($backers) ;?>)</b></li>
+                            <!--<li data-tab="pcmt">Comentários <b>(<?= count($comments);?>)</b></li>-->
+                            <li data-tab="com">Comunidade</li>
                         </ul>
-
-                        <div data-tab="pc" class="tabProject tabAtual" id="projetoConteudo">
+                        <!-- TABS DO PROJETO -->
+                        <div data-tab="pc" class="tabProject pc tabAtual" id="projetoConteudo">
                             <h1>
                                 Conheça o projeto
                                 <?= $proj->title ?>
@@ -145,22 +150,18 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                 <?= $proj->resume ?>
                             </p>
                         </div>
-                        <div data-tab="pg" class="tabProject" id="projetoGaleria">
+                        <div data-tab="pg" class="tabProject pg" id="projetoGaleria">
                             <figure>
                                 <figcaption>
                                     Confira imagens da campanha
                                     <?= $proj->title ?>
                                 </figcaption>
-                                <img src="https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/300?cb=20170621101134">
-                                <img src="https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/300?cb=20170621101134">
-                                <img src="https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/300?cb=20170621101134">
-                                <img src="https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/300?cb=20170621101134">
-                                <img src="https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/300?cb=20170621101134">
-                                <img src="http://img1.ak.crunchyroll.com/i/spire1/3011e12b3395d39a18379d9e9fdc30671502581680_full.jpg">
-                                <img src="http://www.thcgamers.com/wp-content/uploads/2016/12/22-9.jpg">
+                                <?php foreach($gallerie as $img){ ?>
+                                    <img src="<?= base_url ."proj-img/".$img->ds_path_img; ?>" alt="Imagem">
+                                <?php } ?>
                             </figure>
                         </div>
-                        <div data-tab="pa" class="tabProject" id="projetoAtualizacoes">
+                        <div data-tab="pa" class="tabProject pa" id="projetoAtualizacoes">
                             <div class="cadaAtt">
                                 <div class="headerAtt">
                                     <p>
@@ -194,60 +195,145 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
                                     </p>
                                 </div>
-                                <div class="commentaryAtt">
-                                    <h4>Comentários</h4>
-                                    <div class="cadaComentario">
-                                        <div class="header">
-                                            asd
-                                        </div>
-                                        <p>asldjkasdd</p>
+                                <!--<div class="commentaryAtt">-->
+                                <!--    <h4>Comentários</h4>-->
+                                <!--    <div class="cadaComentario">-->
+                                <!--        <div class="header">-->
+                                <!--            asd-->
+                                <!--        </div>-->
+                                <!--        <p>asldjkasdd</p>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="cadaAtt">
+                                <div class="headerAtt">
+                                    <p>
+                                        Atualização #1
+                                    </p>
+                                    <p>
+                                        21 de Outubro de 2017
+                                    </p>
+                                </div>
+                                <div class="nameAtt">
+                                    <p>
+                                        Nome de cada atualização cadastrada
+                                    </p>
+                                </div>
+                                <div class="socialAtt">
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-commenting-o" aria-hidden="true"></i> 12 Comentários</li>
+                                        <li><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Curtir
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-hashtag" aria-hidden="true"></i> 12 Interações</li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                    </p>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                    </p>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                    </p>
+                                </div>
+                                <!--<div class="commentaryAtt">-->
+                                <!--    <h4>Comentários</h4>-->
+                                <!--    <div class="cadaComentario">-->
+                                <!--        <div class="header">-->
+                                <!--            asd-->
+                                <!--        </div>-->
+                                <!--        <p>asldjkasdd</p>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div data-tab='ap' class='tabProject ap' id="projetoApoiadores">
+                            <?php foreach($backers as $backer){ ?>
+                                <a href='/perfil/<?= urlencode($backer->username);?>'>
+                                    <div class='cadaUsuario'>
+                                        <div class='foto' title="<?= $backer->name;?>" data-title="<?= $backer->name;?>" style="background-image: url(<?= base_url; ?>user-img/<?= $backer->img; ?>)"></div>
+                                        <p>
+                                            <?= $backer->name; ?>
+                                        </p>
                                     </div>
+                                </a>
+                            <?php } ?>
+                        </div>
+                        <div data-tab='com' class='tabProject com' id='projetoComunidade'>
+                            <h2>
+                                Confira as estatísticas do projeto!
+                            </h2>
+                            <div class="valoresComunidade">
+                                <div class='valores'>
+                                    <p>
+                                        Usuários que financiaram um projeto pela primeira vez
+                                        <span>
+                                            500
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class='valores'>
+                                    <p>
+                                        Usuário que financiaram 2 ou mais projetos 
+                                        <span>
+                                            900
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="cadaAtt">
-
+                            <div class="valoresComunidade">
+                                <div class='valores'>
+                                    <p>
+                                        Média de idade dos usuários interessados
+                                        <span>
+                                            23 anos
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class='valores'>
+                                    <p>
+                                        Estado mais interessado no projeto
+                                        <span>
+                                            São Paulo
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="cadaAtt">
-
-                            </div>
+                        </div>
+                        <div data-tab="pcmt" class="tabProject pcmt">
+                            <ul>
+                                <?php foreach($comments as $comment){
+                                    $comment = (object)$comment;
+                                ?>
+                                    <li>
+                                        <img data-title="<?= $comment->user->name;?>" alt="<?= $comment->user->name;?>" width="50" height="50" src="<?= base_url. "user-img/".$comment->user->img;?>">
+                                        <h4><?= $comment->user->name;?> <?= ($proj->creator->id != $comment->user->id)?"": "<span class='cmtA'>autor</span>" ;?></h4>
+                                        <p>
+                                            <?= $comment->cmmt;?>
+                                        </p>
+                                    </li>
+                                <?php }?>
+                            </ul>
                         </div>
                     </div>
 
                     <aside id="recompensas">
                         <h3>Incentive este projeto!</h3>
                         <h4>Recompensas</h4>
-                        <div class="cadaRecompensa">
-                            <div class="selecionarRecompensa">
-                                <p>Escolher essa recompensa</p>
+                        <?php foreach($rewards as $reward){ ?>
+                            <div class="cadaRecompensa">
+                                <div class="selecionarRecompensa">
+                                    <p>Escolher essa recompensa</p>
+                                </div>
+                                <p class="recompensaValor"><b>R$</b> <?= number_format($reward->vl_reward,2,",",".");?> ou mais</p>
+                                <p class="recompensaApoiadores">3 usuários apoiando</p>
+                                <p class="recompensaDescricao">
+                                    <?= $reward->ds_reward;?>
+                                </p>
                             </div>
-                            <p class="recompensaValor"><b>R$</b> 20,00 ou mais</p>
-                            <p class="recompensaApoiadores">3 usuários apoiando</p>
-                            <p class="recompensaDescricao">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget magna sit amet mi luctus egestas et vel ante.
-                            </p>
-                        </div>
-
-                        <div class="cadaRecompensa">
-                            <div class="selecionarRecompensa">
-                                <p>Escolher essa recompensa</p>
-                            </div>
-                            <p class="recompensaValor"><b>R$</b> 40,00 ou mais</p>
-                            <p class="recompensaApoiadores">3 usuários apoiando</p>
-                            <p class="recompensaDescricao">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget magna sit amet mi luctus egestas et vel ante.
-                            </p>
-                        </div>
-
-                        <div class="cadaRecompensa">
-                            <div class="selecionarRecompensa">
-                                <p>Escolher essa recompensa</p>
-                            </div>
-                            <p class="recompensaValor"><b>R$</b> 100,00 ou mais</p>
-                            <p class="recompensaApoiadores">3 usuários apoiando</p>
-                            <p class="recompensaDescricao">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget magna sit amet mi luctus egestas et vel ante.
-                            </p>
-                        </div>
+                        <?php } ?>
                     </aside>
                 </div>
             </section>
@@ -255,11 +341,10 @@ $percent = ( $aux > 100 )? 100 : $aux;
                 <div class="wrapper">
                     <div id="areaFinanciamento">
                         <div id="nav">
-                            <ul>
-                                <li>Dados Pessoais</li>
-                                <li>Contribuição</li>
-                                <li>Pagamento</li>
-                                <li>Compartilhe</li>
+                            <ul id="pagTabs">
+                                <li data-tab="Pessoais" class="active"  >Dados Pessoais</li>
+                                <li data-tab="Contribuicao" >Contribuição</li>
+                                <li data-tab="Pagamento" >Pagamento</li>
                             </ul>
                             <p>Você está apoiando o projeto de
                                 <?= $proj->creator->name ?>! </p>
@@ -268,9 +353,6 @@ $percent = ( $aux > 100 )? 100 : $aux;
                             </h1>
                         </div>
                         <div class="formulario" id="dadosPessoais">
-                            <?php 
-                                if(Pagecon::is_logged()){
-                                ?>
                             <div id="usuariologado">
                                 <div id="fotoUsuario" style="background-image: url(<?= base_url; ?>user-img/<?=$_SESSION['user']['img'];?> )"></div>
                                 <div id="dadosUsuario">
@@ -278,18 +360,11 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                         <?= $_SESSION['user']['name'] ?><br>
                                             <?= $_SESSION['user']['email'] ?><br>
                                                 <span>
-                                                   Não é você? <a href="#">Deslogar.</a>
+                                                   Não é você? <a href="/signout">Deslogar.</a>
                                                </span>
                                     </p>
                                 </div>
                             </div>
-                            <?php 
-                                }else{ 
-                                ?>
-
-                            <?php 
-                                } 
-                        ?>
                             <div id="contribuicao">
                                 <h2>Escolher forma de contribuição</h2>
                                 <p>
@@ -298,15 +373,15 @@ $percent = ( $aux > 100 )? 100 : $aux;
 
                                 <form>
                                     <label class="area">
-                                    <input name="modoPagante" type="radio" />
+                                    <input name="modoPagante" type="radio" value="user" />
                                     <i class="fa fa-user" aria-hidden="true"></i> <?= $_SESSION['user']['name'] ?>
                                 </label>
 
                                     <label class="area">
-                                    <input name="modoPagante" type="radio" />
+                                    <input name="modoPagante" type="radio" value="anonimo" />
                                     <i class="fa fa-user-secret" aria-hidden="true"></i> Anônimo
                                 </label>
-                                    <input type="button" value="Continuar" class="acoes" id="continuar">
+                                    <input type="button" value="Continuar" class="acoes" id="continuar" disabled>
                                     <input type="button" value="Cancelar" class="acoes" id="cancelar">
                                 </form>
                             </div>
@@ -314,62 +389,40 @@ $percent = ( $aux > 100 )? 100 : $aux;
                         <div class="formulario" id="dadosContribuicao">
                             <div id="recompensaWrapper">
                                 <ul>
-                                    <li class="cadaRecompensa">
-                                        <div class="valor">
-                                            <i class="fa fa-chevron-left" aria-hidden="true" title="voltar" id="voltar"></i>
-                                            <span>
-                                            até
-                                        </span> R$ 25
-                                        </div>
-                                        <div class="recompensaDescricao">
-                                            <p class="descricao">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare ligula nibh, eget placerat libero pellentesque vitae. Vestibulum consectetur sodales mi nec iaculis. Pellentesque bibendum dolor vitae nulla aliquet, vel faucibus lectus egestas. In luctus, lacus quis fringilla commodo, turpis nisl pellentesque dui, quis ultricies erat tellus vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare ligula nibh, eget placerat libero pellentesque vitae. Vestibulum consectetur sodales mi nec iaculis. Pellentesque bibendum dolor vitae nulla aliquet, vel faucibus lectus egestas. In luctus, lacus quis fringilla commodo, turpis nisl pellentesque dui, quis ultricies erat tellus vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare ligula nibh, eget placerat libero pellentesque vitae. Vestibulum consectetur sodales mi nec iaculis. Pellentesque bibendum dolor vitae nulla aliquet, vel faucibus lectus egestas. In luctus, lacus quis fringilla commodo, turpis nisl pellentesque dui, quis ultricies erat tellus vitae nisl.
-                                            </p>
-                                            <p><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Digital download of the full-length
-                                            </p>
-                                            <p><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Digital download
-                                            </p>
-                                            <p><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Digital download of the full-length album EVEREST 3 copies of CD + original artwork of EVEREST mailed to your home
-                                            </p>
-                                            <div class="donate">
-                                                <form method="post" name="contribuicao">
-                                                    <label for="valorDoado">
-                                                    Quanto você deseja doar?
-                                                    <span>
-                                                        Valor entre <b>$valorMinimo</b> e <b>$valorMaximo</b> desta recompensa
-                                                    </span>
-                                                </label>
-                                                    <input id="valorDoado" type="number" name="valorDoado" placeholder="Digite aqui o valor da sua doação">
-                                                    <input type="button" id="continuarContribuicao" value="Continuar">
-                                                </form>
+                                    <?php foreach($rewards as $reward){ ?>
+                                        <li class="cadaRecompensa" data-vl="<?= $reward->vl_reward;?>">
+                                            <div class="valor">
+                                                <i class="fa fa-chevron-left" aria-hidden="true" title="voltar" id="voltar"></i>
+                                                <span>
+                                                até
+                                            </span> R$ <?= number_format($reward->vl_reward,2,",",".");?>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="cadaRecompensa">
-                                        <div class="valor">
-                                            R$ 25
-                                            <span>
-                                            ou mais
-                                        </span>
-                                        </div>
-                                    </li>
-                                    <li class="cadaRecompensa">
-                                        <div class="valor">
-                                            R$ 50
-                                            <span>
-                                            ou mais
-                                        </span>
-                                        </div>
-                                    </li>
-                                    <li class="cadaRecompensa">
-                                        <div class="valor">
-                                            R$ 100
-                                            <span>
-                                            ou mais
-                                        </span>
-                                        </div>
-                                    </li>
+                                            <div class="recompensaDescricao">
+                                                <p class="descricao">
+                                                    <?= $reward->ds_reward;?>
+                                                </p>
+                                                <?php foreach(explode("+",$reward->ds_resume) as $item){?>
+                                                <p>
+                                                    <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                                                    <?= $item;?>
+                                                </p>
+                                                <?php } ?>
+                                            </div>
+                                        </li>
+                                    <?php } ?>
                                 </ul>
+                                <div class="donate">
+                                    <!--<form method="post" name="contribuicao">-->
+                                    <label for="valorDoado">
+                                        Quanto você deseja doar?
+                                        <span>
+                                            Valor entre <b>$valorMinimo</b> e <b>$valorMaximo</b> desta recompensa
+                                        </span>
+                                    </label>
+                                    <input id="valorDoado" type="number" name="valorDoado" placeholder="Digite aqui o valor da sua doação">
+                                    <input type="button" id="continuarContribuicao" value="Continuar" disabled>
+                                    <!--</form>-->
+                                </div>
                             </div>
                         </div>
                         <div class="formulario" id="dadosPagamento">
@@ -377,12 +430,12 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                 Escolha a melhor forma de pagamento
                             </h2>
                             <ul id="escolherForma">
-                                <li>
-                                    <input type="radio" id="cartao" name='pagamento'>
+                                <li data-type="card">
+                                    <input type="radio" id="cartao" name='pagamento' value="credit_card">
                                     <label for="cartao" class="escolha">
-                                    <i class="fa fa-credit-card" aria-hidden="true"></i> 
-                                    Pagamento com cartões de crédito
-                                </label>
+                                        <i class="fa fa-credit-card" aria-hidden="true"></i> 
+                                        Pagamento com cartões de crédito
+                                    </label>
                                     <div class="efetuarPagamento" id="opCartao">
                                         <div class="credit-card-box">
                                             <div class="flip">
@@ -476,7 +529,7 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                                         <select name="cardDate[]" id="cardYear">
                                                             <option></option>
                                                             <?php foreach(range(date("Y"), date("Y") + 20) as $month){?>
-                                                            <option value="<?= $month;?>"><?= $month;?></option>
+                                                            <option value="<?= substr($month,2,3);?>"><?= $month;?></option>
                                                             <?php }?>
                                                         </select>
                                                     </div>
@@ -484,27 +537,23 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                                         <label>Código de Segurança</label>
                                                         <input type="text" maxlength="3" name="cardCvv" id="cardCcv">
                                                     </div>
-                                                    <div id="finalizar">
-                                                        <input type="button" value="Financiar projeto">
-                                                    </div>
-
                                                 </div>
                                             </fieldset>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
                                 </li>
-                                <li>
-                                    <input type="radio" id="boleto" name='pagamento'>
+                                <li data-type="boleto">
+                                    <input type="radio" id="boleto" name="pagamento" value="boleto">
                                     <label for="boleto" class="escolha">
-                                    <i class="fa fa-money" aria-hidden="true"></i>
-                                    Pagamento com boleto
-                                    <div class="efetuarPagamento" id="opBoleto">
-                                    
-                                    </div>
-                                </label>
+                                        <i class="fa fa-money" aria-hidden="true"></i>
+                                        Pagamento com boleto
+                                        <div class="efetuarPagamento" id="opBoleto">
+                                        </div>
+                                    </label>
                                 </li>
                             </ul>
+                            <input type='button' data-project="<?= $proj->id;?>" value='Apoiar projeto' class='botao azul direita' id='finalizarApoio' disabled>
                         </div>
                     </div>
 

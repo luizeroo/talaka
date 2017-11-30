@@ -1,10 +1,10 @@
 $(front);
 
 function showFin(){
-        $('#financeWrapper').fadeIn('slow');
-        $('#financeClose').click(function(){
-           $('#financeWrapper').fadeOut('slow') ;
-        });
+    $('#financeWrapper').fadeIn('slow');
+    $('#financeClose').click(function(){
+       $('#financeWrapper').fadeOut('slow') ;
+    });
 }
 
 function finance(log){
@@ -70,24 +70,168 @@ var timerCarrousel = setInterval(function(){
 }, 5000);
 
 function front() {
+    //================= ADMIN =========================
+    $("#cancelarAdmin").click(function(){
+        window.self.location = "/";
+    });
+    //------ Login -----
+    $("#logar").click(function(){
+        let login = $("input[name='login']").val();
+        let senha = $("input[name='pwd']").val();
+        let values = { "login": login, "pwd": senha };
+        let json = JSON.stringify(values);
+        let server = document.URL;
+        $.ajax({
+            url: "https://"+server.split("/")[2]+"/exec/admin/auth",
+            method: "POST",
+            type: "POST",
+            async: true,
+            headers:{"content-type":"application/json"},
+            data: json,
+            contentType: "application/json",
+            processData: false,
+        }).done(function(response){
+            if(response.stats == "success"){
+                window.self.location = "/talaka/admin/dash";
+            }else{
+                alert(response.data);
+            }
+            console.log(response);
+        }).fail(function(response){
+            alert("Erro ao efetuar login");
+        });
+    });
+    // ------- Dash --------------------
+    $('#modoAdmin').click(function(){
+       $('#opcoesMenu').slideToggle();
+    });
+    $('#areaControles li').click(function(){
+       $('li').removeClass('active');
+       $(this).addClass('active');
+    });
+    
+    
+    //================= Home ===========================
+    //Campanha
+    //toProject
+    $("#catIcons li").click(function(){
+        let link = urlencode($(this).data("link"));
+        $("#catInfo a").prop("href", "/explore/"+link+"/1");
+    });
+    
+    
+    $('#menuAside').click(function(){
+        if(!$("#pageAdmin section").hasClass('minMenu')){
+            $('#pageAdmin aside *').fadeOut();
+            $('#pageAdmin aside').css('width','.5%');
+            $('#pageAdmin section').css('width','95%');
+            $('#pageAdmin section').addClass('minMenu');
+        }else{
+            $('#pageAdmin aside *').fadeIn();
+            $('#pageAdmin section').css('width','77%');
+            $('#pageAdmin aside').css('width','23%');
+            $('#pageAdmin section').removeClass('minMenu');
+        }
+    });
+    
+    // =============================== CAMPANHA =============================
+    //Cadastro
+    //Adiciona Tags confome escrita
+    $("input[name='tags']").keydown(function(event){
+        let code = event.target.value.charCodeAt(event.target.value.length - 1);
+        if ((this.selectionStart == 0 || code == 32 || code == 44) && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
+           var $t = $(this);
+           event.preventDefault();
+           var char = String.fromCharCode(event.keyCode).toUpperCase();
+           $t.val($t.val() + char);
+        }
+    });
+    $("input[name='tags']").keyup(function(){
+        //Zera tags
+        $("#categorias").html("");
+        let input = $(this).val().split(",");
+        input.forEach(function(tag){
+            tag = tag.trim();
+            //Not blank or whitespace => Captalize and Add Tag
+            tag != "" && tag != " " ? $("#categorias").append("<li>"+(tag[0].toUpperCase() + tag.slice(1))+"</li>") : null;
+        });
+    });
+    
+    //================================ USUARIO===============================
+    //Trocar abas 
+    $("#contentMenu li").click(function(){
+        let tab = $(this).data("tab");
+        // [].forEach.call($("#tabUser li"), function(li, index){
+        //     let $li = $(li);
+        //     if(index <= $li.index()){
+        //         //$("").
+        //         //Colocar nome
+        //     }
+        // });
+        $(".tabUser").hide();
+        $("#tab"+tab).fadeIn();
+    });
+    //================== Financiar Projeto ===============
+    //Caso Visitante
+    $("#loginNecessario").click(function(){
+        window.self.location = "/signin";
+    });
+    //Caso logado
     $("#financiarProjeto").click(function(){
        $("#financiamento") .fadeIn();
        $("#financiamento").css("display","flex");
-       $("#continuar").click(function() {
-          $("#areaPlataforma").fadeOut("fast");
-          $("#areaFinanciamento").css("width","100%");
-       });
-       $("#bg, #cancelar").click(function() {
-           $("#financiamento").fadeOut();
-           $("#areaFinanciamento").css("width","68%");
-           $("#areaPlataforma").fadeIn("fast");
-       })
+    //   $("#continuar").click(function() {
+    //       $("#areaPlataforma").fadeOut("fast");
+    //       $("#areaFinanciamento").css("width","100%");
+    //   });
+      $("#bg, #cancelar").click(function() {
+          $("#financiamento").fadeOut();
+    //     //   $("#areaFinanciamento").css("width","68%");
+    //     //   $("#areaPlataforma").fadeIn("fast");
+      })
     });
     //================ FINANCIAMENTO ===================================
+    //Trocar abas 
+    $("#pagTabs li").click(function(){
+        let tab = $(this).data("tab");
+        let $t = $(this);
+        [].forEach.call($("#pagTabs li"), function(li, index){
+            let $li = $(li);
+            if(index <= $t.index()){
+                $li.addClass("active");
+            }else{
+                $li.removeClass("active");
+            }
+        });
+        $(".formulario").hide();
+        $("#dados"+tab).fadeIn();
+    });
+    //Modo Pagamaneto
+    $("input[name='modoPagante']").click(function(){
+         $("#areaFinanciamento #continuar").prop("disabled", false);
+    });
+    
+    //Trocar abas pelo Continuar
+    $("#areaFinanciamento #continuar").click(function(){
+        $("#pagTabs li").eq(1).trigger("click");
+    });
+    
     //Abrir forma de pagamento
     $("#escolherForma li").click(function() {
-       $(this).children(".efetuarPagamento").slideDown();
+        //Enabled Finalizar
+        $("#finalizarApoio").prop("disabled",false);
+        let type = $(this).data("type");
+        if(type == "card"){
+            $(this).children(".efetuarPagamento").slideDown();
+        }else{
+            $("#escolherForma li").first().children(".efetuarPagamento").slideUp();
+        }
     });
+    
+    $("input[name='pagamento']").change(function(){
+        console.log("Forma: " + $(this).val());
+    });
+    
     //CARTAO -----------------------------------------------------------
     $('#creditNumero input').on('keyup change', function(e){
         if($.inArray(e.keyCode, [48,49,50,51,52,53,54,55,56,57,8,96,97,98,99,100,101,102,103,104,105]) == -1){
@@ -129,7 +273,7 @@ function front() {
     $('#cardMonth, #cardYear').change(function(){
         m = $('#cardMonth option:selected').val();
         m = (m < 10) ? '0' + m : m;
-        y = $('#cardYear').val().substr(2,2);
+        y = $('#cardYear').val();
         $('.card-expiration-date div').html(m + '/' + y);
     });
     $('#cardCcv').on('focus', function(){
@@ -141,6 +285,11 @@ function front() {
     });
     // Fechar dados recompensa
     $("#dadosContribuicao .cadaRecompensa").not(".cadaRecompensa_extends").unbind().click(function() {
+        //Recompensa
+        let vl = $(this).data("vl");
+        $("#valorDoado").val(vl);
+        $("#valorDoado").trigger("change");
+        
         let position = $(this).index();
         $("#dadosContribuicao .cadaRecompensa").not(":eq("+position+")").fadeOut(200);
         $(this).addClass("cadaRecompensa_extends");
@@ -149,16 +298,73 @@ function front() {
         });
         //$(this).find("#valorDoado").focus();
     });
-    
-    $("#voltar").unbind().click(function(event) {
+    //Voltar recompensa
+    $("#dadosContribuicao #voltar").unbind().click(function(event) {
         $(".cadaRecompensa_extends").animate({
             width: '23.5%'
         }).attr("class","cadaRecompensa");
         $("#dadosContribuicao .cadaRecompensa").fadeIn(500);
         event.stopImmediatePropagation();
     });
+    //Enabled continuar step2
+    $("#valorDoado").change(function(){
+        let disabled = $(this).val() > 10.00 ? false : true;
+        $("#continuarContribuicao").prop("disabled", disabled);
+    });
     
+    //Continuar Step2
+    $("#areaFinanciamento #continuarContribuicao").click(function(){
+        $("#pagTabs li").last().trigger("click");
+    });    
     
+    //Finalizar
+    $("#finalizarApoio").click(function(){
+        let financiamento = {
+            'vl'        : $("input[name='valorDoado']").val(),
+            'method'    : $("input[name='pagamento']:checked").val(),
+            'project'   : $(this).data("project"),
+            'mode'      : $("input[name='modoPagante']:checked").val()
+        };
+        //Alerta e PARA execucao
+        if(financiamento.valor > 9999){
+            alert("Valor inválido");
+            return false;
+        }
+        
+        if(financiamento.method == "credit_card"){
+            financiamento["card"] = {
+                'number'        : $("input[name='cardNumber\\[\\]']").map(function(){return $(this).val();}).get().join(""),
+                'name'          : $("input[name='cardName']").val(),
+                'expiration'    : (($("#cardMonth option:selected").val() < 10 ? "0"+$("#cardMonth option:selected").val() : $("#cardMonth option:selected").val() )+$("#cardYear option:selected").val()),
+                'cvv'           : $("input[name='cardCvv']").val()
+            }
+        }
+        const json = JSON.stringify(financiamento);
+        const server = document.URL;
+        var id = $('.usuarioLogado').data("user");
+        $.ajax({
+            url: "https://"+server.split("/")[2]+"/exec/client/invest/"+id,
+            method: "POST",
+            async: true,
+            headers:{"content-type":"application/json"},
+            data: json,
+            contentType: "application/json",
+            processData: false,
+        }).done(function(response){
+            console.log(response);
+            return false;
+            var r = JSON.parse(response);
+            if(r.stats === "success"){
+                alert('Financiado com sucesso');
+                location.reload();
+            }else{
+                alert('deu ruim');
+            }
+            console.log(response);
+        }).fail(function(response){
+            alert("Deu mega ruim");
+        });
+    });
     
     // faq
     $("#faq li").click(function(){
@@ -167,14 +373,13 @@ function front() {
     
     
     
-    //========================== TAB Project
-    //$(".tabProject").not(":eq(0)").hide();
-    $("#projetoContain #menu li").click(function(){
+    //================= TAB Project
+    $(".tabProject").not(":eq(0)").hide();
+    $("#projetoContain #menu li").unbind().click(function(){
         let tabData = $(this).data("tab");
-        let tab = $(".tabProject[data-tab='"+tabData+"']");
+        let tab = $(".tabProject."+tabData);
         $(tab).fadeIn();
-        console.log(tab);
-        $(".tabProject").not(":eq("+tab.index()+")").hide();
+        $(".tabProject").not("."+tabData).hide();
         
     });
     // =============== Pesquisa ================
@@ -197,6 +402,7 @@ function front() {
     // Descricao do projeto
     $("span.dsHidden").css({'display':'none'}).after('<span>(...)</span>');
     
+    
     // Exploração - lista ou grelha
     $("#list").click(function(){
         $(".projectsList").toggleClass("projectsGrill");
@@ -215,9 +421,12 @@ function front() {
     });
     //-----------------------FONT---------------------------
     $("#plus").click(function(){
-        console.log($("body").css("font-size"));
-        let size = parseInt($("body").css("font-size"));
-        $("body").css("font-size", (size + 1) + "px");
+        let size = $('html').css('font-size');
+        let tamanho = size.split('px')[0];
+        let size2 = parseInt(tamanho);
+        let result = $("html").css("font-size", (size2 + .05) + "px");
+        // let size2 = $('html').css('font-size');
+        alert(tamanho);
     });
     //To Top
     $(window).scroll(function(){
@@ -305,37 +514,36 @@ function front() {
            $('aside').css('left','-17%');
            $('aside').hide();
             $('#allStatistic').css('width','100%');$(this).css('left','2%');
-            
        }
     });
     
     //--------------------- LOGIN ------------------------------------------ //
     $("#login-button").click(function(){
-                var login = $("input[name='login']").val();
-                var senha = $("input[name='pwd']").val();
-                var values = { "login": login, "pwd": senha };
-                var json = JSON.stringify(values);
-                var server = document.URL;
-                $.ajax({
-                    url: "https://"+server.split("/")[2]+"/exec/client/auth",
-                    method: "POST",
-                    type: "POST",
-                    async: true,
-                    headers:{"content-type":"application/json"},
-                    data: json,
-                    contentType: "application/json",
-                    processData: false,
-                }).done(function(response){
-                    if(response.stats == "success"){
-                        window.self.location = "/";
-                    }else{
-                        alert(response.data);
-                    }
-                    console.log(response);
-                }).fail(function(response){
-                    alert("Erro ao efetuar login");
-                });
-            });
+        var login = $("input[name='login']").val();
+        var senha = $("input[name='pwd']").val();
+        var values = { "login": login, "pwd": senha };
+        var json = JSON.stringify(values);
+        var server = document.URL;
+        $.ajax({
+            url: "https://"+server.split("/")[2]+"/exec/client/auth",
+            method: "POST",
+            type: "POST",
+            async: true,
+            headers:{"content-type":"application/json"},
+            data: json,
+            contentType: "application/json",
+            processData: false,
+        }).done(function(response){
+            if(response.stats == "success"){
+                window.self.location = "/";
+            }else{
+                alert(response.data);
+            }
+            console.log(response);
+        }).fail(function(response){
+            //alert("Erro ao efetuar login");
+        });
+    });
     
     //Checa se valor está preenchido        
     $("input[name='valor']").keyup(function(){
@@ -406,12 +614,13 @@ function front() {
                         //calcula porcentagem
                         let percent = ((project[index].collected) * 100)/ project[index].meta;
                         //Link
-                        $(proj).parent("a").attr("href", "https://"+server.split("/")[2]+"/project/"+project[index].id);
+                        $(proj).attr("onclick","toProject('"+urlencode(project[index].title)+"')");
                         //Fundo
                         $(proj).find(".eachProjectCover").attr("style","background-image:url(/Talaka/proj-img/"+project[index].img+")");
                         //Criador
-                        $(proj).find(".eachProjectOwner").attr("title",project[index].creator.name).attr("style","background-image:url(/Talaka/user-img/"+project[index].creator.img+")");
+                        $(proj).find(".eachProjectOwner").attr("title",project[index].creator.name).attr("style","background-image:url(/Talaka/user-img/"+project[index].creator.img+")").attr("data-title",project[index].creator.name);
                         //Categoria
+                        $(proj).find(".eachProjectTag a").attr("href","/explore/"+urlencode(project[index].category+"/1"));
                         $(proj).find(".eachProjectTag a span").html(" "+project[index].category);
                         //Titulo
                         $(proj).find(".eachProjectInfo .eachProjectTag h2").html(project[index].title);
@@ -523,6 +732,24 @@ function front() {
     });
     
     
+    //---------------- pagina de usuário
+    $("#showShare").click(function() {
+        $("#share").slideToggle();
+    });
+    $("#closeAlbum").click(function() {
+        $("#album").fadeOut();
+    });
+    $(".cadaAlbum").click(function(){
+       $("#album").fadeIn().css("display","flex");
+    });
+    $(".cadaAlbum").mouseover(function(){
+       $(this).find(".infoAlbum").css("background-color","background-color:rgba(213, 14, 101,.9);");
+       $(".cadaAlbum").mouseout(function(){
+           $(this).find(".infoAlbum").css("background-color","background-color:rgba(213, 14, 101,.8);");
+       });
+    });
+        
+    
     //---------------JQUERY DE TERCEIROS
     $('.keyboard').keyboard({ 
         layout: 'qwerty',
@@ -535,6 +762,11 @@ function front() {
     });
     
     
+}
+
+//Manda para a pagina do projeto
+function toProject(project){
+    window.self.location = "/campanha/"+project;
 }
 
 function comentar(proj){
@@ -602,6 +834,7 @@ function previewIMG(img,event){
 //======== UTILS =========
 function urlencode(text){
     return text
+        .replace(/\s/g, "+")
     	.replace(/&/g, "%26amp%3B")
         .replace(/ç/g, "%26ccedil%3B")
         .replace(/ã/g, "%26atilde%3B").replace(/á/g, "%26aacute%3B").replace(/â/g, "%26acirc%3B").replace(/à/g, "%26agrave%3B").replace(/ä/g, "%26auml%3B")

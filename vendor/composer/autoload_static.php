@@ -22,7 +22,8 @@ class ComposerStaticInit379dfd1ab9badb3743f399e3a9316026
 
     public static $classMap = array (
         'Talaka\\Controllers\\ApiController' => __DIR__ . '/../..' . '/Talaka/Controllers/ApiController.php',
-        'Talaka\\Controllers\\Pagecon' => __DIR__ . '/../..' . '/Talaka/Controllers/Pagecon.php',
+        'Talaka\\Controllers\\PageController' => __DIR__ . '/../..' . '/Talaka/Controllers/PageController.php',
+        'Talaka\\Controllers\\Users\\Admin' => __DIR__ . '/../..' . '/Talaka/Controllers/Users/Admin.php',
         'Talaka\\Controllers\\Users\\Client' => __DIR__ . '/../..' . '/Talaka/Controllers/Users/Client.php',
         'Talaka\\Controllers\\Users\\User' => __DIR__ . '/../..' . '/Talaka/Controllers/Users/User.php',
         'Talaka\\Controllers\\Users\\Visitor' => __DIR__ . '/../..' . '/Talaka/Controllers/Users/Visitor.php',
