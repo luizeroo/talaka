@@ -97,6 +97,8 @@ function front() {
                 window.self.location = "/";
             }else{
                 //
+                console.log(response);
+                alert("deu erro");
             }
         }).fail(function(response){
             console.log(response);

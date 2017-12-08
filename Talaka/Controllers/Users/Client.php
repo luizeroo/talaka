@@ -36,8 +36,8 @@ class Client extends User{
                 "dt_final"      => $request->getAttribute('tempoestimado'),
                 "cd_user"       => $_SESSION["user"]["id"],
                 "dt_begin"      => date("Y-m-d"),
-                "dt_path_img"   => $img["name"],
-                "dt_img_back"   => $imgCapa["name"],
+                "ds_path_img"   => $img["name"],
+                "ds_img_back"   => $imgCapa["name"],
                 "vl_collected"  => 0,
                 "qt_visitation" => 0,
                 "ds_social"     => json_encode([
@@ -49,9 +49,10 @@ class Client extends User{
                 $idProj = $this->db->firstFinancing($_SESSION["user"]["id"]);
                 //Coautores
                 $coauthors = explode(",", $request->getAttribute('coautores'));
+                
                 //Loop de coautores
-                foreach($coauthor as $coauthors){
-                    $resultCo = $this->db->select("User","ds_login = '".$coauthor."'","cd_user");
+                foreach($coauthors as $coauthor){
+                    $resultCo = $this->db->selectRaw("User","ds_login = '".$coauthor."'","cd_user");
                     //Checa retorno
                     if(count($resultCo) > 0){
                         //Insere Tag no projeto
@@ -68,9 +69,9 @@ class Client extends User{
                 //Tags
                 $tags = explode(",", $request->getAttribute('tags'));
                 //Loop de tags
-                foreach($tag as $tags){
+                foreach($tags as $tag){
                     $tagName = htmlspecialchars_decode( htmlentities($tag));
-                    $resultTag = $this->db->select("Tag","nm_tag like '%".$tagName."%'","cd_tag");
+                    $resultTag = $this->db->selectRaw("Tag","nm_tag like '%".$tagName."%'","cd_tag");
                     //Checa retorno
                     if(count($resultTag) > 0){
                         $idTag = $resultTag[0]["cd_tag"];

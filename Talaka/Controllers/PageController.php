@@ -56,8 +56,9 @@ class PageController{
             "arg0"  => $request->getParam('title')
         ]);
         //Validacao Projeto
-        if(empty($data['title'])){
+        if(empty($data['title']) || empty($data['id']) ){
             $this->page->redirect("/error/". urlencode("Projeto não encontrado"));
+            return false;
         }
         //Informacoes relacionadas com o Projeto
         $comments = $this->page->curl('GET',[

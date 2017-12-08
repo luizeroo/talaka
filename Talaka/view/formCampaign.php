@@ -112,16 +112,16 @@ defined("System-access") or header('location: /error');
                                 </label>
                                 <div class="input">
                                     <select id='categoriacampanha' name='categoriacampanha'>
-                                        <option>Ação</option>
-                                        <option>Biográfico</option>
-                                        <option>Comédia</option>
-                                        <option>Drama</option>
-                                        <option>Esporte</option>
-                                        <option>Ficção Científica</option>
-                                        <option>Literatura</option>
-                                        <option>Super-Herói</option>
-                                        <option>Terror</option>
-                                        <option>Tirinha</option>
+                                        <option value="1" >Ação</option>
+                                        <option value="2" >Biográfico</option>
+                                        <option value="3" >Comédia</option>
+                                        <option value="4" >Drama</option>
+                                        <option value="5" >Fantasia</option>
+                                        <option value="6" >Ficção Científica</option>
+                                        <option value="7" >Literatura</option>
+                                        <option value="8" >Super-Herói</option>
+                                        <option value="9" >Terror</option>
+                                        <option value="10" >Tirinha</option>
                                     </select>
                                 </div>
                             </div>
@@ -177,7 +177,7 @@ defined("System-access") or header('location: /error');
                                     </p>
                                 </label>
                                 <div class="input">
-                                    <input type="number" id='tempoestimado' name='tempoestimado' placeholder="Mínimo de 30 dias, máximo de 90">
+                                    <input type="date" id='tempoestimado' name='tempoestimado' placeholder="Mínimo de 30 dias, máximo de 90">
                                     <p>
                                         Término da campanha previsto para: __/__/____
                                     </p>
@@ -264,49 +264,53 @@ defined("System-access") or header('location: /error');
                             </div>
                             <div id="stepFinanciamento">
                             <p class="step">
-                                Recompensas
-                                <b>Retribua seus fãs</b>
+                                Finalizar
+                                <b>Confira os Dados</b>
                             </p>
-                            <p>
-                                Nesta etapa você poderá cadastrar as recompensas que as pessoas irão receber quando financiarem seu projeto. O ideal é que você inicie com algumas recompensas estabelecidas mas é possível cadastrar depois.
-                            </p>
-                            <div class="cadaCampo">
-                                <label class="label" for='recompensa'>
-                                    <p>Valor da recompensa</p>
-                                    <p>Quanto o usuário poderá oferecer?</p>
-                                </label>
-                                <div class="input">
-                                    <input type="number" id='recompensa' name='recompensa'>
-                                </div>
-                            </div>
-                            <div class="cadaCampo">
-                                <label class="label" for='premio'>
-                                    <p>Prêmio</p>
-                                    <p>
-                                        Defina o que você pode oferecer ao investir no seu projeto, de acordo com o valor doado.
-                                    </p>
-                                </label>
-                                 <div class="input" id="addAutor">
-                                        <input type="text" id='premio' name='premio'>
-                                        <input type="button" value="Adicionar">
-                                        <div class='cadaRecompensa'>
-                                            <h3>
-                                                <b>R$ 50,00</b>
-                                                - Título da recompensa</h3>
-                                                <span>
-                                                    descrição da campanha
-                                                </span>
-                                        </div>
-                                        <div class='cadaRecompensa'>
-                                            <h3>
-                                                <b>R$ 50,00</b>
-                                                Título da recompensa</h3>
-                                                <span>
-                                                    descrição da campanha
-                                                </span>
-                                        </div>
-                                    </div>
-                            </div>
+                            <!--<p class="step">-->
+                            <!--    Recompensas-->
+                            <!--    <b>Retribua seus fãs</b>-->
+                            <!--</p>-->
+                            <!--<p>-->
+                            <!--    Nesta etapa você poderá cadastrar as recompensas que as pessoas irão receber quando financiarem seu projeto. O ideal é que você inicie com algumas recompensas estabelecidas mas é possível cadastrar depois.-->
+                            <!--</p>-->
+                            <!--<div class="cadaCampo">-->
+                            <!--    <label class="label" for='recompensa'>-->
+                            <!--        <p>Valor da recompensa</p>-->
+                            <!--        <p>Quanto o usuário poderá oferecer?</p>-->
+                            <!--    </label>-->
+                            <!--    <div class="input">-->
+                            <!--        <input type="number" id='recompensa' name='recompensa'>-->
+                            <!--    </div>-->
+                            <!--</div>-->
+                            <!--<div class="cadaCampo">-->
+                            <!--    <label class="label" for='premio'>-->
+                            <!--        <p>Prêmio</p>-->
+                            <!--        <p>-->
+                            <!--            Defina o que você pode oferecer ao investir no seu projeto, de acordo com o valor doado.-->
+                            <!--        </p>-->
+                            <!--    </label>-->
+                            <!--     <div class="input" id="addAutor">-->
+                            <!--            <input type="text" id='premio' name='premio'>-->
+                            <!--            <input type="button" value="Adicionar">-->
+                            <!--            <div class='cadaRecompensa'>-->
+                            <!--                <h3>-->
+                            <!--                    <b>R$ 50,00</b>-->
+                            <!--                    - Título da recompensa</h3>-->
+                            <!--                    <span>-->
+                            <!--                        descrição da campanha-->
+                            <!--                    </span>-->
+                            <!--            </div>-->
+                            <!--            <div class='cadaRecompensa'>-->
+                            <!--                <h3>-->
+                            <!--                    <b>R$ 50,00</b>-->
+                            <!--                    Título da recompensa</h3>-->
+                            <!--                    <span>-->
+                            <!--                        descrição da campanha-->
+                            <!--                    </span>-->
+                            <!--            </div>-->
+                            <!--        </div>-->
+                            <!--</div>-->
                             <!--<div class="visualizar">-->
                             <!--    <input type="button" id="visualizar" value="Visualizar campanha">-->
                             <!--</div>-->
