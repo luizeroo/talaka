@@ -19,20 +19,78 @@ class Client extends User{
     }
     
     //Project methods
-    public function projectPOST($id){
-        $accept = $_SERVER["CONTENT_TYPE"];
-        if($accept === "application/json" || $id === null){
-            $json = file_get_contents('php://input');
-            $obj = json_decode($json);
-            $obj->ds_project = htmlspecialchars_decode( htmlentities($obj->ds_project) );
-            $obj->ds_resume = htmlspecialchars_decode( htmlentities($obj->ds_resume) );
-            $obj->cd_user = $id;
-            $obj->dt_begin = date("Y-m-d");
-            if($this->db->insert('Project',$obj) ){
-                $this->db->firstFinancing($id);
+    public function projectPOST($request){
+        $file = $request->getFile("imagemcampanha");
+        $fileCapa = $request->getFile("imagemcapa");
+        //Upload de img
+        $img = $this->upload($file,"proj-img/");
+        $imgCapa = $this->upload($fileCapa,"proj-img/");
+        //$img["status"] = "OK";
+        if($img["status"] == "OK"){
+            $project = (object)[
+                "nm_title"      => $request->getAttribute('titulocampanha'),
+                "ds_project"    => htmlspecialchars_decode( htmlentities($request->getAttribute('descricaocampanha')) ),
+                "ds_resume"     => htmlspecialchars_decode( htmlentities($request->getAttribute('resumocampanha') )),
+                "cd_category"   => $request->getAttribute('categoriacampanha'),
+                "vl_meta"       => $request->getAttribute('metaproposta'),
+                "dt_final"      => $request->getAttribute('tempoestimado'),
+                "cd_user"       => $_SESSION["user"]["id"],
+                "dt_begin"      => date("Y-m-d"),
+                "dt_path_img"   => $img["name"],
+                "dt_img_back"   => $imgCapa["name"],
+                "vl_collected"  => 0,
+                "qt_visitation" => 0,
+                "ds_social"     => json_encode([
+                        "facebook"      => $request->getAttribute('facebook'),
+                        "instagram"     => $request->getAttribute('instagram'),
+                        "video"         => $request->getAttribute('video')]),
+            ];
+            if($this->db->insert('Project',$project) ){
+                $idProj = $this->db->firstFinancing($_SESSION["user"]["id"]);
+                //Coautores
+                $coauthors = explode(",", $request->getAttribute('coautores'));
+                //Loop de coautores
+                foreach($coauthor as $coauthors){
+                    $resultCo = $this->db->select("User","ds_login = '".$coauthor."'","cd_user");
+                    //Checa retorno
+                    if(count($resultCo) > 0){
+                        //Insere Tag no projeto
+                        $this->db->insert('Coauthor',(object)[
+                                "cd_project"    => $idProj,
+                                "cd_author"     => $_SESSION["user"]["id"],
+                                "cd_coauthor"   => $resultCo[0]["cd_user"],
+                                "nm_type"       => "editor"
+                        ]);
+                    }
+                    //Caso nao tenha usuario com o username, o coauthor nao é inserido
+                }
+                
+                //Tags
+                $tags = explode(",", $request->getAttribute('tags'));
+                //Loop de tags
+                foreach($tag as $tags){
+                    $tagName = htmlspecialchars_decode( htmlentities($tag));
+                    $resultTag = $this->db->select("Tag","nm_tag like '%".$tagName."%'","cd_tag");
+                    //Checa retorno
+                    if(count($resultTag) > 0){
+                        $idTag = $resultTag[0]["cd_tag"];
+                    }else{
+                        //Cria tags caso nao existam
+                       $idTag =  $this->db->insert('Tag',(object)[
+                                "nm_tag"        => $tagName,
+                                "created_at"    => date("Y-m-d H:i:s")
+                        ]);
+                    }
+                    //Insere Tag no projeto
+                    $this->db->insert('ProjectTags',(object)[
+                            "cd_project" => $idProj,
+                            "cd_tag"     => $idTag
+                    ]);
+                }
+                
                 $resp = "success";
             }else{
-                $resp =  "fail_insert";;
+                $resp =  "fail_insert";
             }
             return json_encode(array("stats" => $resp, "data" => null));
         }else{
@@ -46,7 +104,7 @@ class Client extends User{
         if($accept === "application/json" && $id !== null){
             $json = file_get_contents('php://input');
             $jsonObj = json_decode($json);
-            $obj = new stdClass();
+            $obj = (object) [];
             $obj->cd_user = $id;
             $obj->cd_project = $jsonObj->project;
             $obj->vl_financing = $jsonObj->vl;
@@ -59,7 +117,7 @@ class Client extends User{
             //Caso tenha inserido com sucesso
             if($resp === "success"){
                 //Pega informacoes do usuario
-                $user = json_decode( $this->db->consultUser($id) );
+                $user = json_decode( $this->db->consultUserId($id) );
                 
                 //id do financiamento
                 $data = json_decode($data);
@@ -67,40 +125,47 @@ class Client extends User{
                 //Monta informacoes da transacao
                 $infoT = $obj;
                 $infoT->vl_financing = ($jsonObj->vl * 100); 
-                $infoT->nm_user = $user->nome;
+                $infoT->nm_user = $user->name;
                 $infoT->ds_email = $user->email;
                 $infoT->id_financing = $data->id_financing;
                 if($jsonObj->method == "credit_card"){
-                    $infoT->card = $jsonObj->card;
+                    $infoT->card_hash = $jsonObj->card_hash;
                 }
-                
                 //Cria payment
                 $this->pay = new Payment();
                 $this->pay->doTransaction($infoT);
             }
-            $vetor = array("stats" => $resp, "data" => $infoT);
+            $vetor = ["stats" => $resp, "data" => $infoT];
             return json_encode( $vetor );
         }else{
             return json_encode(array("stats" => "fail_content_type_or_id_not_passed", "data" => null));
         }
     }
     
-    public function postbackPOST($id_user, $id_financing){
+    public function postbackPOST($ids, $request){
         //Pega parametros
-        $payload = file_get_contents("php://input");
-        $headers = getallheaders();
         $this->pay = new Payment();
         //autentica
-        if( $this->pay->doPostBack($payload, $headers) ){
-            $obj = new stdClass();
+        if( $this->pay->doPostBack($request["body"], $request["headers"]) ){
+            $obj = (object) [];
             $obj->ic_paid = 1;
             $obj->dt_payment = date("Y-m-d H:i:s");
-            $where = array("cd_user" => (int)$id_user, "cd_financing" => (int)$id_financing);
+            $where = ["cd_user" => (int)$ids["user"], "cd_financing" => (int)$ids["financing"] ];
             $resp = ( $this->db->alter('Financing',$obj,$where) )? "success" : "fail_update_financing";
-            $vetor = array("stats" => $resp, "data" => null);
+            $vetor = [
+                "stats" => $resp,
+                "data" => null
+            ];
             return json_encode( $vetor );
             
         }
+        // return json_encode([
+        //     "mano"  => "Foi",
+        //     "velho" => "Success",
+        //     "arg0"  => $ids,
+        //     "corpo" => $request["body"],
+        //     "headers"  => $request["headers"]
+        // ]);
         
     }
     

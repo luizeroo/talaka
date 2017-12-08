@@ -2,7 +2,6 @@
 
 namespace Talaka\Models;
 
-include_once("../Model/Pagarme/Pagarme.php");
 
 class Payment{
     
@@ -10,6 +9,7 @@ class Payment{
     private $apikey = "ak_test_akEfrSDuYXgLCkVJOu0ZNG5ETWwXe0";
     private $transac_info;
     private $transaction;
+    private $pagarMe;
     
     
     public function __construct(){
@@ -23,42 +23,53 @@ class Payment{
     }
     
     public function doTransaction($infos){
-        $this->transac_info = [
-            "valid" => "secret",
-            "amount" => $infos->vl_financing,
-            "payment_method" => $infos->nm_paymethod,
-            "postback_url" => "https://talaka-pre-alpha-gmastersupreme-1.c9users.io/exec/client/postback/".$infos->cd_user."/".$infos->id_financing,
-            "customer" => [
-                "name" => $infos->nm_user,
-                "document_number" => "18152564000105",
-                "email" => $infos->ds_email,
-                "address" => [
-                    "street" => "Rua Teste", 
-                    "street_number" => "1811",
-                    "neighborhood" => "Jardim Paulistano",
-                    "zipcode" => "01451001"
-                ],
-                "phone" =>  [
-                    "ddi" => "55",
-                    "ddd" => "13",
-                    "number" => "99999999" 
-                ]
-            ],
-            "soft_descriptor" => "Financiamento",
-            "boleto_instructions" => "Teste de instrucoes do boleto",
-            "metadata" => [
-                "id_project" => $infos->cd_project
-            ]
+        //Cria objeto de Pagarme
+    	$this->pagarMe = new \PagarMe\Sdk\PagarMe($this->apikey);
+        //Dados de Transaction
+    	$this->transac_info["amount"] = $infos->vl_financing;
+    	$this->transac_info["installments"] = 1;
+    	$this->transac_info["capture"] = true;
+    	$this->transac_info["postbackUrl"] = "https://talaka-beta-gmastersupreme.c9users.io/pagarme/exec/postback/".$infos->cd_user."/".$infos->id_financing;
+    	$this->transac_info["metadata"] = [
+            "id_project" => $infos->cd_project
         ];
+    
+    	//User
+    	$this->transac_info["customer"] = new \PagarMe\Sdk\Customer\Customer([
+            "name" => $infos->nm_user,
+            "document_number" => "18152564000105",
+            "email" => $infos->ds_email,
+            "address" => [
+                "street" => "Rua Teste", 
+                "neighborhood" => "Jardim Paulistano", 
+                "street_number" => "1811",
+                "neighborhood" => "Jardim Paulistano",
+                "zipcode" => "01451001",
+	            "state"         => "SP",
+	            "country"       => "Brasil"
+            ],
+            "phone" =>  [
+                "ddi" => "55",
+                "ddd" => "13",
+                "number" => "99999999" 
+            ]
+        ]);
         
         //Cartao de Credito
         if($infos->nm_paymethod == "credit_card"){
-            $this->transac_info["card_number"]          = $infos->card->number;
-            $this->transac_info["card_cvv"]             = $infos->card->cvv;
-            $this->transac_info["card_expiration_date"] = $infos->card->expiration;
-            $this->transac_info["card_holder_name"]     = $infos->card->name;
+        	$this->transac_info["card"] = $this->pagarMe->card()->createFromHash(
+        	    $infos->card_hash
+        	);
+        }else{
+            //Boleto
+            $this->transac_info["extras"] = [
+                "soft_descriptor" => "Financiamento",
+                "boleto_instructions" => "Teste de instrucoes do boleto"
+            ];
         }
-        
+        //Todos os casos
+        $this->transac_info["extras"]["payment_method"] = $infos->nm_paymethod;
+            
         return ($this->createTransaction())? true : false;
     } 
     
@@ -72,20 +83,34 @@ class Payment{
     }
     
     private function validatePostBack($payload, $headers){
-        Pagarme::setApiKey("ak_test_akEfrSDuYXgLCkVJOu0ZNG5ETWwXe0");
-        return (Pagarme::validateRequestSignature($payload, $headers));
+        //Cria objeto de Pagarme
+    	$this->pagarMe = new \PagarMe\Sdk\PagarMe($this->apikey);
+        return ($postback = $this->pagarMe->postback()->validateRequest($payload, $headers));
     }
     
     private function createTransaction(){
-        Pagarme::setApiKey("ak_test_akEfrSDuYXgLCkVJOu0ZNG5ETWwXe0");
-        if($this->transac_info['valid'] === "secret"){
-            unset($this->transac_info['valid']);
-            $this->transaction = new PagarMe_Transaction($this->transac_info);
-        
-            $this->transaction->charge();
+        if($this->transac_info["extras"]["payment_method"] == "credit_card"){
+            $transaction = $this->pagarMe->transaction()->creditCardTransaction(
+        	    $this->transac_info["amount"],
+        	    $this->transac_info["card"],
+        	    $this->transac_info["customer"],
+        	    $this->transac_info["installments"],
+        	    $this->transac_info["capture"],
+        	    $this->transac_info["postbackUrl"],
+        	    $this->transac_info["metadata"],
+        	    $this->transac_info["extras"]
+        	);
         }else{
-            return false;
+        	$transaction = $this->pagarMe->transaction()->boletoTransaction(
+                $this->transac_info["amount"],
+        	    $this->transac_info["customer"],
+        	    $this->transac_info["postbackUrl"],
+        	    $this->transac_info["metadata"],
+        	    $this->transac_info["extras"]
+        	);
+            
         }
+        return true;
     }
     
 }

@@ -3,13 +3,27 @@ defined("System-access") or header('location: /error');
 use Talaka\Models\Project;
 use Talaka\Controllers\PageController;
 ?>
-    <?php
+<?php
 
 $proj = new Project($project);
 $aux = (($proj->collected) * 100) / $proj->meta;
 $percent = ( $aux > 100 )? 100 : $aux;
 ?>
-        <main>
+        <main id="linkMain">
+            <!-- Modal content -->
+            <div id="mdFinanciamento" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Talaka - Financiamento</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Projeto sdhgf - Financiado com sucesso
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div id="headerProject" style="background-image: url( <?= base_url . 'proj-img/' . $proj->cover ;?> )"></div>
             <!-- Página de Projeto -->
             <section id="infosProject">
@@ -114,9 +128,11 @@ $percent = ( $aux > 100 )? 100 : $aux;
                             <div class="buttons financiarProjeto" id="<?= PageController::is_logged() ? "financiarProjeto" : "loginNecessario" ;?>">
                                 Financiar projeto
                             </div>
-                            <div class="buttons" id="visualizarDemonstracao">
-                                Visualizar demonstração
-                            </div>
+                            <a href='/Talaka/resources/scott.pdf' target='_blank'>
+                                <div class="buttons" id="visualizarDemonstracao">
+                                    Visualizar demonstração
+                                </div>
+                            </a>
                             <!--<div id="social">-->
                             <!--    compartilhar campanha-->
                             <!--    <ul>-->
@@ -133,11 +149,11 @@ $percent = ( $aux > 100 )? 100 : $aux;
                 <div class="wrapper">
                     <div id="projetoContain">
                         <ul id="menu">
-                            <li data-tab="pc">Campanha</li>
+                            <li data-tab="pc" class='active'>Campanha</li>
                             <li data-tab="pg">Galeria</li>
                             <li data-tab="pa">Atualizações</li>
                             <li data-tab="ap">Apoiadores <b>(<?= count($backers) ;?>)</b></li>
-                            <!--<li data-tab="pcmt">Comentários <b>(<?= count($comments);?>)</b></li>-->
+                            <li data-tab="pcmt">Comentários <b>(<?= count($comments);?>)</b></li>
                             <li data-tab="com">Comunidade</li>
                         </ul>
                         <!-- TABS DO PROJETO -->
@@ -173,7 +189,7 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                 </div>
                                 <div class="nameAtt">
                                     <p>
-                                        Nome de cada atualização cadastrada
+                                        Alcançamos e dobramos a meta! Mais 5 páginas!
                                     </p>
                                 </div>
                                 <div class="socialAtt">
@@ -186,13 +202,13 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                             <i class="fa fa-hashtag" aria-hidden="true"></i> 12 Interações</li>
                                     </ul>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                        A campanha está sendo um sucesso e o resultado disso é o fato de termos alcançado mais uma meta! Graças a vocês, eu consigo produzir mais cinco páginas do nosso querido quadrinho!
                                     </p>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                        Com mais páginas vocês podem curtir ainda mais um material mais completo, robusto e cheio de aventuras! E isso não afetará nada no prazo de entrega pra vocês! Já estava no meu planejamento realizar essa cinco páginas mas realmente me surprendeu o fato de termos alcançado a meta.  Vale lembrar que esse aumento de páginas também irá ocorrer na versão digital, então fique tranquilo se você preferiu(por enquanto né) essa versão do quadrinho.
                                     </p>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                         Vocês são demais pessoal! Muito obrigado por todo o apoio e até a prôxima! 
                                     </p>
                                 </div>
                                 <!--<div class="commentaryAtt">-->
@@ -208,15 +224,15 @@ $percent = ( $aux > 100 )? 100 : $aux;
                             <div class="cadaAtt">
                                 <div class="headerAtt">
                                     <p>
-                                        Atualização #1
+                                        Atualização #2
                                     </p>
                                     <p>
-                                        21 de Outubro de 2017
+                                        15 de Outubro de 2017
                                     </p>
                                 </div>
                                 <div class="nameAtt">
                                     <p>
-                                        Nome de cada atualização cadastrada
+                                        Primeira meta alcancada!
                                     </p>
                                 </div>
                                 <div class="socialAtt">
@@ -229,13 +245,14 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                             <i class="fa fa-hashtag" aria-hidden="true"></i> 12 Interações</li>
                                     </ul>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                        Pessoal vocês são sensacionais! 
                                     </p>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                        Alcançamos a primeira meta da nossa campanha! Isso quer dizer que teremos uma capa variante que você pode conferir nesse post,
                                     </p>
+                                    <img src="/Talaka/resources/img/capavariante.jpeg">
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim feugiat sem, in condimentum magna consequat nec. Vestibulum dapibus mauris eu finibus commodo. Mauris non massa vel risus semper gravida ac id orci. In nec varius lectus. Proin in ornare ex. Nullam suscipit risus eget congue bibendum. Pellentesque elementum posuere sem.
+                                        Agora que alcançamos a meta, a nosa meta é dobrar a meta! Até a próxima meta!
                                     </p>
                                 </div>
                                 <!--<div class="commentaryAtt">-->
@@ -268,7 +285,7 @@ $percent = ( $aux > 100 )? 100 : $aux;
                             <div class="valoresComunidade">
                                 <div class='valores'>
                                     <p>
-                                        Usuários que financiaram um projeto pela primeira vez
+                                        Usuários que financiaram pela 1ª vez
                                         <span>
                                             500
                                         </span>
@@ -279,6 +296,14 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                         Usuário que financiaram 2 ou mais projetos 
                                         <span>
                                             900
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class='valores'>
+                                    <p>
+                                        Usuários que financiaram de forma anônima
+                                        <span>
+                                            21
                                         </span>
                                     </p>
                                 </div>
@@ -302,20 +327,40 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                 </div>
                             </div>
                         </div>
-                        <div data-tab="pcmt" class="tabProject pcmt">
-                            <ul>
+                        <div data-tab="pcmt" class="tabProject pcmt" id='comentariosProjeto'>
+                            <?php if(PageController::is_logged()){ ?>
+                                   <div id='comentar'>
+                                       <div id='comentarioUsuario'>
+                                           <div id='comentarioFoto' style="background-image: url(<?= base_url; ?>user-img/<?= $_SESSION['user']['img'];?> )"></div>
+                                           <textarea name='comment' placeholder="Digite um comentario sobre o projeto!"></textarea>
+                                       </div>
+                                       <input type='button' value='Enviar comentário' id='envComentario'>
+                                       <div class='clear'></div>
+                                   </div>
+                                <?php } ?> 
+                            
+                            
                                 <?php foreach($comments as $comment){
                                     $comment = (object)$comment;
                                 ?>
-                                    <li>
+                                <div class='cadaComentario'>
+                                    <div class='comentárioFoto'>
                                         <img data-title="<?= $comment->user->name;?>" alt="<?= $comment->user->name;?>" width="50" height="50" src="<?= base_url. "user-img/".$comment->user->img;?>">
-                                        <h4><?= $comment->user->name;?> <?= ($proj->creator->id != $comment->user->id)?"": "<span class='cmtA'>autor</span>" ;?></h4>
+                                    </div>
+                                    <div class='comentarioInfos'>
+                                        <h3><?= $comment->user->name;?> <?= ($proj->creator->id != $comment->user->id)?"": "<span class='cmtA'>autor</span>" ;?>
+                                            <span class='data'>
+                                                data e hora
+                                            </span>
+                                        </h3>
                                         <p>
                                             <?= $comment->cmmt;?>
                                         </p>
-                                    </li>
+                                    </div>
+                                </div>
                                 <?php }?>
-                            </ul>
+                                
+                                 
                         </div>
                     </div>
 

@@ -4,7 +4,7 @@ use Talaka\Models\Project;
 use Talaka\Controllers\PageController;
 ?>
 
-    <main>
+    <main id="linkMain">
         <script src="https://cdn.rawgit.com/kottenator/jquery-circle-progress/1.2.0/dist/circle-progress.js"></script>
         <div id="carousel">
             <div id="carouselWrapper">
@@ -41,19 +41,10 @@ use Talaka\Controllers\PageController;
                             <div class="projectInfos">
                                 <div class="projectGoal">
                                     
-                                    <?= round($percent); ?>%
+                                    <!--<?= round($percent); ?>%-->
                                     
                                     
-                                    <div <?= 'class="second circle" id="c'.$a.'"';?>>
-                                      <strong></strong>
-                                    </div>
-                                    <?= '<script type="text/javascript">
-                                            $("#c'.$a.'").circleProgress({
-                                                value: '. round($percent) .'
-                                            }).on("circle-animation-progress", function(event, progress) {
-                                              $(this).find("strong").html(parseInt(' .round($data['d'.$a]->percent).'* progress) + "<i>%</i>");
-                                            });
-                                    </script>';?>
+                                    
                                     
                                     </div>
                                 <div class="projectDescription">
@@ -122,7 +113,7 @@ use Talaka\Controllers\PageController;
                         <li>
                             <i class="fa fa-map-o" aria-hidden="true"></i> Populares Perto de você
                         </li>
-                    <?php } ?>
+                    <?php } ?>    
                     <li><a href="/explore">Ver todos</a></li>
                 </ul>
 
@@ -193,26 +184,33 @@ use Talaka\Controllers\PageController;
                 <h2>
                     Saiba um pouco mais sobre as categorias disponíveis no Talaka.
                 </h2>
-                <ul id="catIcons">
-                    <?php
-                    foreach ($cats as $cat) {
-                    ?>
-                        <li data-link="<?=$cat->nm;?>">
-                            <?= $cat->nm; ?>
-                        </li>
-                    <?php
-                    }
-                    ?>
-                </ul>
-                <div id="catInfo">
-                    <div class="catCover"></div>
-                    <h3>Ficção Científica</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus iaculis metus et volutpat. Praesent sit amet sollicitudin erat, et molestie turpis. Curabitur tempor ipsum quis placerat commodo. Vestibulum lorem magna, consequat eu efficitur in, pharetra ac leo. Donec luctus, felis non ullamcorper sollicitudin, diam leo accumsan nisl, id mollis justo enim et nisl. Donec sed dapibus magna, eget gravida libero. Etiam rutrum mi eget justo molestie, ac viverra lorem laoreet.
-                    </p>
-
-                    <a href="/explore/Fic%26ccedil%3B%26atilde%3Bo%20Cient%26iacute%3Bfica/1">Explorar categoria</a>
-                </div>
+                <!--<ul id="catIcons">-->
+                <!--    <?php-->
+                <!--    foreach ($cats as $cat) {-->
+                <!--    ?>-->
+                <!--        <li data-link="<?=$cat->nm;?>">-->
+                <!--            <?= $cat->nm; ?>-->
+                <!--        </li>-->
+                <!--    <?php-->
+                <!--    }-->
+                <!--    ?>-->
+                <!--</ul>-->
+                <?php
+                    foreach ($cats as $key=>$cat) {
+                ?>
+                    <div class="catInfo <?= explode("d",$key)[1] == (count($cats) - 1)? "last" : ((explode("d",$key)[1] == 0) ? "atual" :"");?>">
+                        <div class='catCover' data-link="<?=$cat->nm;?>" style='background-image:url(/Talaka/resources/img/<?= $cat->img; ?>)' ></div>
+                            <h3> <?= $cat->nm; ?> </h3>
+                            <p>
+                                <?= $cat->ds; ?>
+                            </p>
+                            <a href="/explore/<?= urlencode($cat->nm);?>/1">Explorar categoria de <?= $cat->nm ?></a>
+                    </div>
+                <?php
+                }
+                ?>
+                
+                
             </div>
         </section>
     </main>

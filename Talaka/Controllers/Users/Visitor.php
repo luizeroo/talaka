@@ -38,35 +38,68 @@ class Visitor extends User{
     }
     
     
-    public function userPOST(){
-        $file = $_FILES["img"];
+    public function userPOST($request){
+        $file = $request->getFile("fotos");
         //Upload de img
         $img = $this->upload($file,"user-img/");
+        //$img["status"] = "OK";
         if($img["status"] == "OK"){
-            $nome = $_POST['nome'];
-            $date = $_POST['nascimento'];
-            $login= $_POST['login'];
-            $pwd  = $_POST['password'];
-            $bio  = $_POST['bio'];
-            $obj  = (object)array(  "nm_user" => $nome,
-                                    "ds_pwd" => $pwd,
-                                    "dt_birth" => $date,
-                                    "ds_biography" => $bio,
-                                    "ds_login" => $login,
-                                    "ds_path_img" => $img["name"]);
+            //Dados user
+            $nome = $request->getAttribute('nm_user');
+            $date = $request->getAttribute('birthday_user');
+            $login= $request->getAttribute('login_user');
+            $email= $request->getAttribute('email_user');
+            $pwd  = $request->getAttribute('password_user');
+            $bio  = $request->getAttribute('bio_user');
+            $cpf  = $request->getAttribute('cpf_user');
+            //Endereco
+            $address = json_encode([
+                "street"     => $request->getAttribute('street_user'),
+                "neigh"      => $request->getAttribute('neigh_user'),
+                "n"          => $request->getAttribute('n_user'),
+                "cep"        => $request->getAttribute('cep_user'),
+                "state"      => $request->getAttribute('state_user'),
+                "country"    => $request->getAttribute('country_user')
+            ]);
+            //Tel
+            $ddd        = $request->getAttribute('ddd');
+            $tel        = $request->getAttribute('tel');
+            
+            $obj  = (object)[
+                "nm_user" => $nome,
+                "ds_email" => $email,
+                "ds_pwd" => $pwd,
+                "dt_birth" => $date,
+                "ds_biography" => $bio,
+                "ds_login" => $login,
+                "ds_path_img" => $img["name"],
+                "cd_cpf" => $cpf,
+                "ds_address" => $address,
+                "cd_tel" => $ddd.",".$tel,
+                "created_at" => date("Y-m-d H:i:s")
+            ];
             $obj->ds_img_back = "grimgar.png";
             // $obj->ds_biography = htmlspecialchars_decode( htmlentities($obj->ds_resume) );
             $obj->ds_pwd = hash("ripemd160" , $obj->ds_pwd);
             if($this->db->insert('User',$obj)){
-                $login = (object)array("login" => $obj->ds_login, "pwd" => $pwd);
+                $login = (object)[
+                    "login" => $obj->ds_login,
+                    "pwd" => $pwd
+                ];
                 $resp = "success";
                 $this->db->checkUser($login);
             }else{
                 $resp = "fail cad";
             }
-            return json_encode(array("stats" => $resp, "data" => null));
+            return json_encode([
+                "stats" => $resp,
+                "data" => null
+            ]);
         }else{
-            return json_encode(array("stats" => "fail img", "data" => null));
+            return json_encode([
+                "stats" => "fail img",
+                "data" => null
+            ]);
         }
     }
     

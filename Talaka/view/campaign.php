@@ -1,7 +1,8 @@
 <?php
 defined("System-access") or header('location: /error');
+use Talaka\Controllers\PageController;
 ?>
-<main>
+<main id="linkMain">
     <div id="fullCampaign">
         <div id="bg">
         </div>
@@ -10,7 +11,7 @@ defined("System-access") or header('location: /error');
             <h2>
                 Inicie sua campanha. Incentive sua arte.
             </h2>
-            <a href="/cadastrar-campanha"><input type="button" value="Começar campanha"></a>
+            <a href="<?= PageController::is_logged() ? "/cadastrar-campanha" : "/signin" ;?>"><input type="button" value="Começar campanha"></a>
         </div>
     </div>
     <div id="comecarCampanha">

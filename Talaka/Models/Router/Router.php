@@ -25,7 +25,7 @@ class Router{
         //Get method 
         $httpMethod = $_SERVER['REQUEST_METHOD'];
         //Set Request
-        $this->request = new Request($httpMethod);
+        $this->request = new Request($httpMethod,getallheaders(),file_get_contents("php://input"),$_FILES);
         if($route == "/"){
             $closure = $this->routes['GET']['base']['closure'];
             return call_user_func_array($closure,[$this->request, $response]);
@@ -35,16 +35,34 @@ class Router{
         //Attributes
         if($httpMethod !== 'GET'){
             //Attributes are JSON
-            if($_SERVER["CONTENT_TYPE"] !== "application/json"){
-                //Aren't a JSON
-                http_response_code(400);
-                header("HTTP/1.0 400 Bad Request");
-                $msg = "CONTENT TYPE Error - Expected 'Application/json', but '". $_SERVER["CONTENT_TYPE"]. "' send.";
-                echo json_encode(array("stats" => $msg, "data" => null));
-                die();
+            switch($_SERVER["CONTENT_TYPE"]){
+                
+            case "application/json":
+                if($input = json_decode(file_get_contents('php://input'), true)){
+                    $this->request->setAttribute($input);
+                }
+                break;
+            case "application/x-www-form-urlencoded":
+                //Pagar.me
+                break;
+            case "multipart/form-data":
+                $this->request->setAttribute($_POST);
+                //Dados Junto
+                break;
+            default:
+                if(explode(";",$_SERVER["CONTENT_TYPE"])[0] == "multipart/form-data"){
+                    $this->request->setAttribute($_POST);
+                }else{
+                    //Not allowed
+                    http_response_code(400);
+                    header("HTTP/1.0 400 Bad Request");
+                    $msg = "CONTENT TYPE Error - Expected 'Application/json or application/x-www-form-urlencoded', but '". $_SERVER["CONTENT_TYPE"]. "' send.";
+                    echo json_encode(array("stats" => $msg, "data" => null));
+                    die(); 
+                }
+                
             }
-            $input = json_decode(file_get_contents('php://input'), true);
-            $this->request->setAttribute($input);
+            
         }
         $params = explode('/', $route);
         array_shift($params);

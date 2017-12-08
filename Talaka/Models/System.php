@@ -41,6 +41,8 @@ class System{
         
         if($table === 'Financing'){
             $resp = json_encode(array('id_financing' => $stm->insert_id));    
+        }elseif($table === 'Tag'){
+            $resp = $stm->insert_id;
         }else{
             $resp = true;
         }
@@ -93,6 +95,65 @@ class System{
         $result = $this->fetch($stm);
         $stm->close();
         return $result;
+    }
+    
+    public function selectRaw($table,$where,$columns = "*"){
+        //Prepara o sql
+        $query = "SELECT ".$columns." FROM ".$table." WHERE ". $where;
+        $stm = $this->con->prepare($query) or die("Erro 1 " . $query .$con->error.http_response_code(405));
+        $stm->execute() or die("Erro 3".$stm->error.http_response_code(405));
+        $result = $this->fetch($stm);
+        $stm->close();
+        return $result;
+    }
+    
+    public function consultUserId($id){
+        $stm = $this->con->prepare("SELECT u.ds_login,u.dt_birth, u.ds_path_img, u.nm_user, u.ds_biography, u.ds_email, u.ds_img_back, 
+        (
+        SELECT COUNT( p.cd_project ) 
+        FROM User AS u, Project AS p
+        WHERE p.cd_user = u.cd_user
+        AND u.cd_user = ?
+        ) AS projects, 
+        (
+        SELECT COUNT( DISTINCT f.cd_project ) 
+        FROM User AS u,Project AS p, Financing AS f
+        WHERE f.cd_user = u.cd_user
+        AND f.cd_project = p.cd_project
+        AND u.cd_user = ?
+        ) AS finan,
+        (SELECT COUNT( DISTINCT (
+        `cd_user`
+        ) ) 
+        FROM  `Financing` 
+        WHERE  `cd_project` 
+        IN (
+        
+        SELECT  `cd_project` 
+        FROM  `Project` 
+        WHERE  `cd_user` = u.cd_user
+        )) AS supporters
+        FROM User AS u, Project AS p, Financing AS f
+        WHERE u.cd_user = ?
+        GROUP BY u.ds_login") or die("Erro 1 ".$con->error.http_response_code(405));
+        $stm->bind_param("iii",$id,$id,$id) or die("Erro 2 ".$stm->error.http_response_code(405));
+        $stm->execute()or die("Erro 3 ".$stm->error.http_response_code(405));
+        $stm->bind_result($login,$birth,$img,$name,$biography,$email,$cover,$projects,$finances, $supporters);
+        $stm->fetch();
+        $stm->close();
+        return json_encode([
+            "id" => $id,
+            "login" => $login,
+            "birth" => $birth,
+            "img" => $img,
+            "name" => $name,
+            "biography" => $biography,
+            "email" => $email ,
+            "cover" => $cover,
+            "projects" => $projects,
+            "finances" => $finances,
+            "supporters" => $supporters
+        ]);
     }
     
     public function consultUser($username){
@@ -268,7 +329,8 @@ class System{
 				FROM (Project AS p LEFT JOIN Coauthor AS co ON co.cd_project = p.cd_project ), User AS u, Category AS c, Comment AS cm
 				WHERE p.cd_user = u.cd_user
 				AND p.cd_category = c.cd_category
-				AND p.ic_close IS NULL 
+				AND p.ic_close IS NULL
+				AND p.ic_approved = 1
 				". ( ($condition)? $condition : "" ) ."
 			) AS sub
 			". ( ($group)? $group : "" ) ."
@@ -354,6 +416,7 @@ class System{
         FROM Project AS p, User AS u
         WHERE p.cd_category = ?
 		AND u.cd_user = p.cd_user
+		AND p.ic_approved = 1
         ORDER BY p.nm_title DESC
         LIMIT ?,6") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("ii",intval($num),$max);
@@ -404,6 +467,7 @@ class System{
         WHERE (p.nm_title LIKE ? OR c.nm_category  LIKE ?)
         AND u.cd_user = p.cd_user
 		AND p.cd_category = c.cd_category
+		AND p.ic_approved = 1
         LIMIT ?,12") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("ssi",$name,$name,$max)or die("Erro 2".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
@@ -508,9 +572,13 @@ class System{
         $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
         $stm->bind_result($proj)or die("Erro 4".$stm->error.http_response_code(405));
         $stm->fetch()or die("Erro 5".$con->error.http_response_code(405));
-        $idP = $proj;
         $stm->close();
-        $this->inserir("Financing",array("cd_project"=>$idP,"cd_user"=>3,"vl_financing"=>10));
+        $this->inserir("Financing",[
+            "cd_project"    => $proj,
+            "cd_user"       => 3,
+            "vl_financing"  => 10
+        ]);
+        return $proj;
     }
     
     public function getComments($id){
@@ -573,6 +641,14 @@ class System{
         return $array;
     }
     
+    public function delProject($id){
+        $stm = $this->con->prepare("DELETE FROM Project Where cd_project = ?") or die("Erro 1".$this->con->error.http_response_code(405));
+        $stm->bind_param("i",$id)or die("Erro 2".$this->con->error.http_response_code(405));
+        $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
+        $stm->close();
+        return true;
+        
+    }
 }
 
 ?>

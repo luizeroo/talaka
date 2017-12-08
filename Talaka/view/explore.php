@@ -11,7 +11,7 @@ use Talaka\Models\Project;
     </div>
     <section id="results">
         <div class="wrapper">
-            <aside id="filter">
+            <!--<aside id="filter">-->
                 <!--<div class="filterSection" id="filterCampaign">-->
                 <!--    <h3>Tipos de Campanhas</h3>-->
                 <!--    <ul>-->
@@ -21,32 +21,33 @@ use Talaka\Models\Project;
                 <!--    </ul>-->
                 <!--</div>-->
                 
-                <div class="filterSection" id="filterTag">
-                    <h3>Categorias</h3>
-                    <ul>
-                        <li>Todas as campanhas</li>
-                        <li>Ação</li>
-                        <li>Biográfico</li>
-                        <li>Comédia</li>
-                        <li>Drama</li>
-                        <li>Esporte</li>
-                        <li>Ficção Científica</li>
-                        <li>Literatura</li>
-                        <li>Super-Herói</li>
-                        <li>Terror</li>
-                        <li>Tirinha</li>
-                    </ul>
-                </div>
+            <!--    <div class="filterSection" id="filterTag">-->
+            <!--        <h3>Categorias</h3>-->
+            <!--        <ul>-->
+            <!--            <li>Todas as campanhas</li>-->
+            <!--            <li>Ação</li>-->
+            <!--            <li>Biográfico</li>-->
+            <!--            <li>Comédia</li>-->
+            <!--            <li>Drama</li>-->
+            <!--            <li>Esporte</li>-->
+            <!--            <li>Ficção Científica</li>-->
+            <!--            <li>Literatura</li>-->
+            <!--            <li>Super-Herói</li>-->
+            <!--            <li>Terror</li>-->
+            <!--            <li>Tirinha</li>-->
+                        
+            <!--        </ul>-->
+            <!--    </div>-->
                 
-                 <div class="filterSection" id="filterDate">
-                    <h3>Data de Término</h3>
-                    <ul>
-                       <li>Todos</li>
-                       <li>Perto do fim</li>
-                       <li>Recentes</li>
-                    </ul>
-                </div>
-            </aside>
+            <!--     <div class="filterSection" id="filterDate">-->
+            <!--        <h3>Data de Término</h3>-->
+            <!--        <ul>-->
+            <!--           <li>Todos</li>-->
+            <!--           <li>Perto do fim</li>-->
+            <!--           <li>Recentes</li>-->
+            <!--        </ul>-->
+            <!--    </div>-->
+            <!--</aside>-->
             <div class="resultsProject" id="listProjects">
                 <div id="headerInput">
                     <form onsubmit="return false;">

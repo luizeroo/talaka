@@ -3,5 +3,8 @@
         "psr-4":{
             "Talaka\\": "Talaka"
         }
+    },
+    "require": {
+        "pagarme/pagarme-php": "^3.6"
     }
 }

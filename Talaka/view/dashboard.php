@@ -1,6 +1,56 @@
 <?php
 defined("System-access") or header('location: /error');
 ?>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dias', 'Valor'],
+          ['Domingo',  1000],
+          ['Segunda',  1170],
+          ['Terça',  660],
+          ['Quarta',  1030],
+          ['Quinta',  1000],
+          ['Sexta',  1170],
+          ['Sábado',  660]
+        ]);
+
+        var options = {
+          title: 'Financiamentos na plataforma',
+          curveType: 'function',
+          legend: { position: 'top' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+      
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Nome do Projeto');
+        data.addColumn('number', 'Valor arrecadado');
+        data.addColumn('number', 'Número de Visualizações');
+        data.addRows([
+          ['Mike',  {v: 10000, f: '$10,000'}, {v: 10000, f: '10,000'}],
+          ['Jim',   {v:8000,   f: '$8,000'},  {v: 10000, f: '10,000'}],
+          ['Alice', {v: 12500, f: '$12,500'}, {v: 10000, f: '10,000'}],
+          ['Bob',   {v: 7000,  f: '$7,000'},  {v: 10000, f: '10,000'}]
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+      }
+    </script>
+    
 <main id="pageAdmin" class="dash">
     <aside>
         <h1>
@@ -35,11 +85,11 @@ defined("System-access") or header('location: /error');
         
         <div id="areaControles">
             <ul>
-                <li data-tab='visaoGeral'>
+                <li data-tab='VisaoGeral'>
                     <i class="fa fa-eye" aria-hidden="true"></i>
                     Visão Geral
                 </li>
-                <li data-tab='campanha'>
+                <li data-tab='Campanha'>
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                     Campanhas / Projetos
                 </li>
@@ -47,7 +97,7 @@ defined("System-access") or header('location: /error');
                 <!--    <i class="fa fa-comments-o" aria-hidden="true"></i>-->
                 <!--    Comentários-->
                 <!--</li>-->
-                <li data-tab='paginasVisitadas'>
+                <li data-tab='PaginasVisitadas'>
                     <i class="fa fa-line-chart" aria-hidden="true"></i>
                     Páginas visitadas
                 </li>
@@ -60,7 +110,7 @@ defined("System-access") or header('location: /error');
             <div class='controleAtivo tituloHeader shadow'>
                 <i class="fa fa-pie-chart" aria-hidden="true"></i>
                 <h1>
-                    Visão Geral
+                    Área administrativa
                     <span>
                         Painel de Controle - Talaka
                     </span>
@@ -68,7 +118,7 @@ defined("System-access") or header('location: /error');
             </div>
         </header>
         
-        <div id="visaoGeral" class='tabAdmin' id='tabvisaoGeral'>
+        <div class='tabAdmin' id='tabVisaoGeral'>
             <div class="principalInfo">
                 <h1>
                     Olá, Administrador!
@@ -82,7 +132,7 @@ defined("System-access") or header('location: /error');
                         <p>
                             Novas Campanhas
                             <b>
-                                17
+                                <?= $projsLastweek;?>
                             </b>
                         </p>
                     </div>
@@ -91,7 +141,7 @@ defined("System-access") or header('location: /error');
                         <p>
                             Novos Usuários
                             <b>
-                                100
+                                <?= $usersLastweek;?>
                             </b>
                         </p>
                     </div>
@@ -99,14 +149,14 @@ defined("System-access") or header('location: /error');
                         <i class="fa fa-comments comentarios" aria-hidden="true"></i>
                         <p>
                             Comentários realizados
-                            <b>29</b>
+                            <b><?= $cmtsLastweek; ?></b>
                         </p>
                     </div>
                     <div class='info shadow'>
-                        <i class="fa fa-bookmark tags" aria-hidden="true"></i>
+                        <i class="fa fa-tag tags" aria-hidden="true"></i>
                         <p>
                             Novas Tags
-                            <b>112</b>
+                            <b><?= $tagsLastweek; ?></b>
                         </p>
                     </div>
                 </div>
@@ -119,38 +169,42 @@ defined("System-access") or header('location: /error');
                         foram arrecadados
                     </span>
                 </h2>
-                
-                ..inserir grafico..
+                <div id="curve_chart"></div>
             </div>
             
-            <div id="categoria" class='shadow container'>
-                <h2>
-                    Veja a categoria
-                    <span>
-                        mais cadastrada
-                    </span>
-                </h2>
-                <p>
-                    <i class="fa fa-bookmark" aria-hidden="true"></i>
-                    Drama
-                </p>
-            </div>
+            <a href='/explore/<?= $cat["nm_category"];?>/1'>
+                <div id="categoria" class='shadow container'>
+                    <h2>
+                        Veja a categoria
+                        <span>
+                            mais cadastrada (<?= $cat["magnitude"];?>)
+                        </span>
+                    </h2>
+                    <p>
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
+                            <?= $cat["nm_category"];?>
+                    </p>
+                </div>
+            </a>
             
-            <div id="tags" class='shadow container'>
-                <h2>
-                    Veja a tag
-                    <span>
-                        mais cadastrada
-                    </span>
-                </h2>
-                <p>
-                    <i class="fa fa-tag" aria-hidden="true"></i>
-                    Anime
-                </p>
-            </div>
+            <a href='/explore/<?= $tag["nm_tag"];?>/1'>
+                <div id="tags" class='shadow container'>
+                    <h2>
+                        Veja a tag
+                        <span>
+                            mais cadastrada (<?= $tag["magnitude"];?>)
+                        </span>
+                    </h2>
+                    <p>
+                        <i class="fa fa-tag" aria-hidden="true"></i>
+                            <?= $tag["nm_tag"];?>
+                        
+                    </p>
+                </div>
+            </a>
         </div>
         
-        <div id='campanhasEprojetos' class='tabAdmin' id='tabcampanha'>
+        <div class='tabAdmin' id='tabCampanha'>
             <div class="principalInfo">
                 <h1>
                    Campanhas e Projetos
@@ -179,105 +233,95 @@ defined("System-access") or header('location: /error');
                 </h2>
                 
                 <ul class='lista'>
-                    <li>
-                        <p>
-                            Título do Projeto
-                            <span>
-                                nome do autor
-                            </span>
-                        </p>
-                        <ul class='item'>
-                            <li class='visualizar'>
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </li>
-                            <li class='aceitar'>
-                                <i class="fa fa-check-circle"  aria-hidden="true"></i>
-                            </li>
-                            <li class='deletar'>
-                                <i class="fa fa-trash-o"  aria-hidden="true"></i>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            Título do Projeto
-                            <span>
-                                nome do autor
-                            </span>
-                        </p>
-                        <ul class='item'>
-                            <li class='visualizar'>
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </li>
-                            <li class='aceitar'>
-                                <i class="fa fa-check-circle"  aria-hidden="true"></i>
-                            </li>
-                            <li class='deletar'>
-                                <i class="fa fa-trash-o"  aria-hidden="true"></i>
-                            </li>
-                        </ul>
-                    </li>
+                    <?php if( count($projsToApprove) > 0){ 
+                            foreach($projsToApprove as $project){ ?>
+                        <li data-id="<?= $project->id;?>">
+                            <p>
+                                <?= $project->title;?>
+                                <span>
+                                    <?= $project->creator->name;?>
+                                </span>
+                            </p>
+                            <ul class='item'>
+                                <a href='/campanha/<?= urlencode($project->title) ;?>' target='_blank'>
+                                    <li class='visualizar'>
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </li>
+                                </a>
+                                <li class='approve aceitar' data-id="<?= $project->id;?>">
+                                    <i class="fa fa-check-circle"  aria-hidden="true"></i>
+                                </li>
+                                <li class='approve deletar' data-id="<?= $project->id;?>">
+                                    <i class="fa fa-trash-o"  aria-hidden="true"></i>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php } 
+                    }else{ ?>
+                        Nenhum Projeto para aprovação
+                    <?php }
+                    ?>
                 </ul>
                 
             </div>
             
-            <div id="denuncias" class='shadow container'>
-                <h2>
-                    Denúncias de Projetos
-                    <span>
-                       no total, incluindos todas categorias e eixo
-                    </span>
-                </h2>
-                ..inserir lista de projetos a serem denunciados..
-                <ul class='lista'>
-                    <li>
-                        <p>
-                            Título do Projeto
-                            <span>
-                                nome do autor
-                            </span>
-                        </p>
-                        <ul class='item'>
-                            <li class='visualizar'>
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </li>
-                            <li class='aceitar'>
-                                <i class="fa fa-check-circle"  aria-hidden="true"></i>
-                            </li>
-                            <li class='deletar'>
-                                <i class="fa fa-trash-o"  aria-hidden="true"></i>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            Título do Projeto
-                            <span>
-                                nome do autor
-                            </span>
-                        </p>
-                        <ul class='item'>
-                            <li class='visualizar'>
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </li>
-                            <li class='aceitar'>
-                                <i class="fa fa-check-circle"  aria-hidden="true"></i>
-                            </li>
-                            <li class='deletar'>
-                                <i class="fa fa-trash-o"  aria-hidden="true"></i>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <!--<div id="denuncias" class='shadow container'>-->
+            <!--    <h2>-->
+            <!--        Denúncias de Projetos-->
+            <!--        <span>-->
+            <!--           no total, incluindos todas categorias e eixo-->
+            <!--        </span>-->
+            <!--    </h2>-->
+            <!--    ..inserir lista de projetos a serem denunciados..-->
+            <!--    <ul class='lista'>-->
+            <!--        <li>-->
+            <!--            <p>-->
+            <!--                Título do Projeto-->
+            <!--                <span>-->
+            <!--                    nome do autor-->
+            <!--                </span>-->
+            <!--            </p>-->
+            <!--            <ul class='item'>-->
+            <!--                <li class='visualizar'>-->
+            <!--                    <i class="fa fa-eye" aria-hidden="true"></i>-->
+            <!--                </li>-->
+            <!--                <li class='aceitar'>-->
+            <!--                    <i class="fa fa-check-circle"  aria-hidden="true"></i>-->
+            <!--                </li>-->
+            <!--                <li class='deletar'>-->
+            <!--                    <i class="fa fa-trash-o"  aria-hidden="true"></i>-->
+            <!--                </li>-->
+            <!--            </ul>-->
+            <!--        </li>-->
+            <!--        <li>-->
+            <!--            <p>-->
+            <!--                Título do Projeto-->
+            <!--                <span>-->
+            <!--                    nome do autor-->
+            <!--                </span>-->
+            <!--            </p>-->
+            <!--            <ul class='item'>-->
+            <!--                <li class='visualizar'>-->
+            <!--                    <i class="fa fa-eye" aria-hidden="true"></i>-->
+            <!--                </li>-->
+            <!--                <li class='aceitar'>-->
+            <!--                    <i class="fa fa-check-circle"  aria-hidden="true"></i>-->
+            <!--                </li>-->
+            <!--                <li class='deletar'>-->
+            <!--                    <i class="fa fa-trash-o"  aria-hidden="true"></i>-->
+            <!--                </li>-->
+            <!--            </ul>-->
+            <!--        </li>-->
+            <!--    </ul>-->
+            <!--</div>-->
         </div>
         
-        <div id='paginasVisitadas' class='tabAdmin' id='tabpaginasVisitadas'>
+        <div class='tabAdmin' id='tabPaginasVisitadas'>
             <div class="principalInfo">
                 <h1>
                    Páginas mais visitadas
                     <span>
-                        Conheça as páginas do TCC que são vistas com maior frequência
+                        Conheça as páginas do Talaka que são vistas com maior frequência
                     </span>
                 </h1>
             </div>
@@ -289,9 +333,11 @@ defined("System-access") or header('location: /error');
                        no total, incluindos todas visitas de usuários cadastrados ou visitantes
                     </span>
                 </h2>
-                ..inserir graficos..
+                 <div id="table_div"></div>
             </div>
             
         </div>
     </section>
+    <div id="snackbar">Talaka</div>
 </main>
+<script src="<?= base_url; ?>view/js/admin.js" type="text/javascript"></script>

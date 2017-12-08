@@ -4,17 +4,20 @@ namespace Talaka\Controllers;
 
 use Talaka\Models\Page;
 use Talaka\Models\System;
-
+use Talaka\Controllers\Users\Admin;
+use Talaka\Models\Project;
 //Page Controller
 
 class PageController{
     
     private $page;
-    
+    private $admin;
+
     public function __construct(){
         //$bd nao sera utilizado até o dado momento
         session_start();
         $this->page = new Page();
+        $this->admin = ($this->is_logged(true)) ? new Admin("admin") : null;
         define("System-access","Allow",TRUE);
     }
     //========================== VISITANTE =====================================
@@ -136,16 +139,16 @@ class PageController{
         $this->page->render();
     }
     
-    public function explorecat($id,$pag){
-        $data = $this->page->curl("visitor","cat",$id,$pag);
-        $nm = System::getCategory($id);
-        $data['termo'] = 'Categoria procurado : "'.$nm.'"';
-        $this->page->load("view/nav.php",array("pag_title" =>$nm));
-        $this->page->load("view/explore.php",[
-            "data" => $data
-        ]);
-        $this->page->load("view/footer.php");
-    }
+    // public function explorecat($id,$pag){
+    //     $data = $this->page->curl("visitor","cat",$id,$pag);
+    //     $nm = System::getCategory($id);
+    //     $data['termo'] = 'Categoria procurado : "'.$nm.'"';
+    //     $this->page->load("view/nav.php",array("pag_title" =>$nm));
+    //     $this->page->load("view/explore.php",[
+    //         "data" => $data
+    //     ]);
+    //     $this->page->load("view/footer.php");
+    // }
     
     public function signup($request, $response){
         if(!$this->is_logged()){
@@ -157,6 +160,7 @@ class PageController{
             header("location: /");
         }
     }
+
     
     public function signin($request, $reponse){
         if(!$this->is_logged()){
@@ -191,6 +195,21 @@ class PageController{
         $this->page->load("view/parts/footer.php");
         $this->page->render();
     }
+
+    // public function cadProject($request, $response){
+    //     if($this->is_logged())){
+    //         $user = $this->page->curl("POST",[
+    //             "class" => "client",
+    //             "met"   => "project",
+    //             "arg0"  => $request
+    //         ]);
+    //         $this->page->load("view/nav.php",array("pag_title" =>"Alterar Perfil"));
+    //         $this->page->load("view/alterUser.php",$user);
+    //         $this->page->load("view/footer.php");
+    //     }else{
+    //         header("location: /");
+    //     }
+    // }   
     
     public function altprofile(){
         if(isset($_SESSION['cdUser'])){
@@ -205,7 +224,7 @@ class PageController{
     
     public function myprofile(){
         if(isset($_SESSION['cdUser'])){
-            $user = $this->page->curl("cl ient","profile",$_SESSION['cdUser']);
+            $user = $this->page->curl("client","profile",$_SESSION['cdUser']);
             $user['myprojects'] = $this->page->curl("client","myprojects",$_SESSION['cdUser']);
             $user['myfinances'] = $this->page->curl("client","myfinances",$_SESSION['cdUser']);
             $user['myuser'] = true;
@@ -263,8 +282,62 @@ class PageController{
     //Login
     public function dashboard($request, $reponse){
         if($this->is_logged(true)){
+            $projsLastweek = $this->admin->adminInfo(
+                "Project",
+                "dt_begin > DATE_SUB(CURDATE(), INTERVAL 7 DAY)",
+                "count(*) as number"
+            );
+            $usersLastweek = $this->admin->adminInfo(
+                "User",
+                "created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)",
+                "count(*) as number"
+            );
+            $cmtsLastweek = $this->admin->adminInfo(
+                "Comment",
+                "dthr_comment > DATE_SUB(CURDATE(), INTERVAL 7 DAY)",
+                "count(*) as number"
+            );
+            $tagsLastweek = $this->admin->adminInfo(
+                "Tag",
+                "created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)",
+                "count(*) as number"
+            );
+            $cat = $this->admin->adminInfo(
+                "Category as c,Project as p",
+                "c.cd_category = p.cd_category
+                GROUP BY p.cd_category 
+                ORDER BY magnitude DESC
+                LIMIT 1",
+                "c.nm_category, p.cd_category, COUNT(p.cd_category) AS magnitude" 
+            );
+            $tag = $this->admin->adminInfo(
+                "Tag as t,ProjectTags as pt",
+                "t.cd_tag = pt.cd_tag
+                GROUP BY pt.cd_tag 
+                ORDER BY magnitude DESC
+                LIMIT 1",
+                "t.nm_tag, pt.cd_tag, COUNT(pt.cd_tag) AS magnitude" 
+            );
+            $projsDB = $this->admin->adminInfo(
+                "Project as p, User as u",
+                "ic_approved = 0 
+                AND u.cd_user = p.cd_user",
+                "p.*, u.nm_user"
+            );
+            $projsToApprove = array_map(function($project){
+                return Project::fromDB($project);
+            }, $projsDB);
+            //Pagina
             $this->page->load("view/parts/header.php",["pag_title" =>" Admin DashBoard"]);
-            $this->page->load("view/dashboard.php");
+            $this->page->load("view/dashboard.php",[
+                "projsLastweek" => $projsLastweek[0]["number"],
+                "usersLastweek" => $usersLastweek[0]["number"],
+                "cmtsLastweek"  => $cmtsLastweek[0]["number"],
+                "tagsLastweek"  => $tagsLastweek[0]["number"],
+                "tag"           => $tag[0],
+                "cat"           => $cat[0],
+                "projsToApprove"=> $projsToApprove
+            ]);
             $this->page->render();
         }else{
             $this->page->redirect("/");

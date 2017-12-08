@@ -12,8 +12,8 @@ $app->get("/campanha/{title:(.*)}", "PageController:project");
 $app->get("/signout", "PageController:logout");
 $app->get("/perfil/{username:(.*)}", "PageController:profile");
 $app->get("/cadastrar-campanha","PageController:cadastrarcampanha");
-
-
+//$app->post("/cadastrar/post","PageController:cadProject");
+// $app->get("/alterar","PageController: alterarusuario");
 //Visitor
 $app->get("/signin", "PageController:signin");
 $app->get("/signup", "PageController:signup");
@@ -28,9 +28,14 @@ $app->get("/error/{msg:(.*)}", "PageController:error");
 
 //API
 $app->post("/exec/{class:[A-Za-z]+}/{met:[A-Za-z]+}", "ApiController:exec");
-$app->post("/exec/{class:[A-Za-z]+}/{met:[A-Za-z]+}/{arg0:[A-Za-z0-9!@#$%^&*\s]+}", "ApiController:exec");
+$app->post("/exec/{class:[A-Za-z]+}/{met:[A-Za-z]+}/{arg0:[A-Za-z0-9!@#$%^&*\s]+}", "ApiController:execZero");
 $app->map(["GET","POST"],"/exec/{class:[A-Za-z]+}/{met:[A-Za-z]+}/{arg0:[A-Za-z0-9!@#$%^&*\s]+}/{arg1:[0-9]+}", "ApiController:exec");
 
+//POSTBACK
+$app->post("/pagarme/exec/postback/{user:[0-9]+}/{financing:[0-9]+}", "ApiController:postback");
+//Pure Request
+$app->post("/pure/exec/{class:[A-Za-z]+}/{met:[A-Za-z]+}", "ApiController:pure");
+// OI GU SÓ PRA DIZER TCHAU 
 
 //Testes
 $app->get("/teste/select", "PageController:teste");

@@ -7,13 +7,15 @@ use Talaka\Controllers\PageController;
     <div id="menuFix">
         <div id="acessibility">
             <ul>
-                <li>Teclado Virtual</li>
+                <!--<li>Teclado Virtual</li>-->
                 <!--<li id="contrast">Contraste</li>-->
                 <li>
                     <i class="fa fa-minus-square" id="minus" aria-hidden="true"></i> Tamanho
                     <i class="fa fa-plus-square" id="plus" aria-hidden="true"></i>
                 </li>
-                    <li>Ir ao conteúdo</li>
+                
+                <li id='conteudo'>Ir ao conteúdo</li>
+                
             </ul>
         </div>
 

@@ -28,7 +28,7 @@
             <h2>Nós não conseguimos achar a página que você estava procurando no Talaka.</h2>
             <h3>Código de erro: 404</h3>
             <p> <?= urldecode($msg); ?> </p>
-            <p> Volte a página <a href='/'>Inicial</a></p>
+            <a href='/'><p> Volte a página Inicial</p></a>
         </div>
         <div class='char'></div>
     </div>

@@ -1,4 +1,4 @@
-<main>
+<main id="linkMain">
     <div id="headerUser">
         <div class="wrapper">
             <div id="userPhoto">
@@ -23,6 +23,7 @@
                     // echo strftime('%d de %B de %Y', strtotime($user["birth"]));
                     ?> <?= floor((time() - strtotime($user["birth"]) )/ (365*60*60*24)); ?> anos
                     
+                    
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                     Localização
                 </p>
@@ -45,7 +46,7 @@
         <div class="wrapper">
             <div class="content">
                 <ul id="contentMenu">
-                    <li data-tab="Campanha" ><i class="fa fa-flag" aria-hidden="true"></i> Campanhas</li>
+                    <li data-tab="Campanha" class='active' ><i class="fa fa-flag" aria-hidden="true"></i> Campanhas</li>
                     <li data-tab="Portfolio" ><i class="fa fa-paint-brush" aria-hidden="true"></i>Portfolio</li>
                     <li data-tab="Albuns" ><i class="fa fa-star" aria-hidden="true"></i>Álbuns favoritos</li>
                 </ul>
@@ -60,6 +61,13 @@
                         </h2>
                     </div>
                     <div class="tabUser" id="tabPortfolio">
+                        <figure>
+                            <img src="/Talaka/resources/img/scott2.jpg">
+                            <img src="/Talaka/resources/img/scott1.jpg">
+                            <img src="/Talaka/resources/img/scott3.jpg">
+                        </figure>
+                    </div>
+                    <div class='tabUser' id="tabAlbuns">
                         <div class="cadaAlbum">
                             <div class="infoAlbum">
                                 <h2>
@@ -71,15 +79,6 @@
                                 <p><i class="fa fa-user" aria-hidden="true"></i>Kohei Horikoshi</p>
                             </div>
                         </div>
-                        
-                     
-                        <figure>
-                            <img src="/Talaka/resources/img/scott2.jpg">
-                            <img src="/Talaka/resources/img/scott1.jpg">
-                            <img src="/Talaka/resources/img/scott3.jpg">
-                            
-                            
-                        </figure>
                     </div>
                     <!--<div class="tabUser" id="tabAlbuns">-->
                     <!--    <div class="cadaAlbum">-->

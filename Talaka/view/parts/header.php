@@ -11,6 +11,8 @@ defined("System-access") or header('location: /error');
     <link href="<?= base_url; ?>view/web-sass/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?= base_url; ?>resources/font-awesome/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Pagar.me -->
+    <script src="https://assets.pagar.me/pagarme-js/3.0/pagarme.min.js"></script>
     <script src="<?= base_url; ?>view/js/script.js" type="text/javascript"></script>
     <script src="<?= base_url; ?>view/js/front.js" type="text/javascript"></script>
     

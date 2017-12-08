@@ -70,6 +70,40 @@ var timerCarrousel = setInterval(function(){
 }, 5000);
 
 function front() {
+    //Mostra img
+    $("#selectFile").change(function (event) {
+        previewIMG("#preview img",event);
+        $("#preview figcaption").html("Preview da imagem");
+        
+    });
+    // ============== Project ==================
+    // Cadastrar projeto
+    $("#formArea #continuar").click(function(){
+        var server = document.URL;
+        //Pega a imagem
+        var $f = document.getElementById("formCadProj"); 
+        var form = new FormData($f);
+        //console.log(form.get("img"));
+        //Envia a imagem
+        $.ajax({
+            url: "https://talaka-beta-gmastersupreme.c9users.io/pure/exec/client/project",
+            data: form,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            method: 'POST'
+        }).done(function(response){
+            if(response.stats == "success"){
+                window.self.location = "/";
+            }else{
+                //
+            }
+        }).fail(function(response){
+            console.log(response);
+            alert("Erro ao efetuar cadastro");
+        });
+    });
+    
     //================= ADMIN =========================
     $("#cancelarAdmin").click(function(){
         window.self.location = "/";
@@ -106,10 +140,27 @@ function front() {
        $('#opcoesMenu').slideToggle();
     });
     $('#areaControles li').click(function(){
-       $('li').removeClass('active');
+       $('#areaControles li').removeClass('active');
        $(this).addClass('active');
+       let tab = $(this).data('tab');
+      $('.tabAdmin').hide();
+      $('#tab'+tab).fadeIn();
     });
     
+     $("#contentMenu li").click(function(){
+        let tab = $(this).data("tab");
+        $("#contentMenu li").removeClass('active');
+        $(this).addClass('active');
+        // [].forEach.call($("#tabUser li"), function(li, index){
+        //     let $li = $(li);
+        //     if(index <= $li.index()){
+        //         //$("").
+        //         //Colocar nome
+        //     }
+        // });
+        $(".tabUser").hide();
+        $("#tab"+tab).fadeIn();
+    });
     
     //================= Home ===========================
     //Campanha
@@ -161,6 +212,8 @@ function front() {
     //Trocar abas 
     $("#contentMenu li").click(function(){
         let tab = $(this).data("tab");
+        $("#contentMenu li").removeClass('active');
+        $(this).addClass('active');
         // [].forEach.call($("#tabUser li"), function(li, index){
         //     let $li = $(li);
         //     if(index <= $li.index()){
@@ -332,37 +385,52 @@ function front() {
         }
         
         if(financiamento.method == "credit_card"){
-            financiamento["card"] = {
-                'number'        : $("input[name='cardNumber\\[\\]']").map(function(){return $(this).val();}).get().join(""),
-                'name'          : $("input[name='cardName']").val(),
-                'expiration'    : (($("#cardMonth option:selected").val() < 10 ? "0"+$("#cardMonth option:selected").val() : $("#cardMonth option:selected").val() )+$("#cardYear option:selected").val()),
-                'cvv'           : $("input[name='cardCvv']").val()
+            let card = {
+                'card_number'           : $("input[name='cardNumber\\[\\]']").map(function(){return $(this).val();}).get().join(""),
+                'card_holder_name'      : $("input[name='cardName']").val(),
+                'card_expiration_date'  : (($("#cardMonth option:selected").val() < 10 ? "0"+$("#cardMonth option:selected").val() : $("#cardMonth option:selected").val() )+$("#cardYear option:selected").val()),
+                'card_cvv'              : $("input[name='cardCvv']").val()
+            };
+
+            // pega os erros de validação nos campos do form e a bandeira do cartão
+            let cardValidations = pagarme.validate({card: card});
+        			
+            //Então você pode verificar se algum campo não é válido
+            if(!cardValidations.card.card_number){
+                console.log('Oops, número de cartão incorreto');
+                return false;
             }
+            //Mas caso esteja tudo certo, você pode seguir o fluxo
+            pagarme.client.connect({ encryption_key: 'ek_test_tGLyVS9BsYwByCwsRp0EspDc5Keamf' })
+              .then(client => client.security.encrypt(card))
+              .then(function(card_hash){
+                financiamento["card_hash"] = card_hash;
+              });
+              // o próximo passo aqui é enviar o card_hash para seu servidor, e
+              // em seguida criar a transação/assinatura
         }
+        console.log(financiamento);
         const json = JSON.stringify(financiamento);
-        const server = document.URL;
+        //const server = document.URL;
         var id = $('.usuarioLogado').data("user");
         $.ajax({
-            url: "https://"+server.split("/")[2]+"/exec/client/invest/"+id,
-            method: "POST",
+            url: "https://talaka-beta-gmastersupreme.c9users.io/exec/client/invest/"+id,
             async: true,
-            headers:{"content-type":"application/json"},
+            method: "POST",
+            type: "POST",
             data: json,
             contentType: "application/json",
-            processData: false,
+            processData: false
         }).done(function(response){
             console.log(response);
-            return false;
-            var r = JSON.parse(response);
-            if(r.stats === "success"){
-                alert('Financiado com sucesso');
+            if(response.stats == "success"){
+                showModal("Financiado com sucesso");
                 location.reload();
             }else{
-                alert('deu ruim');
+                showModal("Problema ao financiar");
             }
-            console.log(response);
         }).fail(function(response){
-            alert("Deu mega ruim");
+            showModal("Deu mega ruim");
         });
     });
     
@@ -380,6 +448,8 @@ function front() {
         let tab = $(".tabProject."+tabData);
         $(tab).fadeIn();
         $(".tabProject").not("."+tabData).hide();
+        $('#projetoContain #menu li').removeClass('active');
+        $(this).addClass('active');
         
     });
     // =============== Pesquisa ================
@@ -424,10 +494,37 @@ function front() {
         let size = $('html').css('font-size');
         let tamanho = size.split('px')[0];
         let size2 = parseInt(tamanho);
-        let result = $("html").css("font-size", (size2 + .05) + "px");
+        $("html:not(nav), #projetoInformacoes, #informacoesCampaign, .formInputs div, .worksInfo, #catInfo, #projetoContain .tabProject, .socialAtt, #userInfos").not("nav").prop("style", "font-size: " + (size2 + 1) + "px !important");
         // let size2 = $('html').css('font-size');
-        alert(tamanho);
+        // alert(tamanho);
+        // PROJETOS
+        let projetos = $('.eachProject').css('height');
+        let projetoTamanho = projetos.split('px')[0];
+        let projetos2 = parseInt(projetoTamanho);
+        let proResultado = $('.eachProject').prop('style', 'height: ' + (projetos2 + 65) + "px");
+
     });
+    
+    $('#conteudo').click(function(){
+        $("html, body").animate({scrollTop: $('#linkMain').offset().top }, 1000);
+    });
+    
+    $("#minus").click(function(){
+        let size = $('html').css('font-size');
+        let tamanho = size.split('px')[0];
+        let size2 = parseInt(tamanho);
+        $("html, #projetoInformacoes, .worksInfo, #informacoesCampaign, .formInputs div, #catInfo, #projetoContain .tabProject, .socialAtt, #userInfos").not("nav").prop("style", "font-size: " + (size2 - 1) + "px !important");
+        // let size2 = $('html').css('font-size');
+        // alert(tamanho);
+        
+        // PROJETOS
+        let projetos = $('.eachProject').css('height');
+        let projetoTamanho = projetos.split('px')[0];
+        let projetos2 = parseInt(projetoTamanho);
+        let proResultado = $('.eachProject').prop('style', 'height: ' + (projetos2 - 65) + "px");
+
+    });
+    
     //To Top
     $(window).scroll(function(){
 		if ($(this).scrollTop() > 100) {
@@ -580,9 +677,10 @@ function front() {
                 }else{
                     alert('Problema ao alterar');
                 }
-            }).fail(function(response){
-                alert("Deu mega ruim");
             });
+            // .fail(function(response){
+            //     alert("Deu mega ruim");
+            // });
     });
     
     //-------------------HOME-----------------------------------//
@@ -676,20 +774,20 @@ function front() {
             //console.log(form.get("img"));
             //Envia a imagem
             $.ajax({
-                url:"https://"+server.split("/")[2]+"/exec/visitor/user",
+                url: "https://talaka-beta-gmastersupreme.c9users.io/pure/exec/visitor/user",
                 data: form,
                 processData: false,
                 contentType: false,
                 type: 'POST',
                 method: 'POST'
             }).done(function(response){
-                var r = JSON.parse(response);
-                if(r.stats === "success"){
+                if(response.stats == "success"){
                     window.self.location = "/";
                 }else{
-                    alert(r.data);
+                    //
                 }
             }).fail(function(response){
+                console.log(response);
                 alert("Erro ao efetuar cadastro");
             });
             /*
@@ -730,6 +828,17 @@ function front() {
     //     this.style.webkitAnimationPlayState = "running";
     //   });
     });
+    // --------------- MODAL ----------------------------- //
+    // When the user clicks the button, open the modal 
+    // $("#myBtn").click(function() {
+    //     $("#mdFinanciamento").css("display","block");
+    // });
+    
+    // When the user clicks on <span> (x), close the modal
+    $("span.close").click(function() {
+        $("#mdFinanciamento").css("display","none");
+    });
+    
     
     
     //---------------- pagina de usuário
@@ -883,4 +992,31 @@ window.onload = function(){
         }
     });
 };
+
+function showModal(msg){
+    $("#mdFinanciamento .modal-body p").text(msg);
+    $("#mdFinanciamento").css("display","block");
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == document.getElementById('mdFinanciamento')) {
+        $("#mdFinanciamento").css("display","none");
+    }
+};
+
+
+
+// --- HOME carousel
+
+setInterval(function(){
+    //Pega o proximo da lista
+    next = ($(".catInfo.atual").hasClass("last"))? 0 : $(".catInfo.atual").next().index();
+    console.log(next);
+    //Remove classe atual
+    $(".catInfo.atual").hide().removeClass("atual");
+    //Adiciona atual para o proximo carrousel
+    $(".catInfo").eq(next).fadeIn().addClass("atual");
+}, 5000);
+
 
