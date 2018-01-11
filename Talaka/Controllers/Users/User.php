@@ -55,13 +55,13 @@ abstract class User{
     }
     
     public function myprojectsGET($id){
-        $resp = ($data = $this->db->listMyProjects($id))? "success" : "fail_alter_project";
-        return json_encode(array("stats" => $resp, "data" => $data));
+        $data = $this->db->listMyProjects($id);
+        return $data;
     }
     
     public function myfinancesGET($id){
-        $resp = ($data = $this->db->listMyFinances($id))? "success" : "fail_alter_project";
-        return json_encode(array("stats" => $resp, "data" => $data));
+        $data = $this->db->listMyFinances($id);
+        return $data;
     }
     
     public function allcatsGET(){

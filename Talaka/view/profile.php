@@ -25,7 +25,7 @@
                     
                     
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    Localização
+                    Santos
                 </p>
                 <p>
                     <?= $user["biography"]; ?>
@@ -53,12 +53,40 @@
                 <div id="galeria">
                     <div class="tabUser" id="tabCampanha">
                         <h2>
-                            Campanhas criadas (00)
+                            Campanhas criadas (<?= $user["projects"];?>)
                         </h2>
+                        <?php foreach ($myprojs as $project) {  ?>
+                        <a href='/campanha/<?= urlencode($project->title);?>'>
+                            <div class='campanhaPerfil'>
+                                <div class='capaCampanhaPerfil' style='background-image:url(<?= base_url; ?>proj-img/<?= $project->imgB ;?>)'></div>
+                                <div class='bgCampanhaPerfil'></div>
+                                <h1>
+                                    <?= $project->title; ?>
+                                </h1>
+                                <h2>
+                                    <?= $user["name"];?>
+                                </h2>
+                            </div>
+                        </a>
+                        <?php } ?>
                         
                         <h2>
-                            Campanhas Financiadas (00)
+                            Campanhas Financiadas (<?= $user["finances"];?>)
                         </h2>
+                        <?php foreach ($myfins as $project) {  ?>
+                        <a href='/campanha/<?= urlencode($project->title);?>'>
+                            <div class='campanhaPerfil'>
+                                <div class='capaCampanhaPerfil' style='background-image:url(<?= base_url; ?>proj-img/<?= $project->imgB ;?>)'></div>
+                                <div class='bgCampanhaPerfil'></div>
+                                <h1>
+                                    <?= $project->title; ?>
+                                </h1>
+                                <h2>
+                                    <?= $project->creator["name"];?>
+                                </h2>
+                            </div>
+                        </a>
+                        <?php } ?>
                     </div>
                     <div class="tabUser" id="tabPortfolio">
                         <figure>

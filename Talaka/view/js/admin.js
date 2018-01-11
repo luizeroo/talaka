@@ -49,13 +49,14 @@ $( document ).ready(function(){
         }).done(function(response){
             if(response.stats === "success"){
                 let $snackbar = $("#snackbar");
-                $snackbar.text("Projeto Aprovado com sucesso");
+                $snackbar.text("Projeto Deletado com Sucesso");
                 $snackbar.addClass("show");
                 $(".lista li[data-id='"+id+"']").remove();
                 setTimeout(function(){ 
                     $snackbar.removeClass("show"); 
                 }, 3000);
             }
+            console.log(response);
         }).fail(function(response){
             console.log(response);
         });

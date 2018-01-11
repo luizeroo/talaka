@@ -5,6 +5,7 @@ namespace Talaka\Controllers;
 use Talaka\Models\Page;
 use Talaka\Models\System;
 use Talaka\Controllers\Users\Admin;
+use Talaka\Controllers\Users\Visitor;
 use Talaka\Models\Project;
 //Page Controller
 
@@ -17,6 +18,7 @@ class PageController{
         //$bd nao sera utilizado até o dado momento
         session_start();
         $this->page = new Page();
+        $this->user = new Visitor("visitor");
         $this->admin = ($this->is_logged(true)) ? new Admin("admin") : null;
         define("System-access","Allow",TRUE);
     }
@@ -243,13 +245,17 @@ class PageController{
             "met"   => "profile",
             "arg0"  => $request->getParam("username")
         ]);
+        $myProjs = $this->user->myprojectsGET($user["id"]);
+        $myFins = $this->user->myfinancesGET($user["id"]);
         $this->page->load("view/parts/header.php",[
             "pag_title" => "Perfil"
         ]);
         $this->page->load("view/parts/nav.php");
         //$user = $_SESSION['user'];
         $this->page->load('view/profile.php',[
-            "user" => $user
+            "user"      => $user,
+            "myprojs"   => $myProjs,
+            "myfins"    => $myFins
         ]);
         $this->page->load("view/parts/footer.php");
         $this->page->render();

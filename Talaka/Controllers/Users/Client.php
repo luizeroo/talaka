@@ -38,15 +38,14 @@ class Client extends User{
                 "dt_begin"      => date("Y-m-d"),
                 "ds_path_img"   => $img["name"],
                 "ds_img_back"   => $imgCapa["name"],
-                "vl_collected"  => 0,
+                "vl_collected"  => 10.00,
                 "qt_visitation" => 0,
                 "ds_social"     => json_encode([
                         "facebook"      => $request->getAttribute('facebook'),
                         "instagram"     => $request->getAttribute('instagram'),
                         "video"         => $request->getAttribute('video')]),
             ];
-            if($this->db->insert('Project',$project) ){
-                $idProj = $this->db->firstFinancing($_SESSION["user"]["id"]);
+            if($idProj = $this->db->insert('Project',$project) ){
                 //Coautores
                 $coauthors = explode(",", $request->getAttribute('coautores'));
                 
@@ -105,11 +104,12 @@ class Client extends User{
         if($accept === "application/json" && $id !== null){
             $json = file_get_contents('php://input');
             $jsonObj = json_decode($json);
+            $payMethod = $jsonObj->method == "boleto" ? "boleto" : "credcard";
             $obj = (object) [];
             $obj->cd_user = $id;
             $obj->cd_project = $jsonObj->project;
             $obj->vl_financing = $jsonObj->vl;
-            $obj->nm_paymethod = $jsonObj->method;
+            $obj->nm_paymethod = $payMethod;
             $obj->dt_financing = date("Y-m-d");
             //Anônimo
             $obj->ic_anonymous = ($jsonObj->mode == "anonimo") ? 1 : 0 ;

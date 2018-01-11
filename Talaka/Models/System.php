@@ -41,7 +41,7 @@ class System{
         
         if($table === 'Financing'){
             $resp = json_encode(array('id_financing' => $stm->insert_id));    
-        }elseif($table === 'Tag'){
+        }elseif($table === 'Tag' || $table == 'Project'){
             $resp = $stm->insert_id;
         }else{
             $resp = true;
@@ -157,7 +157,7 @@ class System{
     }
     
     public function consultUser($username){
-        $stm = $this->con->prepare("SELECT u.ds_login,u.dt_birth, u.ds_path_img, u.nm_user, u.ds_biography, u.ds_email, u.ds_img_back, 
+        $stm = $this->con->prepare("SELECT u.cd_user, u.ds_login,u.dt_birth, u.ds_path_img, u.nm_user, u.ds_biography, u.ds_email, u.ds_img_back, 
         (
         SELECT COUNT( p.cd_project ) 
         FROM User AS u, Project AS p
@@ -187,7 +187,7 @@ class System{
         GROUP BY u.ds_login") or die("Erro 1 ".$con->error.http_response_code(405));
         $stm->bind_param("sss",$username,$username,$username) or die("Erro 2 ".$stm->error.http_response_code(405));
         $stm->execute()or die("Erro 3 ".$stm->error.http_response_code(405));
-        $stm->bind_result($login,$birth,$img,$name,$biography,$email,$cover,$projects,$finances, $supporters);
+        $stm->bind_result($id,$login,$birth,$img,$name,$biography,$email,$cover,$projects,$finances, $supporters);
         $stm->fetch();
         $stm->close();
         return json_encode([
@@ -234,7 +234,12 @@ class System{
     }
     
     public function consultProject(Project $proj){
-        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,p.cd_user,u.ds_path_img,u.ds_login,p.qt_visitation,count(f.cd_user) total,p.ds_resume, c.nm_category, c.cd_category ,p.ic_close,IFNULL((
+        $stm = $this->con->prepare("SELECT p.cd_project,p.nm_title,p.ds_project,p.ds_path_img,p.ds_img_back,p.vl_meta,p.vl_collected,p.dt_begin,p.dt_final,u.nm_user,
+p.cd_user,u.ds_path_img,u.ds_login,p.qt_visitation,IFNULL((
+					SELECT count(f.cd_user)
+    					FROM Financing as f
+    					WHERE f.cd_project = p.cd_project
+					), 0) as total,p.ds_resume, c.nm_category, c.cd_category ,p.ic_close,IFNULL((
 					SELECT GROUP_CONCAT(CONCAT(user.nm_user,':',user.ds_path_img,':',user.ds_login)) 
 						FROM User as user 
 						WHERE user.cd_user IN (SELECT coa.cd_coauthor FROM Coauthor as coa WHERE coa.cd_project = p.cd_project)
@@ -243,9 +248,8 @@ class System{
 						FROM Tag as t 
 						WHERE t.cd_tag IN (SELECT pt.cd_tag FROM ProjectTags as pt WHERE pt.cd_project = p.cd_project)
 					), 'no') as tags
-        FROM Project as p, User as u, Financing as f, Category as c
+        FROM Project as p, User as u, Category as c
         WHERE p.cd_user = u.cd_user
-        AND p.cd_project = f.cd_project
         AND p.cd_category = c.cd_category
         AND p.nm_title = ?") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("s",$proj->title) or die("Erro 2".$stm->error.http_response_code(405));
@@ -379,35 +383,64 @@ class System{
         $stm->bind_param("i",intval($id));
         $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
         $stm->bind_result($id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$imgB,$idC,$percent);
-        $r = array();
-        $i = 1;
+        $r = [];
         while($stm->fetch()){
-            $r["d".$i] = array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"imgB"=>$imgB,"idC"=>$idC,"percent"=>$percent) or die("Erro no json");
-            $i++;
+            $r[] = new Project([
+                "id"        => $id,
+                "title"     => $title,
+                "ds"        => $ds,
+                "img"       => $img,
+                "meta"      => $vlM,
+                "collected" => $vlC,
+                "dtB"       => $dtB,
+                "dtF"       => $dtF,
+                "imgB"      => $imgB,
+                "category"  => [
+                    "id" => $idC
+                ],
+                "percent"   => $percent
+            ]) or die("Erro no json");
         }
         $stm->close();
-        return json_encode($r);
+        return $r;
     }
     
     public function listMyFinances($id){
-        $stm = $this->con->prepare("SELECT p.cd_project, p.nm_title, p.ds_project, p.ds_path_img, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, p.ds_img_back, p.cd_category, ((p.vl_collected*100) / p.vl_meta) dif
-        FROM Project AS p, User AS u, Financing AS f
+        $stm = $this->con->prepare("SELECT c.nm_user, p.cd_project, p.nm_title, p.ds_project, p.ds_path_img, p.vl_meta, p.vl_collected, p.dt_begin, p.dt_final, p.ds_img_back, p.cd_category, ((p.vl_collected*100) / p.vl_meta) dif
+        FROM Project AS p, User AS u, Financing AS f, User AS c
         WHERE p.cd_project = f.cd_project
+        AND c.cd_user = p.cd_user
         AND f.cd_user = u.cd_user
         AND u.cd_user = ?
         GROUP BY p.cd_project
         ORDER BY dif DESC ") or die("Erro 1".$this->con->error.http_response_code(405));
         $stm->bind_param("i",intval($id));
         $stm->execute()or die("Erro 2".$stm->error.http_response_code(405));
-        $stm->bind_result($id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$imgB,$idC,$percent);
-        $r = array();
-        $i = 1;
+        $stm->bind_result($uName,$id,$title,$ds,$img,$vlM,$vlC,$dtB,$dtF,$imgB,$idC,$percent);
+        $r = [];
         while($stm->fetch()){
-            $r["d".$i] = array("id"=>$id,"title"=>$title,"ds"=>utf8_encode($ds),"img"=>$img,"meta"=>$vlM,"collected"=>$vlC,"dtB"=>$dtB,"dtF"=>$dtF,"imgB"=>$imgB,"idC"=>$idC,"percent"=>$percent) or die("Erro no json");
-            $i++;
+            $r[] = new Project([
+                "id"        => $id,
+                "title"     => $title,
+                "ds"        => utf8_encode($ds),
+                "img"       => $img,
+                "meta"      => $vlM,
+                "collected" => $vlC,
+                "dtB"       => $dtB,
+                "dtF"       => $dtF,
+                "imgB"      => $imgB,
+                "creator"   => [
+                    "name"  => $uName
+                ],
+                "category"  => [
+                    "id"    => $idC
+                ],
+                "percent"   => $percent
+            ]) or die("Erro no json");
+        
         }
         $stm->close();
-        return json_encode($r);
+        return $r;
     }
     
     public function pesqCat($num,$pag){
@@ -566,17 +599,16 @@ class System{
         return $nmC;
     }
     
-    public function firstFinancing($id){
-        $stm = $this->con->prepare("SELECT cd_project FROM Project Where cd_user = ? ORDER BY cd_project DESC LIMIT 1 ") or die("Erro 1".$this->con->error.http_response_code(405));
-        $stm->bind_param("i",$id)or die("Erro 2".$this->con->error.http_response_code(405));
-        $stm->execute()or die("Erro 3".$stm->error.http_response_code(405));
-        $stm->bind_result($proj)or die("Erro 4".$stm->error.http_response_code(405));
-        $stm->fetch()or die("Erro 5".$con->error.http_response_code(405));
-        $stm->close();
+    public function firstFinancing($proj){
         $this->inserir("Financing",[
             "cd_project"    => $proj,
             "cd_user"       => 3,
-            "vl_financing"  => 10
+            "vl_financing"  => 10.00,
+            "ic_paid"       => 1,
+            "nm_paymethod"  => "credcard",
+            "dt_financing"  => date("Y-m-d H:i:s"),
+            "dt_payment"    => date("Y-m-d H:i:s"),
+            "ic_anonymous"  => 1
         ]);
         return $proj;
     }

@@ -46,7 +46,7 @@ class Admin extends Client{
         }
     }
     
-    public function deletePOST(){
+    public function delPOST($request){
         $accept = $request->getHeader("content-type");
         if($accept === "application/json"){
             if($request->getHeader('talaka-admin-authorization') === "ehiwk51"){

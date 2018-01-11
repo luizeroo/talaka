@@ -358,7 +358,7 @@ main {
   width: 100%;
   height: 75px;
   top: 0;
-  z-index: 100; }
+  z-index: 1000000; }
 
 #menuFix > nav > div > div.siteNav-right > ul > li:nth-child(1) > i {
   margin: 0; }
@@ -617,7 +617,7 @@ nav {
       font-size: 1.5em;
       color: #A50249; }
     #carousel #helloWrapper p {
-      font-size: 2.4em;
+      font-size: 2em;
       font-weight: 100;
       margin: 10px 0 20px 0;
       -webkit-animation: appears 2s;
@@ -753,7 +753,7 @@ section {
       padding: 0 5%;
       color: #fff; }
       #howItWorks .worksArea .worksInfo p {
-        font-size: 2.4em;
+        font-size: 2em;
         text-indent: 30px; }
 
 #categories {
@@ -861,11 +861,11 @@ section {
         color: #A50249; }
   #categories h1 {
     font-weight: 500;
-    font-size: 3.5em;
+    font-size: 3em;
     color: #094F7D; }
   #categories h2 {
     font-weight: 400;
-    font-size: 2.8em;
+    font-size: 2em;
     color: #666; }
   #categories h3 {
     font-weight: 400;
@@ -1393,8 +1393,9 @@ section#results {
   .projectsGrill .eachProjectOwner {
     position: absolute;
     background-color: #fff;
-    top: 50%;
-    left: 270px;
+    /* top: 50%; */
+    /* left: 270px; */
+    bottom: 20px;
     width: 60px;
     margin-top: -30px;
     margin-left: -35px;
@@ -2707,6 +2708,8 @@ section#infosProject {
             width: 30px; }
       #userInformacoes .wrapper .content #galeria {
         padding: 10px 0; }
+        #userInformacoes .wrapper .content #galeria a {
+          text-decoration: none; }
         #userInformacoes .wrapper .content #galeria figure {
           line-height: 200px; }
           #userInformacoes .wrapper .content #galeria figure img {
@@ -3099,12 +3102,18 @@ section#infosProject {
   #comecarCampanha section .ladoPequeno {
     width: 20%;
     padding-bottom: 20%;
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    animation: sobeDesce 2s infinite alternate;
     background-size: 150px;
     background-position: center center;
-    background-repeat: no-repeat; }
+    background-repeat: no-repeat;
+    height: 100%;
+    animation: ladopequeno 2s infinite ease-in-out; }
+@keyframes ladopequeno {
+  0% {
+    transform: scale(1); }
+  50% {
+    transform: scale(1.2); }
+  100% {
+    transform: scale(1); } }
   #comecarCampanha section .ladoGrande {
     width: 80%;
     padding: 2% 5%;
@@ -3819,5 +3828,57 @@ fieldset {
   to {
     bottom: 0;
     opacity: 0; } }
+.campanhaPerfil {
+  width: 100%;
+  margin: 30px 0;
+  box-sizing: border-box;
+  padding: 2%;
+  color: #fff;
+  box-shadow: 0 0 3px #fff;
+  position: relative;
+  height: 100px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  text-decoration: none; }
+  .campanhaPerfil:hover {
+    transform: scale(1.03); }
+
+.campanhaPerfil h1, .campanhaPerfil h2 {
+  color: #fff;
+  position: absolute;
+  position: relative;
+  z-index: 300;
+  text-shadow: 0 0 3px #fff;
+  font-weight: 500; }
+
+.campanhaPerfil h1 {
+  font-size: 2.5em; }
+
+.campanhaPerfil h2 {
+  font-size: 1.8em; }
+
+.bgCampanhaPerfil, .capaCampanhaPerfil {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0; }
+
+.capaCampanhaPerfil {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.bgCampanhaPerfil {
+  background-color: rgba(100, 0, 100, 0.3);
+  filter: brightness(100%) blur(3px) contrast(110%);
+  background: -moz-linear-gradient(left, rgba(104, 58, 183, 0.3) 0%, rgba(220, 54, 127, 0.3) 100%);
+  background: -webkit-linear-gradient(left, rgba(104, 58, 183, 0.3) 0%, rgba(220, 54, 127, 0.3) 100%);
+  background: linear-gradient(to right, rgba(104, 58, 183, 0.3) 0%, rgba(220, 54, 127, 0.3) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80683ab7', endColorstr='#80dc367f',GradientType=1 ); }
 
 /*# sourceMappingURL=style.css.map */
