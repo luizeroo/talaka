@@ -1,0 +1,406 @@
+#responsive_nav{
+    display:none;
+}
+
+// /* Desktop */
+// @media (min-width: 1200px) { }
+
+/* Tablet retrato - paisagem e desktop */
+@media (min-width: 768px) and (max-width: 1200px) {
+    // Página Inicial
+    #carousel .eachCarousel .wrapper .carouselLeft{
+        width:35%;
+    }
+    #carousel .eachCarousel .wrapper .carouselRight .projectInfos p {
+        font-size:1.7rem;
+    }
+    
+    .eachProject{
+        width:45%;
+    }
+    
+    // Página de Projeto
+    section#infosProject{
+        .wrapper{
+            #projetoInformacoes{
+                #botoes{
+                    #visualizarDemonstracao{
+                        border-radius:0;
+                    }
+                    .financiarProjeto{
+                        border-radius:0;
+                        width:170px;
+                        text-align:center;
+                    }
+                }
+            }
+        }
+    }
+    section#conhecerProjeto{
+        .wrapper{
+            width:100%;
+            display:block;
+            box-sizing:border-box;
+            #projetoContain{
+                width:100%;
+            }
+            #recompensas{
+                width:100%;
+                padding:0;
+                display:block;
+                margin:20px auto;
+            }
+        }
+    }
+}
+/* Telefone em paisagem - Tablet em retrato */
+@media (max-width: 767px) {
+    #responsive_nav{
+        display:block;
+    }
+    nav{
+        display:none;
+    }
+    
+    #loginInitial{
+        display:block;
+        #login, #register{
+            width:100%;
+            box-sizing:border-box;
+            display: flex;
+            justify-content: center;
+            height:400px;
+            input{
+                padding:2%;
+                &#login-button{
+                    width:100%;
+                    height:50px;
+                }
+            }
+            form a{
+                text-align: center;
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+    
+    *{
+        font-size:9px;
+    }
+    #carousel{
+        height:120vh;
+        display:table;
+        #helloWrapper{
+            .wrapper{height:auto;}
+            display:flex;
+            align-items:flex-start;
+            ul{
+                display:flex;
+                justify-content:center;
+                flex-direction:column;
+                li{
+                    width:100%;
+                    box-sizing:border-box;
+                }
+            }
+        }
+        .eachCarousel{
+            .wrapper{
+                height:90%;
+                display:table-column;
+                text-align:center;
+                .carouselLeft{
+                    width:55%;
+                    margin:auto;
+                    height:50vh;
+                    a{
+                        padding:3% 0;
+                        height:auto;
+                    }
+                }
+                .carouselRight{
+                    text-align:center;
+                    padding:3% 1%;
+                    width:98%;
+                    margin-top:15px;
+                    .projectInfos{
+                        height:auto;
+                    }
+                    .authors{
+                        position:static;
+                        bottom:auto;
+                        height:125px;
+                        h2{
+                            font-weight:bold;
+                        }
+                        ul{
+                            justify-content:center;
+                        }
+                    }
+                }
+                .projectInfos{
+                    height:auto;
+                }
+                
+            }    
+        }
+    }
+    section#indexProjects{
+        #pTypes{
+            display:table;
+            li{
+                width:80%;   
+                &#seeAll{
+                    width: 15%;
+                    text-align: center;
+                    position: absolute;
+                    right: 0;
+                    top: 40px;
+                    box-sizing: border-box;
+                }
+            }
+        }
+        #listProjects{
+            .eachProject{
+                box-sizing: border-box;
+                width:100%;
+                margin:15px auto;
+            }
+        }
+    }
+    section#howItWorks{
+        text-align:Center;
+        padding:1% 0;
+        .worksArea{
+            margin:auto;
+        }
+    }
+    footer{
+        .wrapper{
+            ul{
+                flex-direction:column;
+                li{
+                    display:block;
+                    padding:1% 0;
+                }
+            }
+        }
+    }
+    // Página de Projeto
+    section#infosProject{
+        .wrapper{
+            #projetoDestaque{
+                width:100%;
+                box-sizing:border-box;
+                margin-top:180px;
+                #projetoCapa{
+                    width:300px;
+                    left:50%;
+                    margin-left:-150px;
+                    box-sizing:border-box;
+                    height:275px;
+                }
+            }
+            #projetoInformacoes{
+                width: 100%;
+                float:none;
+                min-height: 215px;
+                text-align: center;
+                box-sizing: border-box;
+                .coauthor{
+                    justify-content:center
+                }
+                #botoes{
+                    display: flex;
+                    justify-content: center;
+                    #visualizarDemonstracao{
+                        border-radius:0;
+                    }
+                    .financiarProjeto{
+                        border-radius:0;
+                        width:170px;
+                        text-align:center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+    section#conhecerProjeto{
+        box-sizing:border-box;
+        width:95%;
+        margin:auto;
+        .wrapper{
+            display:block;
+            box-sizing:border-box;
+            #projetoContain{
+                width:100%;
+                ul#menu{
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    width:90%;
+                    margin:auto;
+                    li{
+                        width:100%;
+                        text-align:center;
+                    }
+                }
+                figure, figcaption, h2, h1 {
+                    text-align:center;
+                    margin:15px auto;
+                }
+                #projetoComunidade{
+                    .valoresComunidade{
+                        display:block;
+                        .valores{
+                            width:100%;
+                            margin:0 auto 15px 0;
+                        }
+                    }
+                }
+            }
+            #recompensas{
+                width:100%;
+                padding:0;
+                display:block;
+                margin:20px auto;
+                .cadaRecompensa{
+                    text-align:center;
+                }
+            }
+            #projetoAtualizacoes{
+                .cadaAtt{
+                    box-sizing:border-box;
+                    width:90%;
+                    margin:0 auto 20px auto;
+                    img{
+                        width:100%;
+                    }
+                }
+            }
+        }
+    }
+    #financiamento > .wrapper{
+        height:100vh;
+        overflow:auto;
+        padding:2%;
+        box-sizing:border-box;
+    }
+    #financiamento > .wrapper #areaFinanciamento #usuariologado{
+        display:none;
+    }
+    #financiamento > .wrapper #areaFinanciamento .formulario{
+        padding:0;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper{
+        overflow:auto;
+        height:300px;
+        overflow-x:hidden;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa{
+        width:95%;
+        height:auto;
+        margin:1% auto;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate label{
+        margin:15px auto;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate{
+        height:auto;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate input[type='number']{
+        padding: 5px 1%;
+        font-size: 1.3em;
+        width: 100%;
+        margin: 20px auto;
+        box-sizing: border-box;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate input[type='button']{
+        width:100%;
+        box-sizing:border-box;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box{
+        display:none;
+    }
+    #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario{
+        width:100%;
+        height:auto;
+    }
+    #responsive_nav {
+        width: 100%;
+        background: #fff;
+        display: flex;
+        padding: 10px 0;
+        flex-wrap: nowrap;
+        box-shadow: 0 0 15px #7EB5D8;
+        position:relative;
+        form{
+            .fa-keyboard-o{
+                display:none;
+            }
+        }
+        .area{
+            display:flex;
+            justify-content:space-between;
+            h1 {
+                text-align: center;
+                font-size: 3em;
+                font-family: 'Courgette', cursive;
+                color: #A50249;
+            }
+            .menuSite{
+                font-size:2.6em;
+                color:#A50249;
+                cursor:pointer;
+            }
+        }
+        #searchArea{
+            width:100%;
+            display:none;
+            input{
+                float:left;
+                padding:3%;
+            }
+            input[type="search"]{
+                width:100%;
+                font-size:1.4em;
+            }
+            input[type="submit"]{
+                width:20%;
+                display:none;
+            }
+        }
+        .listMenu{
+            position:absolute;
+            width:100%;
+            background-color:#A50249;
+            color:#fff;
+            top:53px;
+            right:0;
+            display:none;
+            ul{
+                li{
+                    padding:3%;
+                    font-size:1.6em;
+                    border-bottom:2px solid #A50249;
+                    -webkit-transition: 0.3s;
+                    -moz-transition: 0.3s;
+                    -ms-transition: 0.3s;
+                    -o-transition: 0.3s;
+                    transition: 0.3s;
+                    cursor:pointer;
+                    &:hover{
+                        border-color:#fff;
+                    }
+                } 
+            a{
+                color:#fff;
+                text-decoration:none;
+            }
+            }
+        }
+    }
+}

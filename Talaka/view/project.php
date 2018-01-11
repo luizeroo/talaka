@@ -460,9 +460,6 @@ $percent = ( $aux > 100 )? 100 : $aux;
                                     <!--<form method="post" name="contribuicao">-->
                                     <label for="valorDoado">
                                         Quanto você deseja doar?
-                                        <span>
-                                            Valor entre <b>$valorMinimo</b> e <b>$valorMaximo</b> desta recompensa
-                                        </span>
                                     </label>
                                     <input id="valorDoado" type="number" name="valorDoado" placeholder="Digite aqui o valor da sua doação">
                                     <input type="button" id="continuarContribuicao" value="Continuar" disabled>

@@ -45,7 +45,7 @@ use Talaka\Controllers\PageController;
                                 <div id="searchArea">
                                     <form onsubmit="return false;">
                                         <input type="search" class="search navSearch" name="pesquisa" placeholder="Pesquisar projetos">
-                                        <input type="submit" id="doSearch">
+                                        <input type="submit" id="doSearch" value="Pesquisar">
                                     </form>
                                 </div>
                             </i>
@@ -83,4 +83,60 @@ use Talaka\Controllers\PageController;
                 </div>
             </div>
         </nav>
+        
+        <div id="responsive_nav">
+            <div class='wrapper'>
+                <div class="area">
+                    <h1 onclick="window.self.location = '/';">talaka</h1>
+                    <div class='menuSite'>
+                        <i title="Abrir menu" class="fa fa-bars" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class='listMenu'>
+                <ul>
+                    <a href="/explore">
+                        <li>Explorar</li>
+                    </a>
+                    <a href='/criar-campanha'>
+                        <li>Começar campanha</li>
+                    </a>
+                    <li id='searchButtonli'>
+                        <i class="fa fa-search" aria-hidden="true" id="searchButton">
+                        </i>
+                    </li>
+                    <div id="searchArea">
+                        <form onsubmit="return false;">
+                            <input type="search" class="search navSearch" name="pesquisa" placeholder="Pesquisar projetos">
+                            <input type="submit" id="doSearch">
+                        </form>
+                    </div>
+                    <?php 
+                            if(PageController::is_logged()){
+                            ?>
+                            <a href="/perfil/<?= $_SESSION['user']['login'] ;?>">
+                                <li>
+                                    Meu Perfil
+                                </li>
+                            </a>
+                            <a href="/signout">
+                            <li>
+                                Sair
+                            </li>
+                            </a>
+                            <?php 
+                            }else{ 
+                            ?>
+                            <a href="/signin">
+                                <li>
+                                    Acessar
+                                
+                                </li>
+                            </a>
+                            <?php 
+                            } 
+                            ?>
+                </ul>
+            </div>
+        </div>
     </div>

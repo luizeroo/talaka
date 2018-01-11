@@ -757,6 +757,7 @@ section {
         text-indent: 30px; }
 
 #categories {
+  display: none;
   border-top: 3px solid #094F7D;
   padding: 50px 0;
   background-color: #7EB5D8; }

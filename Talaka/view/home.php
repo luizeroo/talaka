@@ -114,7 +114,7 @@ use Talaka\Controllers\PageController;
                             <i class="fa fa-map-o" aria-hidden="true"></i> Populares Perto de você
                         </li>
                     <?php } ?>    
-                    <li><a href="/explore">Ver todos</a></li>
+                    <li id="seeAll"><a href="/explore">Ver todos</a></li>
                 </ul>
 
                 <div id="listProjects">

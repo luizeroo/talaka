@@ -70,6 +70,14 @@ var timerCarrousel = setInterval(function(){
 }, 5000);
 
 function front() {
+    //responsive
+    $(".menuSite").click(function(){
+       $(".listMenu").slideToggle(); 
+    });
+    $("#searchButtonli").click(function(){
+        $("#responsive_nav #searchArea").slideToggle();
+    });
+    
     //Mostra img
     $("#selectFile").change(function (event) {
         previewIMG("#preview img",event);

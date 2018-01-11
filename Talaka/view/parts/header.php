@@ -6,9 +6,11 @@ defined("System-access") or header('location: /error');
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
     <link href="<?= base_url; ?>view/web-sass/style.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url; ?>view/web-sass/responsive.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?= base_url; ?>resources/font-awesome/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Pagar.me -->

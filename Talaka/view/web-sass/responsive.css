@@ -1,0 +1,308 @@
+#responsive_nav {
+  display: none; }
+
+/* Tablet retrato - paisagem e desktop */
+@media (min-width: 768px) and (max-width: 1200px) {
+  #carousel .eachCarousel .wrapper .carouselLeft {
+    width: 35%; }
+
+  #carousel .eachCarousel .wrapper .carouselRight .projectInfos p {
+    font-size: 1.7rem; }
+
+  .eachProject {
+    width: 45%; }
+
+  section#infosProject .wrapper #projetoInformacoes #botoes #visualizarDemonstracao {
+    border-radius: 0; }
+  section#infosProject .wrapper #projetoInformacoes #botoes .financiarProjeto {
+    border-radius: 0;
+    width: 170px;
+    text-align: center; }
+
+  section#conhecerProjeto .wrapper {
+    width: 100%;
+    display: block;
+    box-sizing: border-box; }
+    section#conhecerProjeto .wrapper #projetoContain {
+      width: 100%; }
+    section#conhecerProjeto .wrapper #recompensas {
+      width: 100%;
+      padding: 0;
+      display: block;
+      margin: 20px auto; } }
+/* Telefone em paisagem - Tablet em retrato */
+@media (max-width: 767px) {
+  #responsive_nav {
+    display: block; }
+
+  nav {
+    display: none; }
+
+  #loginInitial {
+    display: block; }
+    #loginInitial #login, #loginInitial #register {
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      height: 400px; }
+      #loginInitial #login input, #loginInitial #register input {
+        padding: 2%; }
+        #loginInitial #login input#login-button, #loginInitial #register input#login-button {
+          width: 100%;
+          height: 50px; }
+      #loginInitial #login form a, #loginInitial #register form a {
+        text-align: center;
+        width: 100%;
+        padding: 0; }
+
+  * {
+    font-size: 9px; }
+
+  #carousel {
+    height: 120vh;
+    display: table; }
+    #carousel #helloWrapper {
+      display: flex;
+      align-items: flex-start; }
+      #carousel #helloWrapper .wrapper {
+        height: auto; }
+      #carousel #helloWrapper ul {
+        display: flex;
+        justify-content: center;
+        flex-direction: column; }
+        #carousel #helloWrapper ul li {
+          width: 100%;
+          box-sizing: border-box; }
+    #carousel .eachCarousel .wrapper {
+      height: 90%;
+      display: table-column;
+      text-align: center; }
+      #carousel .eachCarousel .wrapper .carouselLeft {
+        width: 55%;
+        margin: auto;
+        height: 50vh; }
+        #carousel .eachCarousel .wrapper .carouselLeft a {
+          padding: 3% 0;
+          height: auto; }
+      #carousel .eachCarousel .wrapper .carouselRight {
+        text-align: center;
+        padding: 3% 1%;
+        width: 98%;
+        margin-top: 15px; }
+        #carousel .eachCarousel .wrapper .carouselRight .projectInfos {
+          height: auto; }
+        #carousel .eachCarousel .wrapper .carouselRight .authors {
+          position: static;
+          bottom: auto;
+          height: 125px; }
+          #carousel .eachCarousel .wrapper .carouselRight .authors h2 {
+            font-weight: bold; }
+          #carousel .eachCarousel .wrapper .carouselRight .authors ul {
+            justify-content: center; }
+      #carousel .eachCarousel .wrapper .projectInfos {
+        height: auto; }
+
+  section#indexProjects #pTypes {
+    display: table; }
+    section#indexProjects #pTypes li {
+      width: 80%; }
+      section#indexProjects #pTypes li#seeAll {
+        width: 15%;
+        text-align: center;
+        position: absolute;
+        right: 0;
+        top: 40px;
+        box-sizing: border-box; }
+  section#indexProjects #listProjects .eachProject {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 15px auto; }
+
+  section#howItWorks {
+    text-align: Center;
+    padding: 1% 0; }
+    section#howItWorks .worksArea {
+      margin: auto; }
+
+  footer .wrapper ul {
+    flex-direction: column; }
+    footer .wrapper ul li {
+      display: block;
+      padding: 1% 0; }
+
+  section#infosProject .wrapper #projetoDestaque {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 180px; }
+    section#infosProject .wrapper #projetoDestaque #projetoCapa {
+      width: 300px;
+      left: 50%;
+      margin-left: -150px;
+      box-sizing: border-box;
+      height: 275px; }
+  section#infosProject .wrapper #projetoInformacoes {
+    width: 100%;
+    float: none;
+    min-height: 215px;
+    text-align: center;
+    box-sizing: border-box; }
+    section#infosProject .wrapper #projetoInformacoes .coauthor {
+      justify-content: center; }
+    section#infosProject .wrapper #projetoInformacoes #botoes {
+      display: flex;
+      justify-content: center; }
+      section#infosProject .wrapper #projetoInformacoes #botoes #visualizarDemonstracao {
+        border-radius: 0; }
+      section#infosProject .wrapper #projetoInformacoes #botoes .financiarProjeto {
+        border-radius: 0;
+        width: 170px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+
+  section#conhecerProjeto {
+    box-sizing: border-box;
+    width: 95%;
+    margin: auto; }
+    section#conhecerProjeto .wrapper {
+      display: block;
+      box-sizing: border-box; }
+      section#conhecerProjeto .wrapper #projetoContain {
+        width: 100%; }
+        section#conhecerProjeto .wrapper #projetoContain ul#menu {
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 90%;
+          margin: auto; }
+          section#conhecerProjeto .wrapper #projetoContain ul#menu li {
+            width: 100%;
+            text-align: center; }
+        section#conhecerProjeto .wrapper #projetoContain figure, section#conhecerProjeto .wrapper #projetoContain figcaption, section#conhecerProjeto .wrapper #projetoContain h2, section#conhecerProjeto .wrapper #projetoContain h1 {
+          text-align: center;
+          margin: 15px auto; }
+        section#conhecerProjeto .wrapper #projetoContain #projetoComunidade .valoresComunidade {
+          display: block; }
+          section#conhecerProjeto .wrapper #projetoContain #projetoComunidade .valoresComunidade .valores {
+            width: 100%;
+            margin: 0 auto 15px 0; }
+      section#conhecerProjeto .wrapper #recompensas {
+        width: 100%;
+        padding: 0;
+        display: block;
+        margin: 20px auto; }
+        section#conhecerProjeto .wrapper #recompensas .cadaRecompensa {
+          text-align: center; }
+      section#conhecerProjeto .wrapper #projetoAtualizacoes .cadaAtt {
+        box-sizing: border-box;
+        width: 90%;
+        margin: 0 auto 20px auto; }
+        section#conhecerProjeto .wrapper #projetoAtualizacoes .cadaAtt img {
+          width: 100%; }
+
+  #financiamento > .wrapper {
+    height: 100vh;
+    overflow: auto;
+    padding: 2%;
+    box-sizing: border-box; }
+
+  #financiamento > .wrapper #areaFinanciamento #usuariologado {
+    display: none; }
+
+  #financiamento > .wrapper #areaFinanciamento .formulario {
+    padding: 0; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper {
+    overflow: auto;
+    height: 300px;
+    overflow-x: hidden; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao #recompensaWrapper ul .cadaRecompensa {
+    width: 95%;
+    height: auto;
+    margin: 1% auto; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate label {
+    margin: 15px auto; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate {
+    height: auto; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate input[type='number'] {
+    padding: 5px 1%;
+    font-size: 1.3em;
+    width: 100%;
+    margin: 20px auto;
+    box-sizing: border-box; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosContribuicao .donate input[type='button'] {
+    width: 100%;
+    box-sizing: border-box; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-card-box {
+    display: none; }
+
+  #financiamento > .wrapper #areaFinanciamento #dadosPagamento #opCartao .credit-formulario {
+    width: 100%;
+    height: auto; }
+
+  #responsive_nav {
+    width: 100%;
+    background: #fff;
+    display: flex;
+    padding: 10px 0;
+    flex-wrap: nowrap;
+    box-shadow: 0 0 15px #7EB5D8;
+    position: relative; }
+    #responsive_nav form .fa-keyboard-o {
+      display: none; }
+    #responsive_nav .area {
+      display: flex;
+      justify-content: space-between; }
+      #responsive_nav .area h1 {
+        text-align: center;
+        font-size: 3em;
+        font-family: 'Courgette', cursive;
+        color: #A50249; }
+      #responsive_nav .area .menuSite {
+        font-size: 2.6em;
+        color: #A50249;
+        cursor: pointer; }
+    #responsive_nav #searchArea {
+      width: 100%;
+      display: none; }
+      #responsive_nav #searchArea input {
+        float: left;
+        padding: 3%; }
+      #responsive_nav #searchArea input[type="search"] {
+        width: 100%;
+        font-size: 1.4em; }
+      #responsive_nav #searchArea input[type="submit"] {
+        width: 20%;
+        display: none; }
+    #responsive_nav .listMenu {
+      position: absolute;
+      width: 100%;
+      background-color: #A50249;
+      color: #fff;
+      top: 53px;
+      right: 0;
+      display: none; }
+      #responsive_nav .listMenu ul li {
+        padding: 3%;
+        font-size: 1.6em;
+        border-bottom: 2px solid #A50249;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -ms-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+        cursor: pointer; }
+        #responsive_nav .listMenu ul li:hover {
+          border-color: #fff; }
+      #responsive_nav .listMenu ul a {
+        color: #fff;
+        text-decoration: none; } }
+
+/*# sourceMappingURL=responsive.css.map */
